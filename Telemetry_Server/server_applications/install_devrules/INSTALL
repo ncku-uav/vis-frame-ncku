@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#for more information: https://playground.arduino.cc/Linux/All
+
+echo "installing udev rules in /etc/udev/rules.d/"
+
+sudo cp ./99-serialio.rules /etc/udev/rules.d/
+
+sleep 1
+
+echo "reloading new rules..."
+
+sudo udevadm control --reload-rules
+
+echo "installation of new rules done."
