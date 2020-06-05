@@ -1,3 +1,3 @@
 # Visualisation Framework
 
-An awesome tool to Display Data
+An awesome tool, managing and displaying GCS data.
