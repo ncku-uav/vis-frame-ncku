@@ -33,6 +33,8 @@ var objectProvider = {
     }
 };
 
+
+
 var compositionProvider = {
     appliesTo: function (domainObject) {
         return domainObject.identifier.namespace === 'example.taxonomy' &&
