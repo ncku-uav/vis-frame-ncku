@@ -9,7 +9,7 @@ function HistoricalTelemetryTeflexPlugin() {
                 return domainObject.type === 'example.telemetry';
             },
             request: function (domainObject, options) {
-                var url = '/historyTflex/' +
+                var url = '/historyTflex' +
                     domainObject.identifier.key +
                     '?start=' + options.start +
                     '&end=' + options.end;

@@ -17,16 +17,16 @@
         openmct.install(openmct.plugins.LocalStorage());
         openmct.install(openmct.plugins.MyItems());
         openmct.install(openmct.plugins.UTCTimeSystem());
-        openmct.time.clock('local', {start: -15 * 60 * 1000, end: 0});
+        openmct.time.clock('local', {start: -1 * 60 * 1000, end: 0});
         openmct.time.timeSystem('utc');
         openmct.install(openmct.plugins.Espresso());
 
         openmct.install(DictionaryPlugin());
-        openmct.install(FLEXOPPlugin());
+        //openmct.install(FLEXOPPlugin());
         openmct.install(HistoricalTelemetryPlugin());
         openmct.install(RealtimeTelemetryPlugin());
         //openmct.install(HistoricalTelemetryTflexPlugin());
-        openmct.install(RealtimeTelemetryTflexPlugin());
+        //openmct.install(RealtimeTelemetryTflexPlugin());
 
         openmct.start();
     </script>
