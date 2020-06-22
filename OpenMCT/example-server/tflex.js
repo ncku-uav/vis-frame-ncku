@@ -26,7 +26,7 @@ function TFlex() {
 
     setInterval(function () {
         this.generateTelemetry();
-    }.bind(this), 1);
+    }.bind(this), 10);
 
     
 
