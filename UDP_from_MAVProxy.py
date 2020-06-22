@@ -18,7 +18,7 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # Internet, UDP
 sock.sendto(MESSAGE.encode(), (UDP_IP, UDP_PORT))
 
 # Start a connection listening to a UDP port
-the_connection = mavutil.mavlink_connection('udpin:localhost:14551')
+the_connection = mavutil.mavlink_connection('udpin:localhost:14550')
 
 # Wait for the first heartbeat 
 #   This sets the system and component ID of remote system for the link
@@ -31,11 +31,15 @@ i = 0
 run = True
 while run:
     try:
-        start = time.time()
+        
+        ## wait for and intercept messages as they arrive
         GPS_i = the_connection.recv_match(type='GLOBAL_POSITION_INT', blocking=True)  # Note, you can access message fields as attributes!
         GPS_raw = the_connection.recv_match(type='GPS_RAW_INT', blocking=True)
-        epoch_time = time.time()
-        timestamp = time.ctime(epoch_time)
+        Att = the_connection.recv_match(type='ATTITUDE', blocking=True)
+        timeStamp = time.time()
+
+        # epoch_time = time.time()
+        # timestamp = time.ctime(epoch_time)
         # print('Velocity: ', GPS_raw.vel/100, 'm/s')
         # print('Altitude: ', GPS_i.relative_alt/1000, 'm')
         # print('Timestamp: ', timestamp)
@@ -49,22 +53,21 @@ while run:
         # Build a message
         # MESSAGE = "{},{},{},{}".format(GPS_raw.vel/100, GPS_i.relative_alt/1000, i, epoch_time)
         # Message for OpenMCT
-        MESSAGE = "{}".format(GPS_i.relative_alt/1000)
+        MESSAGE = "{},{},{},{},{},{}".format(Att.pitch*180/3.1415926, Att.roll*180/3.1415926, GPS_raw.vel/100, GPS_i.relative_alt/1000, i, timeStamp)
+        #MESSAGE = "{}".format(Att.pitch*180/3.1415926)
 
 
         # Pumping out the values
         sock.sendto(MESSAGE.encode(), (UDP_IP, UDP_PORT))
-        end = time.time()        
-        # Show the timestep
-        
+             
+         
         # print("{}\t{}\t{}\t{}\t{}".format(GPS_raw.vel/100, GPS_i.relative_alt/1000, i, timestamp,end-start))
-        print(MESSAGE)
+        print(MESSAGE, timeStamp)
         print('\n')
+        # time.sleep(0.005)
 
         
-
         
-    
     
     except:
         print('Nope, try again!')

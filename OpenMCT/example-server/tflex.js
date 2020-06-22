@@ -15,7 +15,8 @@ function TFlex() {
         "Att.pitch" : 0,
         "Att.roll" : 0,
         "GPS.alt": 0,
-        "GPS.speed" :0
+        "GPS.speed" :0,
+        "Time.stamp": Date.now()
     };
     this.history = {};
     this.listeners = [];
@@ -42,6 +43,7 @@ function TFlex() {
         this.state["GPS.speed"] = this.data[2];
         this.state["GPS.alt"] = this.data[3];
         this.state["Check.no"] = this.data[4];
+        this.state["Time.stamp"] = this.data[5]*1000;
 
     });
 
@@ -54,7 +56,7 @@ function TFlex() {
  * listeners.
  */
 TFlex.prototype.generateTelemetry = function () {
-    var timestamp = Date.now(), sent = 0;
+    var timestamp = this.state["Time.stamp"], sent = 0;
     Object.keys(this.state).forEach(function (id) {
         var state = { timestamp: timestamp, value: this.state[id], id: id};
         this.notify(state);
