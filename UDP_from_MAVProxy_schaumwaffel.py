@@ -51,7 +51,7 @@ while run:
         # Build a message
         # MESSAGE = "{},{},{},{}".format(GPS_raw.vel/100, GPS_i.relative_alt/1000, i, epoch_time)
         # Message for OpenMCT
-        MESSAGE = "{},{},{},{},{}".format(Att.pitch*180/3.1415926, Att.roll*180/3.1415926, GPS_raw.vel/100, GPS_i.relative_alt/1000, WiFi_RSSI)
+        MESSAGE = "{},{},{},{},{}".format(Att.pitch*180/3.1415926, Att.roll*180/3.1415926, GPS_raw.vel/100, GPS_i.relative_alt/1000, i)
         #MESSAGE = "{}".format(Att.pitch*180/3.1415926)
 
 
@@ -61,13 +61,11 @@ while run:
         # Show the timestep
         
         # print("{}\t{}\t{}\t{}\t{}".format(GPS_raw.vel/100, GPS_i.relative_alt/1000, i, timestamp,end-start))
-        print(MESSAGE,i, end)
+        print(MESSAGE, end)
         print('\n')
 
         
-
         
-    
     
     except:
         print('Nope, try again!')

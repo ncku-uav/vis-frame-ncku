@@ -1,49 +1,56 @@
-function getDictionary2() {
-    return http.get('/dictionary2.json')
+function getTFLEXDictionary() {
+    return http.get('/TFLEXdictionary.json')
         .then(function (result) {
             return result.data;
         });
 }
 
-var objectProvider2 = {
+
+// An object provider builds Domain Objects
+var FLEXOP_objectProvider = {
     get: function (identifier) {
-        return getDictionary2().then(function (dictionary2) {
+        return getTFLEXDictionary().then(function (dictionary) {
+            console.log("FLEXOP-dictionary-plugin.js: identifier.key = " + identifier.key);
             if (identifier.key === 'TFLEX') {
                 return {
                     identifier: identifier,
-                    name: dictionary2.name,
+                    name: dictionary.name,
                     type: 'folder',
                     location: 'ROOT'
                 };
             } else {
-                var measurement = dictionary2.measurements.filter(function (m) {
+                var measurement = dictionary.measurements.filter(function (m) {
                     return m.key === identifier.key;
                 })[0];
                 return {
                     identifier: identifier,
                     name: measurement.name,
-                    type: 'example.telemetry',
+                    type: 'TFLEX.telemetry',
                     telemetry: {
                         values: measurement.values
                     },
-                    location: 'example.taxonomy2:TFLEX'
+                    location: 'FLEXOP.taxonomy:TFLEX'
                 };
             }
         });
     }
 };
 
-var compositionProvider2 = {
+// The composition of a domain object is the list of objects it contains, as shown (for example) in the tree for browsing.
+// Can be used to populate a hierarchy under a custom root-level object based on the contents of a telemetry dictionary.
+// "appliesTo"  returns a boolean value indicating whether this composition provider applies to the given object
+// "load" returns an array of Identifier objects (like the channels this telemetry stream offers)
+var FLEXOP_compositionProvider = {
     appliesTo: function (domainObject) {
-        return domainObject.identifier.namespace === 'example.taxonomy2' &&
+        return domainObject.identifier.namespace === 'FLEXOP.taxonomy' &&
                domainObject.type === 'folder';
     },
     load: function (domainObject) {
-        return getDictionary2()
-            .then(function (dictionary2) {
-                return dictionary2.measurements.map(function (m) {
+        return getTFLEXDictionary()
+            .then(function (dictionary) {
+                return dictionary.measurements.map(function (m) {
                     return {
-                        namespace: 'example.taxonomy2',
+                        namespace: 'FLEXOP.taxonomy',
                         key: m.key
                     };
                 });
@@ -53,18 +60,19 @@ var compositionProvider2 = {
 
 function FLEXOPPlugin() {
     return function install(openmct) {
+        // The addRoot function takes an "object identifier" as an argument
         openmct.objects.addRoot({
-            namespace: 'example.taxonomy2',
+            namespace: 'FLEXOP.taxonomy',
             key: 'TFLEX'
         });
 
-        openmct.objects.addProvider('example.taxonomy2', objectProvider2);
+        openmct.objects.addProvider('FLEXOP.taxonomy', FLEXOP_objectProvider);
         
-        openmct.composition.addProvider(compositionProvider2);
+        openmct.composition.addProvider(FLEXOP_compositionProvider);
     
-        openmct.types.addType('example.telemetry', {
-            name: 'Example Telemetry Point',
-            description: 'Example telemetry point from our happy tutorial.',
+        openmct.types.addType('TFLEX.telemetry', {
+            name: 'TFLEX Telemetry Point',
+            description: 'Telemetry of TFLEX',
             cssClass: 'icon-telemetry'
         });
     }

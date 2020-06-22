@@ -2,15 +2,39 @@
     "name": "TFLEX",
     "key": "pl",
     "measurements": [
-  
         {
-            "name": "Generator Current",
-            "key": "pwr.c",
+            "name": "Sent",
+            "key": "comms.sent",
             "values": [
                 {
                     "key": "value",
                     "name": "Value",
-                    "units": "Amps",
+                    "units": "bytes",
+                    "format": "integer",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+  
+        {
+            "name": "Check Number",
+            "key": "Check.no",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "-",
                     "format": "float",
                     "hints": {
                         "range": 1

@@ -1,11 +1,11 @@
 var express = require('express');
 
-function RealtimeServerTflex(tflex) {
+function RealtimeServer(spacecraft) {
 
     var router = express.Router();
 
     router.ws('/', function (ws) {
-        var unlisten = tflex.listen(notifySubscribers);
+        var unlisten = spacecraft.listen(notifySubscribers);
         var subscribed = {}; // Active subscriptions for this connection
         var handlers = { // Handlers for specific requests
                 subscribe: function (id) {
@@ -38,4 +38,4 @@ function RealtimeServerTflex(tflex) {
     return router;
 };
 
-module.exports = RealtimeServerTflex;
+module.exports = RealtimeServer;
