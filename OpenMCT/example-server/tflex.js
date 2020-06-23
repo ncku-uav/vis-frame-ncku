@@ -5,7 +5,7 @@
 const dgram = require('dgram');
 const server = dgram.createSocket('udp4');
 
-server.bind(50011)
+server.bind(50011);
 
 function TFlex() {
     this.state = {
@@ -16,7 +16,11 @@ function TFlex() {
         "Att.roll" : 0,
         "GPS.alt": 0,
         "GPS.speed" :0,
+        "ACC.x" :0,
+        "ACC.y" :0,
+        "ACC.z" :0,
         "Time.stamp": Date.now()
+
     };
     this.history = {};
     this.listeners = [];
@@ -37,13 +41,17 @@ function TFlex() {
         this.data = `${msg}`.split(',');
     
         //console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`)
-    
+        //console.log(`server got: ${this.data[8]} from ${rinfo.address}:${rinfo.port}`)
+       
         this.state["Att.pitch"] = this.data[0];
         this.state["Att.roll"] = this.data[1];
         this.state["GPS.speed"] = this.data[2];
         this.state["GPS.alt"] = this.data[3];
-        this.state["Check.no"] = this.data[4];
-        this.state["Time.stamp"] = this.data[5]*1000;
+        this.state["ACC.x"] = this.data[4];
+        this.state["ACC.y"] = this.data[5];
+        this.state["ACC.z"] = this.data[6];
+        this.state["Check.no"] = this.data[7];
+        this.state["Time.stamp"] = this.data[8];
 
     });
 
@@ -56,7 +64,7 @@ function TFlex() {
  * listeners.
  */
 TFlex.prototype.generateTelemetry = function () {
-    var timestamp = this.state["Time.stamp"], sent = 0;
+    var timestamp = this.state["Time.stamp"]*1000, sent = 0;
     Object.keys(this.state).forEach(function (id) {
         var state = { timestamp: timestamp, value: this.state[id], id: id};
         this.notify(state);

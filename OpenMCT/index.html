@@ -8,8 +8,7 @@
     <script src="FLEXOP-plugin.js"></script>
     <script src="historical-telemetry-plugin.js"></script>
     <script src="realtime-telemetry-plugin.js"></script>
-    <script src="historical-telemetry-tflex-plugin.js"></script>
-    <script src="realtime-telemetry-tflex-plugin.js"></script>
+
 </head>
 <body>
     <script>
@@ -17,13 +16,13 @@
         openmct.install(openmct.plugins.LocalStorage());
         openmct.install(openmct.plugins.MyItems());
         openmct.install(openmct.plugins.UTCTimeSystem());
-        openmct.time.clock('local', {start: -1 * 60 * 1000, end: 0});
+        openmct.time.clock('local', {start: -1 * 60 * 1000, end: 0}); //set standard displayed time range
         openmct.time.timeSystem('utc');
         openmct.install(openmct.plugins.Espresso());
 
-        //openmct.install(DictionaryPlugin());
-        //openmct.install(HistoricalTelemetryPlugin('example.telemetry',8081));
-        //openmct.install(RealtimeTelemetryPlugin('example.telemetry',8082));
+        // openmct.install(DictionaryPlugin());
+        // openmct.install(HistoricalTelemetryPlugin('example.telemetry',8081));
+        // openmct.install(RealtimeTelemetryPlugin('example.telemetry',8082));
         openmct.install(FLEXOPPlugin());
         openmct.install(HistoricalTelemetryPlugin('TFLEX.telemetry',8091));
         openmct.install(RealtimeTelemetryPlugin('TFLEX.telemetry',8092));

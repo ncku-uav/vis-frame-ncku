@@ -5,6 +5,8 @@ function StaticServer(port) {
 
     server.use('/', express.static(__dirname + '/..'));
 
+
+
     console.log('Open MCT hosted at http://localhost:' + port);
 
     server.listen(port);

@@ -128,6 +128,81 @@
         },
 
         {
+            "name": "Acc x-direction",
+            "key": "ACC.x",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "g",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+
+        {
+            "name": "Acc y-direction",
+            "key": "ACC.y",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "g",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+
+        {
+            "name": "Acc z-direction",
+            "key": "ACC.z",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "g",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+
+        {
             "name": "Roll",
             "key": "Att.roll",
             "values": [

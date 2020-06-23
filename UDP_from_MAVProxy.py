@@ -36,6 +36,7 @@ while run:
         GPS_i = the_connection.recv_match(type='GLOBAL_POSITION_INT', blocking=True)  # Note, you can access message fields as attributes!
         GPS_raw = the_connection.recv_match(type='GPS_RAW_INT', blocking=True)
         Att = the_connection.recv_match(type='ATTITUDE', blocking=True)
+        IMU = the_connection.recv_match(type='SCALED_IMU2', blocking=True)
         timeStamp = time.time()
 
         # epoch_time = time.time()
@@ -50,19 +51,15 @@ while run:
         else:
             i += 1
             
-        # Build a message
-        # MESSAGE = "{},{},{},{}".format(GPS_raw.vel/100, GPS_i.relative_alt/1000, i, epoch_time)
         # Message for OpenMCT
-        MESSAGE = "{},{},{},{},{},{}".format(Att.pitch*180/3.1415926, Att.roll*180/3.1415926, GPS_raw.vel/100, GPS_i.relative_alt/1000, i, timeStamp)
-        #MESSAGE = "{}".format(Att.pitch*180/3.1415926)
-
+        MESSAGE = "{},{},{},{},{},{},{},{},{}".format(Att.pitch*180/3.1415926, Att.roll*180/3.1415926, GPS_raw.vel/100, GPS_i.relative_alt/1000, IMU.xacc/1000, IMU.yacc/1000, IMU.zacc/1000, i, timeStamp)
+        #MESSAGE = "{},{},{},{},{},{}".format(Att.pitch*180/3.1415926, Att.roll*180/3.1415926, GPS_raw.vel/100, GPS_i.relative_alt/1000, i, timeStamp)
 
         # Pumping out the values
         sock.sendto(MESSAGE.encode(), (UDP_IP, UDP_PORT))
-             
+          
          
-        # print("{}\t{}\t{}\t{}\t{}".format(GPS_raw.vel/100, GPS_i.relative_alt/1000, i, timestamp,end-start))
-        print(MESSAGE, timeStamp)
+        print(MESSAGE)
         print('\n')
         # time.sleep(0.005)
 
