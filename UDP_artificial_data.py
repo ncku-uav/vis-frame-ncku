@@ -32,9 +32,9 @@ while run:
             i += 1
 
         # Build a message
-        # MESSAGE = "{},{},{},{}".format(GPS_raw.vel/100, GPS_i.relative_alt/1000, i, epoch_time)
+        # MESSAGE = "{},{},{},{}".format(GPS_raw.vel/100, GPS_i.relative_alt/1000, i, start)
         # Message for OpenMCT
-        MESSAGE = "{},{},{},{},{},{}".format(i, i*start, i + random.randint(0, 100), i-start, i/start, i)
+        MESSAGE = "{},{},{},{},{},{},{},{},{}".format(i, i*start, i + random.randint(0, 100), i-start, i/start, i,i,i,start)
         #MESSAGE = "{}".format(Att.pitch*180/3.1415926)
 
 
@@ -47,7 +47,7 @@ while run:
         print(MESSAGE,i, end)
         print('\n')
 
-        time.sleep(0.010)
+        time.sleep(0.100)
 
 
 

@@ -50,7 +50,7 @@ RealtimeServer.prototype.handleConnection = function (ws) {
         }
     }
 
-    // Listen for requests
+    // Listen for requests of subscribers
     ws.on('message', function (message) {
         var parts = message.split(' '),
             handler = handlers[parts[0]];

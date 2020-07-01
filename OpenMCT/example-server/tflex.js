@@ -1,6 +1,4 @@
-/*
- Spacecraft.js simulates a small spacecraft generating telemetry.
-*/
+
 
 const dgram = require('dgram');
 const server = dgram.createSocket('udp4');
@@ -33,16 +31,16 @@ function TFlex() {
         this.generateTelemetry();
     }.bind(this), 10);
 
-    
+
 
     console.log("Example T-FLEX launched!");
 
     server.on('message', (msg, rinfo) => {
         this.data = `${msg}`.split(',');
-    
-        //console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`)
+
+        console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`)
         //console.log(`server got: ${this.data[8]} from ${rinfo.address}:${rinfo.port}`)
-       
+
         this.state["Att.pitch"] = this.data[0];
         this.state["Att.roll"] = this.data[1];
         this.state["GPS.speed"] = this.data[2];
@@ -57,10 +55,10 @@ function TFlex() {
 
 };
 
-    
+
 
 /**
- * Takes a measurement of spacecraft state, stores in history, and notifies 
+ * Takes a measurement of spacecraft state, stores in history, and notifies
  * listeners.
  */
 TFlex.prototype.generateTelemetry = function () {

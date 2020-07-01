@@ -12,4 +12,4 @@ function StaticServer(port) {
     server.listen(port);
 }
 
-module.exports = StaticServer;
+module.exports = StaticServer; //exports module to read in with require
