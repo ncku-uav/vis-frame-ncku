@@ -6,6 +6,7 @@
     <script src="lib/http.js"></script>
     <script src="dictionary-plugin.js"></script>
     <script src="FLEXOP-plugin.js"></script>
+    <script src="FLUTTER-plugin.js"></script>
     <script src="historical-telemetry-plugin.js"></script>
     <script src="realtime-telemetry-plugin.js"></script>
 
@@ -23,9 +24,12 @@
         // openmct.install(DictionaryPlugin());
         // openmct.install(HistoricalTelemetryPlugin('example.telemetry',8081));
         // openmct.install(RealtimeTelemetryPlugin('example.telemetry',8082));
-        openmct.install(FLEXOPPlugin());
-        openmct.install(HistoricalTelemetryPlugin('TFLEX.telemetry',8091));
-        openmct.install(RealtimeTelemetryPlugin('TFLEX.telemetry',8092));
+        //openmct.install(FLEXOPPlugin());
+        //openmct.install(HistoricalTelemetryPlugin('TFLEX.telemetry',8091));
+        //openmct.install(RealtimeTelemetryPlugin('TFLEX.telemetry',8092));
+        openmct.install(FLUTTERPlugin());
+        openmct.install(HistoricalTelemetryPlugin('MODE.telemetry',8101));
+        openmct.install(RealtimeTelemetryPlugin('MODE.telemetry',8102));
 
         openmct.start();
     </script>
