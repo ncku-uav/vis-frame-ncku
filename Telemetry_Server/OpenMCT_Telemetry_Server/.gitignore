@@ -28,8 +28,8 @@ dist
 closed-lib
 
 # Node, Bower dependencies
-node_modules
-bower_components
+#node_modules
+#bower_components
 
 # Protractor logs
 protractor/logs
@@ -37,4 +37,4 @@ protractor/logs
 # npm-debug log
 npm-debug.log
 
-package-lock.json
+#package-lock.json

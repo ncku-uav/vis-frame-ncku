@@ -1,0 +1,7 @@
+in src/plugins/plugins.js
+add to define and function IT MUST BE IN THE RIGHT ORDER!
+add it downwards at plugins as well
+
+for windows install:
+in src/plugins/themes
+change in the *.scss files the paths from ~styles to ../../styles
