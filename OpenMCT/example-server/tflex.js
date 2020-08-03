@@ -3,7 +3,7 @@
 const dgram = require('dgram');
 const server = dgram.createSocket('udp4');
 
-server.bind(50011);
+server.bind(50012);
 
 function TFlex() {
     this.state = {
@@ -62,7 +62,7 @@ function TFlex() {
  * listeners.
  */
 TFlex.prototype.generateTelemetry = function () {
-    var timestamp = this.state["Time.stamp"]*1000, sent = 0;
+    var timestamp = this.state["Time.stamp"]*1000, sent = 0; //= Date.now(), sent = 0;
     Object.keys(this.state).forEach(function (id) {
         var state = { timestamp: timestamp, value: this.state[id], id: id};
         this.notify(state);
