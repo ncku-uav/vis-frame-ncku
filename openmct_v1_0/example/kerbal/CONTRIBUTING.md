@@ -1,1 +1,0 @@
-Please follow the same [guidelines provided by Open MCT](https://github.com/nasa/openmct/blob/master/CONTRIBUTING.md)
