@@ -1,5 +1,5 @@
 import socket
-import time
+import sys
 import serial
 import struct
 import numpy as np
@@ -9,7 +9,8 @@ UDP_IP = "127.0.0.1" #standard ip udp
 UDP_PORT = 50011 #chosen port to OpenMCT
 MESSAGE = "" #init message
 
-comPort = '/dev/ttyUSB1'
+# which com port
+comPort = sys.argv[1]
 baudrate = 57600
 array=[]
 
@@ -70,8 +71,9 @@ while run:
 
         #print and reset your message for validation and wait for the next loop 
         print(MESSAGE)
-        MESSAGE = ''
         print('\n')
+        MESSAGE = ''
+        
          
         #time.sleep(0.5)
 

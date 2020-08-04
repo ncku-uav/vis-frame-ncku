@@ -7,7 +7,7 @@ server.bind(50011);
 
 
 function Flutterometer() {
-    this.numberIds = 3;
+    this.numberIds = 20;
     this.state = {}
     this.timestamp = Date.now();
     
@@ -34,7 +34,8 @@ function Flutterometer() {
     server.on('message', (msg, rinfo) => {
         this.data = `${msg}`.split(',');
 
-        //console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`)
+        
+		//console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`)
         //console.log(`server got: ${this.data[8]} from ${rinfo.address}:${rinfo.port}`)
         this.count = 0;
         for (var i = 1; i <= this.numberIds; ++i){
@@ -65,15 +66,17 @@ Flutterometer.prototype.generateTelemetry = function () {
     Object.keys(this.state).forEach(function (id) {
         
         if (id.slice(4,8) === 'Time'){
-            this.timestamp = this.state[id]*1000;
-            //timestamp= Date.now();
+			// Actual Timestamp from received data
+            this.timestamp = Math.round(this.state[id]*1000);
+			// Artificial timestamp
+            //this.timestamp= Date.now();
         }
         //console.log(timestamp);
         var state = { timestamp: this.timestamp, value: this.state[id], id: id};
         this.notify(state);
         this.history[id].push(state);
         //this.state["comms.sent"] += JSON.stringify(state).length;
-        //console.log(state);
+        console.log(state);
         
     }, this);
     
