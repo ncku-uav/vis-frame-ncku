@@ -126,7 +126,9 @@
 		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('MODE.telemetry', 8101));
         openmct.install(openmct.plugins.RealtimeTelemetryPlugin('MODE.telemetry', 8102));
 
-        
+		openmct.install(openmct.plugins.DG800Plugin());
+		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('DG800.telemetry', 8111));
+        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('DG800.telemetry', 8112));
         
         
         openmct.start();

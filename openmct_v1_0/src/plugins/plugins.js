@@ -58,7 +58,8 @@ define([
     '../../example/FLEXOP/FLEXOP-plugin',
     '../../example/HistoricalTelemetry/historical-telemetry-plugin',
     '../../example/RealtimeTelemetry/realtime-telemetry-plugin',
-	'../../example/Flutterometer/FLUTTER-plugin'
+	'../../example/Flutterometer/FLUTTER-plugin',
+	'../../example/DG800/DG800-plugin'
 
     
 ], function (
@@ -99,7 +100,8 @@ define([
     FLEXOPPlugin,
     HistoricalTelemetryPlugin,
     RealtimeTelemetryPlugin,
-	FLUTTERPlugin
+	FLUTTERPlugin,
+	DG800Plugin
 
     
 ) {
@@ -193,6 +195,8 @@ define([
     plugins.RealtimeTelemetryPlugin = RealtimeTelemetryPlugin;
 	
 	plugins.FLUTTERPlugin = FLUTTERPlugin;
+	
+	plugins.DG800Plugin = DG800Plugin;
 	 
 	
 
