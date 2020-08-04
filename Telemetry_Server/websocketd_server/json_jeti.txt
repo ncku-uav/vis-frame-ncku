@@ -1,0 +1,30 @@
+{  
+   "JETI":{  
+      "sensor":"sensor_name",
+      "description":"description",
+      "data":{  
+         "unit":"unit",
+         "type":"numeric, date, time, gps",
+         "date":{  
+            "d":"day",
+            "m":"month",
+            "y":"year"
+         },
+         "numeric":0.000,
+         "time":{  
+            "h":"hour",
+            "m":"minute",
+            "s":"second"
+         },
+         "gps":{  
+            "ori":"lat",
+            "pos":0.000
+         }
+      }
+   }
+}
+
+{"JETI":{"sensor":"ECU","description":"Altitude","data":{"unit":"m","type":"numeric","numeric":"912"}}}
+{"JETI":{"sensor":"ECU","description":"Altitude","data":{"unit":"m","type":"numeric","numeric":"1824"}}}
+{"JETI":{"sensor":"ECU","description":"Voltage","data":{"unit":"V","type":"numeric","numeric":"16"}}}
+{"JETI":{"sensor":"ECU","description":"Voltage","data":{"unit":"V","type":"numeric","numeric":"24"}}}
