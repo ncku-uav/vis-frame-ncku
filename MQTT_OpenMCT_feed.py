@@ -18,7 +18,7 @@ except:
     
     
 # MQTT    
-MQTT_SERVER = "192.168.0.194"
+MQTT_SERVER = "192.168.0.214"
 MQTT_PATH = "data/#"
  
 # The callback for when the client receives a CONNACK response from the server.
@@ -49,7 +49,7 @@ def on_message(client, userdata, msg):
     #print your message for validation and wait for the next loop 
     print(MESSAGE)
     print('\n')
-    time.sleep(0.005)
+    #time.sleep(0.005)
 
  
 client = mqtt.Client()

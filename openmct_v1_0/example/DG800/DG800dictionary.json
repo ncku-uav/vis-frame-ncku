@@ -176,15 +176,41 @@
                 }
             ]
         },
-
+		
         {
-            "name": "Nano Acceleration V",
-            "key": "data.nano.vdot",
+            "name": "GPS fix Type",
+            "key": "data.gps.fixType",
             "values": [
                 {
                     "key": "value",
                     "name": "Value",
-                    "units": "g",
+                    "units": "-",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+		
+
+        {
+            "name": "Fuel Mass Flow V",
+            "key": "data.nano.v",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "-",
                     "format": "float",
                     "hints": {
                         "range": 1
@@ -203,8 +229,8 @@
         },
 		
 		        {
-            "name": "Nano Speed V",
-            "key": "data.nano.v",
+            "name": "Fuel Mass Flow Vdot",
+            "key": "data.nano.vdot",
             "values": [
                 {
                     "key": "value",
@@ -226,6 +252,332 @@
                 }
             ]
         },
+		
+		        {
+            "name": "PPM Throttle",
+            "key": "data.nano.ch1",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "ppm",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+		
+		        {
+            "name": "PPM Aileron 1",
+            "key": "data.nano.ch2",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "ppm",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+		
+				        {
+            "name": "PPM Flap 1",
+            "key": "data.nano.ch3",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "ppm",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+		
+				        {
+            "name": "PPM Flap 2",
+            "key": "data.nano.ch4",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "ppm",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+		
+		        {
+            "name": "Aileron 2",
+            "key": "data.nano.ch5",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "ppm",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+		
+		{
+            "name": "Elevator",
+            "key": "data.nano.ch6",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "ppm",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+		
+		{
+            "name": "Rudder",
+            "key": "data.nano.ch7",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "ppm",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+		
+		{
+            "name": "Killswitch",
+            "key": "data.nano.ch8",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "ppm",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+		
+		{
+            "name": "Spoiler 1",
+            "key": "data.nano.ch9",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "ppm",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+		
+		{
+            "name": "Spoiler 2",
+            "key": "data.nano.ch10",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "ppm",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+		
+		{
+            "name": "Gear",
+            "key": "data.nano.ch11",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "ppm",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+		
+		{
+            "name": "Nano Ch12",
+            "key": "data.nano.ch12",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "ppm",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+		
+		{
+            "name": "Nano Ch13",
+            "key": "data.nano.ch13",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "ppm",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+		
 		
 				        {
             "name": "Strapdown Roll",
@@ -327,6 +679,7 @@
             ]
         },
 		
+		
         {
             "name": "THR Force 2",
             "key": "data.thr.force2",
@@ -350,6 +703,291 @@
                     }
                 }
             ]
+        },
+		
+		{
+            "name": "THR Temperature 1",
+            "key": "data.thr.temp1",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "deg",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+		
+		{
+            "name": "THR Temperature 2",
+            "key": "data.thr.temp2",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "deg",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+		
+		{
+            "name": "IMU Acceleration X",
+            "key": "data.imu.AccX",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "g",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+		
+				{
+            "name": "IMU Acceleration Y",
+            "key": "data.imu.AccY",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "g",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+		
+				{
+            "name": "IMU Acceleration Z",
+            "key": "data.imu.AccZ",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "g",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+		
+				{
+            "name": "IMU Gyro X",
+            "key": "data.imu.GyroX",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "deg/s",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+		
+		{
+            "name": "IMU Gyro Y",
+            "key": "data.imu.GyroY",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "deg/s",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+		
+		{
+            "name": "IMU Gyro Z",
+            "key": "data.imu.GyroZ",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "deg/s",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+		
+		{
+            "name": "ADP Pstat",
+            "key": "data.adp.pstat",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "deg/s",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+		
+		{
+            "name": "ADP Pdyn",
+            "key": "data.adp.pdyn",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "deg/s",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+		
+		{
+            "name": "Airspeed",
+            "key": "data.adp.AirSpeed",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "deg/s",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
         }
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
     ]
 }

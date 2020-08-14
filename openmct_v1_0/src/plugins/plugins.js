@@ -188,16 +188,6 @@ define([
         return GeneratorPlugin;
     };
 	
-	plugins.FLEXOPPlugin = FLEXOPPlugin;
-	//plugins.exports = exports;
-	
-    plugins.HistoricalTelemetryPlugin = HistoricalTelemetryPlugin;
-    plugins.RealtimeTelemetryPlugin = RealtimeTelemetryPlugin;
-	
-	plugins.FLUTTERPlugin = FLUTTERPlugin;
-	
-	plugins.DG800Plugin = DG800Plugin;
-	 
 	
 
 	
@@ -229,6 +219,16 @@ define([
     plugins.URLTimeSettingsSynchronizer = URLTimeSettingsSynchronizer.default;
     plugins.NotificationIndicator = NotificationIndicator.default;
     plugins.NewFolderAction = NewFolderAction.default;
+	
+	plugins.FLEXOPPlugin = FLEXOPPlugin;
+	//plugins.exports = exports;
+	
+    plugins.HistoricalTelemetryPlugin = HistoricalTelemetryPlugin;
+    plugins.RealtimeTelemetryPlugin = RealtimeTelemetryPlugin;
+	
+	plugins.FLUTTERPlugin = FLUTTERPlugin;
+	
+	plugins.DG800Plugin = DG800Plugin;
 
     return plugins;
 });
