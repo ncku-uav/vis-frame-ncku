@@ -3,7 +3,7 @@
 const dgram = require('dgram');
 const server = dgram.createSocket('udp4');
 
-server.bind(50012);
+server.bind(50013);
 
 function Horyzn() {
     this.state = {

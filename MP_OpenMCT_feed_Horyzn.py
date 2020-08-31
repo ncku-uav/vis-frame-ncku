@@ -2,7 +2,7 @@ import socket
 import time
 
 UDP_IP = "127.0.0.1"
-UDP_PORT = 50011
+UDP_PORT = 50013
 MESSAGE = "23,567,32,4356,456,132,4353467"
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # Internet, UDP

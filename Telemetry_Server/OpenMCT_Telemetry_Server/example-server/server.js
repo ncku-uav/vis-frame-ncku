@@ -27,8 +27,8 @@ var horyzn = new Horyzn();
 //var realtimeServer = new RealtimeServer(flutterometer,8102);
 //var historyServer = new HistoryServer(flutterometer, 8101);
 
-var realtimeServer = new RealtimeServer(dg800,8112);
-var historyServer = new HistoryServer(dg800, 8111);
+//var realtimeServer = new RealtimeServer(dg800,8112);
+//var historyServer = new HistoryServer(dg800, 8111);
 
 var realtimeServer = new RealtimeServer(horyzn,8212);
 var historyServer = new HistoryServer(horyzn, 8211);

@@ -1,9 +1,9 @@
 {
-    "name": "TFLEX",
+    "name": "Horyzn",
     "key": "pl",
     "measurements": [
         {
-            "name": "ALt",
+            "name": "HPS Altitude",
             "key": "GPS.alt",
             "values": [
                 {
