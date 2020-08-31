@@ -1,0 +1,281 @@
+{
+    "name": "TFLEX",
+    "key": "pl",
+    "measurements": [
+        {
+            "name": "ALt",
+            "key": "GPS.alt",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "bytes",
+                    "format": "integer",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+  
+        {
+            "name": "Number Sattelites",
+            "key": "GPS.satcount",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "-",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+
+        {
+            "name": "Airspeed",
+            "key": "Speed.airspeed",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "meters",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+
+        {
+            "name": "Speed",
+            "key": "GPS.speed",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "meters/second",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+
+
+        {
+            "name": "Acc x-direction",
+            "key": "ACC.x",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "g",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+
+        {
+            "name": "Acc y-direction",
+            "key": "ACC.y",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "g",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+
+        {
+            "name": "Acc z-direction",
+            "key": "ACC.z",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "g",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+
+        {
+            "name": "Magnet x-direction",
+            "key": "Mag.x",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "g",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+
+        {
+            "name": "Magnet y-direction",
+            "key": "Mag.y",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "g",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+
+        {
+            "name": "Magnet z-direction",
+            "key": "Mag.z",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "g",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+
+        {
+            "name": "Battery Voltage",
+            "key": "Batt.V",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "deg",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        }
+    ]
+}
