@@ -69,14 +69,14 @@ except:
 while True:
     
     for i in range(len(topics)):
-        print(i)
+        #print(i)
         timeStamp = time.time()
         MESSAGE = "{},{},{}".format(topics[i],i,timeStamp)
         # Pumping out the values
         sock.sendto(MESSAGE.encode(), (UDP_IP, UDP_PORT))
         #print your message for validation and wait for the next loop 
-        print(MESSAGE)
-        print('\n') 
+        #print(MESSAGE)
+        #print('\n') 
     
 
       
