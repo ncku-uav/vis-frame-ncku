@@ -9,6 +9,8 @@ UDP_IP = "127.0.0.1" #standard ip udp
 UDP_PORT = 50012 #chosen port to OpenMCT
 MESSAGE = "23,567,32,4356,456,132,4353467" #init message
 
+data = 0 #artificial data
+
 topics = [
         "data.gps.iTOW",
         "data.gps.lon",
@@ -71,14 +73,18 @@ while True:
     for i in range(len(topics)):
         #print(i)
         timeStamp = time.time()
-        MESSAGE = "{},{},{}".format(topics[i],i,timeStamp)
+        MESSAGE = "{},{},{}".format(topics[i],data+i,timeStamp)
         # Pumping out the values
         sock.sendto(MESSAGE.encode(), (UDP_IP, UDP_PORT))
         #print your message for validation and wait for the next loop 
         #print(MESSAGE)
         #print('\n') 
     
-
+    if data < 2000:
+        data = data + 1
+    else:
+        data = 0
+    print(data)
       
         
     

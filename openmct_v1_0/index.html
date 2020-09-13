@@ -27,6 +27,8 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <title>OpenMCT</title>
         <script src="dist/openmct.js"></script>
+        
+        <script src="example/Gauge_Bar/plugin.js"></script>
         <!-- <script src="src/html.js"></script> -->
         <link rel="icon" type="image/png" href="dist/favicons/favicon-96x96.png" sizes="96x96" type="image/x-icon">
         <link rel="icon" type="image/png" href="dist/favicons/favicon-32x32.png" sizes="32x32" type="image/x-icon">
@@ -60,6 +62,15 @@
         }));
         openmct.install(openmct.plugins.Conductor({
             menuOptions: [
+                {
+                    name: "Realtime",
+                    timeSystem: 'utc',
+                    clock: 'local',
+                    clockOffsets: {
+                        start: - ONE_MINUTE,
+                        end: THIRTY_SECONDS
+                    }
+                },
                 {
                     name: "Fixed",
                     timeSystem: 'utc',
@@ -99,16 +110,8 @@
                     // maximum duration between start and end bounds
                     // for utc-based time systems this is in milliseconds
                     limit: 1000 * 60 * 60 * 24
-                },
-                {
-                    name: "Realtime",
-                    timeSystem: 'utc',
-                    clock: 'local',
-                    clockOffsets: {
-                        start: - ONE_MINUTE,
-                        end: THIRTY_SECONDS
-                    }
                 }
+
             ]
         }));
         openmct.install(openmct.plugins.SummaryWidget());
@@ -135,7 +138,9 @@
         //openmct.install(openmct.plugins.RealtimeTelemetryPlugin('Horyzn.telemetry', 8212));
 
 		//openmct.install(openmct.plugins.ExampleImagery());
-        
+		openmct.install(gauge());
+		openmct.install(openmct.plugins.SimpleVuePlugin());
+		        
         
         openmct.start();
     </script>

@@ -21,7 +21,8 @@ const webpackConfig = {
         openmct: './openmct.js',
         espressoTheme: './src/plugins/themes/espresso-theme.scss',
         snowTheme: './src/plugins/themes/snow-theme.scss',
-        maelstromTheme: './src/plugins/themes/maelstrom-theme.scss'
+        maelstromTheme: './src/plugins/themes/maelstrom-theme.scss',
+        SimpleVuePlugin: './example/simpleVuePlugin/plugin.js'
     },
     output: {
         filename: '[name].js',
@@ -38,6 +39,7 @@ const webpackConfig = {
             "EventEmitter": "eventemitter3",
             "bourbon": "bourbon.scss",
             "vue": path.join(__dirname, "node_modules/vue/dist/vue.js"),
+            //"gauge": path.join(__dirname, "node_modules/vue-speedometer/dist/index.js"),
             "d3-scale": path.join(__dirname, "node_modules/d3-scale/build/d3-scale.min.js"),
             "printj": path.join(__dirname, "node_modules/printj/dist/printj.min.js"),
             "styles": path.join(__dirname, "src/styles"),

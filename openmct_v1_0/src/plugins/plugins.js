@@ -60,7 +60,9 @@ define([
     '../../example/RealtimeTelemetry/realtime-telemetry-plugin',
 	'../../example/Flutterometer/FLUTTER-plugin',
 	'../../example/DG800/DG800-plugin',
-	'../../example/Horyzn/Horyzn-plugin'
+	'../../example/Horyzn/Horyzn-plugin',
+	'../../example/simpleVuePlugin/plugin'
+	
 
     
 ], function (
@@ -103,7 +105,8 @@ define([
     RealtimeTelemetryPlugin,
 	FLUTTERPlugin,
 	DG800Plugin,
-	HoryznPlugin
+	HoryznPlugin,
+	SimpleVuePlugin
 
     
 ) {
@@ -233,6 +236,8 @@ define([
 	plugins.DG800Plugin = DG800Plugin;
 
 	plugins.HoryznPlugin = HoryznPlugin;
+	
+	plugins.SimpleVuePlugin = SimpleVuePlugin;
 
     return plugins;
 });
