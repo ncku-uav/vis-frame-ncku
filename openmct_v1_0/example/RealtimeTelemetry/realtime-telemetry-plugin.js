@@ -12,7 +12,7 @@ define([
         return function (openmct) {
             //var desired_domain_object_type = 'TFLEX.telemetry';
             var port = 8090;
-            var socket = new WebSocket('ws://192.168.0.160:' + port + serverURL);
+            var socket = new WebSocket('ws://localhost:' + port + serverURL);
             var listeners = {};
 
 

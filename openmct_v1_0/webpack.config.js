@@ -21,12 +21,13 @@ const webpackConfig = {
         openmct: './openmct.js',
         espressoTheme: './src/plugins/themes/espresso-theme.scss',
         snowTheme: './src/plugins/themes/snow-theme.scss',
-        maelstromTheme: './src/plugins/themes/maelstrom-theme.scss',
-        SimpleVuePlugin: './example/simpleVuePlugin/plugin.js',
-		Gauge: './example/Gauge_Bar/plugin2.js',
-		HistoryPlugin: './example/HistoricalTelemetry/historical-telemetry-plugin.js',
-		RealtimePlugin: './example/RealtimeTelemetry/realtime-telemetry-plugin.js',
-		DG800: './example/DG800/DG800-plugin.js'
+        maelstromTheme: './src/plugins/themes/maelstrom-theme.scss'
+        // SimpleVuePlugin: './example/simpleVuePlugin/plugin.js',
+		// Gauge: './example/Gauge_Bar/plugin2.js',
+		// HistoryPlugin: './example/HistoricalTelemetry/historical-telemetry-plugin.js',
+		// RealtimePlugin: './example/RealtimeTelemetry/realtime-telemetry-plugin.js',
+        // DG800: './example/DG800/DG800-plugin.js'
+        // Horyzn: './example/Horyzn/Horyzn-plugin.js'
 		
     },
     output: {

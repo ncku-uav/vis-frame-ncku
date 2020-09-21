@@ -18,28 +18,32 @@ try:
         else:
             i += 1
 
-        #rollValue = cs.roll
-        #pitchVal = cs.pitch
-        #yawVal = cs.yaw
+        ## add/uncomment desired values
+        roll = cs.roll
+        pitch = cs.pitch
+        yaw = cs.yaw
+        #desired attitude
+        nav_roll = cs.nav_roll
+        nav_pitch = cs.nav_pitch
         #latVal = cs.lat
         #lngVal = cs.lng
-        #groundcourseVal = cs.groundcourse
-        altVal = cs.alt
+        groundcourse = cs.groundcourse
+        alt = cs.alt
         #altoffsethomeVal = cs.altoffsethome
-        #gpsstatusVal = cs.gpsstatus
+        #gpsstatus = cs.gpsstatus
         #gpshdopVal = cs.gpshdop
-        satcountVal = cs.satcount
+        satcount = cs.satcount
         #altd100Val = cs.altd100
         #altd1000Val = cs.altd1000
-        airspeedVal = cs.airspeed
-        #targetairspeedVal = cs.targetairspeed
-        groundspeedVal = cs.groundspeed
+        airspeed = cs.airspeed
+        tar_airspeed = cs.targetairspeed
+        groundspeed = cs.groundspeed
         #verticalspeedVal = cs.verticalspeed
-        #wind_dirVal = cs.wind_dir
-        #wind_velVal = cs.wind_vel
-        axVal = cs.ax
-        ayVal = cs.ay
-        azVal = cs.az
+        wind_dir = cs.wind_dir
+        wind_vel = cs.wind_vel
+        ax = cs.ax
+        ay = cs.ay
+        az = cs.az
         #gxVal = cs.gx
         #gyVal = cs.gy
         #gzVal = cs.gz
@@ -61,15 +65,21 @@ try:
         # chx6outVal = cs.chx6out
         # chx7outVal = cs.chx7out
         # chx8outVal = cs.chx8ou
-        magValx = cs.mx
-        magValy = cs.my
-        magValz = cs.mz
+        #magnetic field param
+        mx = cs.mx
+        my = cs.my
+        mz = cs.mz
         battV = cs.battery_voltage
+        lidar_alt = cs.sonarrange
+        radius = cs.radius
+        climbrate = cs.climbrate
+        turnrate = cs.turnrate
+        distTraveled = cs.distTraveled
 
         timeStamp = time.time()
 
-        # Build a message
-        MESSAGE = "{},{},{},{},{},{},{},{},{},{},{}".format(altVal, satcountVal, airspeedVal, groundspeedVal, axVal,ayVal,azVal,magValx,magValy,magValz,battV)
+        # Build a message, add new curly bracket and variable name
+        MESSAGE = "{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}".format(roll, pitch, yaw, nav_roll, nav_pitch, groundcourse, alt, satcount, airspeed, tar_airspeed,groundspeed,wind_dir, wind_vel, ax, ay, az, mx, my, mz, battV, lidar_alt,radius,climbrate, turnrate, distTraveled)
         # Show the timestep
         print(MESSAGE)
         print('\n')

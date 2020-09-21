@@ -21,8 +21,8 @@ define([
         var Horyzn_objectProvider = {
             get: function (identifier) {
                 return gethoryznDictionary().then(function (dictionary) {
-                    console.log("Horyzn-dictionary-plugin.js: identifier.key = " + identifier.key);
-                    if (identifier.key === 'horyzn') {
+                    //console.log("Horyzn-dictionary-plugin.js: identifier.key = " + identifier.key);
+                    if (identifier.key === 'Horyzn') {
                         return {
                             identifier: identifier,
                             name: dictionary.name,
@@ -36,11 +36,11 @@ define([
                         return {
                             identifier: identifier,
                             name: measurement.name,
-                            type: 'horyzn.telemetry',
+                            type: 'Horyzn.telemetry',
                             telemetry: {
                                 values: measurement.values
                             },
-                            location: 'Horyzn.taxonomy:horyzn'
+                            location: 'Horyzn.taxonomy:Horyzn'
                         };
                     }
                 });
@@ -76,16 +76,16 @@ define([
             // The addRoot function takes an "object identifier" as an argument
             openmct.objects.addRoot({
                 namespace: 'Horyzn.taxonomy',
-                key: 'horyzn'
+                key: 'Horyzn'
             });
 
             openmct.objects.addProvider('Horyzn.taxonomy', Horyzn_objectProvider);
 
             openmct.composition.addProvider(Horyzn_compositionProvider);
 
-            openmct.types.addType('horyzn.telemetry', {
-                name: 'horyzn Telemetry Point',
-                description: 'Telemetry of horyzn',
+            openmct.types.addType('Horyzn.telemetry', {
+                name: 'Horyzn Telemetry Point',
+                description: 'Telemetry of Horyzn',
                 cssClass: 'icon-telemetry'
             });
         }

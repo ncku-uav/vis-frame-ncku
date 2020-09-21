@@ -28,7 +28,7 @@
         <title>OpenMCT</title>
         <script src="dist/openmct.js"></script>
         
-        <script src="example/Gauge_Bar/plugin.js"></script>
+        <script src="Gauge.js"></script>
         <!-- <script src="src/html.js"></script> -->
         <link rel="icon" type="image/png" href="dist/favicons/favicon-96x96.png" sizes="96x96" type="image/x-icon">
         <link rel="icon" type="image/png" href="dist/favicons/favicon-32x32.png" sizes="32x32" type="image/x-icon">
@@ -129,13 +129,13 @@
 		// openmct.install(openmct.plugins.HistoricalTelemetryPlugin('MODE.telemetry', 8101));
         // openmct.install(openmct.plugins.RealtimeTelemetryPlugin('MODE.telemetry', 8102));
 
-		openmct.install(openmct.plugins.DG800Plugin());
-		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('DG800.telemetry', '/DG800History/'));
-        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('DG800.telemetry', '/DG800Realtime/'));
+		//openmct.install(openmct.plugins.DG800Plugin());
+		//openmct.install(openmct.plugins.HistoricalTelemetryPlugin('DG800.telemetry', '/DG800History/'));
+        //openmct.install(openmct.plugins.RealtimeTelemetryPlugin('DG800.telemetry', '/DG800Realtime/'));
         
-        //openmct.install(openmct.plugins.HoryznPlugin());
-		//openmct.install(openmct.plugins.HistoricalTelemetryPlugin('Horyzn.telemetry', 8211));
-        //openmct.install(openmct.plugins.RealtimeTelemetryPlugin('Horyzn.telemetry', 8212));
+        openmct.install(openmct.plugins.HoryznPlugin());
+		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('Horyzn.telemetry', '/HoryznHistory/'));
+        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('Horyzn.telemetry', '/HoryznRealtime/'));
 
 		//openmct.install(openmct.plugins.ExampleImagery());
 		openmct.install(gauge());
