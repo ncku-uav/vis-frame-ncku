@@ -20,7 +20,7 @@ define([
                     return domainObject.type === desired_domain_object_type;
                 },
                 request: function (domainObject, options) {
-                    var url = 'http://localhost:' + port + serverURL +
+                    var url = 'http://10.183.35.90:' + port + serverURL +
                         domainObject.identifier.key +
                         '?start=' + options.start +
                         '&end=' + options.end;
