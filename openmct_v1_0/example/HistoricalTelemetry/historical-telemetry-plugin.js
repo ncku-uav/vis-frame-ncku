@@ -8,19 +8,19 @@ define([
 
 ) {
 
-    function HistoricalTelemetryPlugin(desired_domain_object_type,port) {
+    function HistoricalTelemetryPlugin(desired_domain_object_type, serverURL) {
     //function HistoricalTelemetryPlugin() {
         
 
         return function install(openmct) {
             //var desired_domain_object_type = 'TFLEX.telemetry';
-            //var port = 8091;
+            var port = 8090;
             var provider = {
                 supportsRequest: function (domainObject) {
                     return domainObject.type === desired_domain_object_type;
                 },
                 request: function (domainObject, options) {
-                    var url = 'http://localhost:' + port + '/telemetry/' +
+                    var url = 'http://192.168.0.160:' + port + serverURL +
                         domainObject.identifier.key +
                         '?start=' + options.start +
                         '&end=' + options.end;

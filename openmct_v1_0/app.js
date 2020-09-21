@@ -16,7 +16,7 @@ const request = require('request');
 
 // Defaults
 options.port = options.port || options.p || 8080;
-options.host = options.host || 'localhost';
+options.host = options.host || '192.168.0.160';
 options.directory = options.directory || options.D || '.';
 
 // Show command line options

@@ -163,7 +163,7 @@ Dg800.prototype.generateTelemetry = function () {
         //console.log(timestamp);
         var state = { timestamp: this.timestamp, value: this.state[id], id: id};
         this.notify(state);
-		//console.log(state);
+		console.log(state);
         this.history[id].push(state);
         //this.state["comms.sent"] += JSON.stringify(state).length;
         

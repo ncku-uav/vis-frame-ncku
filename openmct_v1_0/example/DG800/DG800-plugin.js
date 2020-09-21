@@ -21,7 +21,7 @@ define([
         var DG800_objectProvider = {
             get: function (identifier) {
                 return getDG800Dictionary().then(function (dictionary) {
-                    console.log("DG800-dictionary-plugin.js: identifier.key = " + identifier.key);
+                    //console.log("DG800-dictionary-plugin.js: identifier.key = " + identifier.key);
                     if (identifier.key === 'DG800') {
                         return {
                             identifier: identifier,

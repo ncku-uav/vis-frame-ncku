@@ -7,10 +7,13 @@
 //var Flutterometer = require('./flutterometer');
 var Dg800 = require('./DG800');
 // var Horyzn = require('./horyzn');
-var RealtimeServer = require('./realtime-server');
+var RealtimeServer = require('./realtime-server_old');
 var HistoryServer = require('./history-server');
 //var StaticServer = require('./static-server');
 
+var expressWs = require('express-ws');
+var app = require('express')();
+expressWs(app);
 
 
 
@@ -27,8 +30,14 @@ var dg800 = new Dg800();
 //var realtimeServer = new RealtimeServer(flutterometer,8102);
 //var historyServer = new HistoryServer(flutterometer, 8101);
 
-var realtimeServer = new RealtimeServer(dg800,8112);
-var historyServer = new HistoryServer(dg800, 8111);
+var realtimeServerDG800 = new RealtimeServer(dg800);
+var historyServerDG800 = new HistoryServer(dg800);
 
 //var realtimeServer = new RealtimeServer(horyzn,8212);
 //var historyServer = new HistoryServer(horyzn, 8211);
+
+app.use('/DG800Realtime', realtimeServerDG800);
+app.use('/DG800History', historyServerDG800);
+var port = process.env.PORT || 8090
+
+app.listen(port)

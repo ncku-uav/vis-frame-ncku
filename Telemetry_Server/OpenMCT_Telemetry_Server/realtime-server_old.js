@@ -1,6 +1,6 @@
 var express = require('express');
 
-function RealtimeServer(spacecraft) {
+function RealtimeServer(spacecraft, port) {
 
     var router = express.Router();
 
@@ -36,6 +36,7 @@ function RealtimeServer(spacecraft) {
     });
 
     return router;
+    
 };
 
 module.exports = RealtimeServer;

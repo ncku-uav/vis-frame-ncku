@@ -1,7 +1,7 @@
 // web framework fore nodejs
 var express = require('express');
 
-function HistoryServer(telemetrySource, port) {
+function HistoryServer(telemetrySource) {
     
     server = express();
     //allow requesting code from any origin to access the resource
@@ -10,7 +10,7 @@ function HistoryServer(telemetrySource, port) {
         next();
     });
     // handle telemetry requests
-    server.get('/telemetry/:pointId', function (req, res) {
+    server.get('/:pointId', function (req, res) {
         var start = +req.query.start;
         var end = +req.query.end;
         var ids = req.params.pointId.split(',');
@@ -22,9 +22,9 @@ function HistoryServer(telemetrySource, port) {
         }, []);
         res.status(200).json(response).end();
     });
-
-    server.listen(port);
-    console.log('History server now running at http://localhost:' + port);
+    return server;
+    //server.listen(port);
+    //console.log('History server now running at http://localhost:' + port);
 }
 
 module.exports = HistoryServer;
