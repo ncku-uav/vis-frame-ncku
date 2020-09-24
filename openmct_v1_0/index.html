@@ -121,8 +121,8 @@
         ));
         
         openmct.install(openmct.plugins.HoryznPlugin());
-		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('Horyzn.telemetry', '/HoryznHistory/'));
-        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('Horyzn.telemetry', '/HoryznRealtime/'));
+		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('Horyzn.telemetry', '/HoryznHistory/', 'localhost'));
+        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('Horyzn.telemetry', '/HoryznRealtime/', 'localhost'));
 
 		//openmct.install(openmct.plugins.ExampleImagery());
 		//openmct.install(gauge());

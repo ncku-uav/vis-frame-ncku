@@ -8,7 +8,7 @@ define([
 
 ) {
 
-    function HistoricalTelemetryPlugin(desired_domain_object_type, serverURL) {
+    function HistoricalTelemetryPlugin(desired_domain_object_type, serverURL, IP) {
     //function HistoricalTelemetryPlugin() {
         
 
@@ -20,7 +20,7 @@ define([
                     return domainObject.type === desired_domain_object_type;
                 },
                 request: function (domainObject, options) {
-                    var url = 'http://10.183.35.90:' + port + serverURL +
+                    var url = 'http://'+ IP + ':' + port + serverURL +
                         domainObject.identifier.key +
                         '?start=' + options.start +
                         '&end=' + options.end;
