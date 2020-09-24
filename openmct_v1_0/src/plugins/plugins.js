@@ -24,6 +24,7 @@ define([
     'lodash',
     './utcTimeSystem/plugin',
     './localTimeSystem/plugin',
+    './ISOTimeFormat/plugin',
     '../../example/generator/plugin',
     './autoflow/AutoflowTabularPlugin',
     './timeConductor/plugin',
@@ -55,20 +56,21 @@ define([
     './URLTimeSettingsSynchronizer/plugin',
     './notificationIndicator/plugin',
     './newFolderAction/plugin',
+    './persistence/couch/plugin',
+    './defaultRootName/plugin',
     '../../example/FLEXOP/FLEXOP-plugin',
     '../../example/HistoricalTelemetry/historical-telemetry-plugin',
     '../../example/RealtimeTelemetry/realtime-telemetry-plugin',
 	'../../example/Flutterometer/FLUTTER-plugin',
 	'../../example/DG800/DG800-plugin',
 	'../../example/Horyzn/Horyzn-plugin',
-	'../../example/simpleVuePlugin/plugin'
-	
-
-    
+	//'../../example/simpleVuePlugin/plugin',
+	'../../example/Gauge_Bar/plugin2'
 ], function (
     _,
     UTCTimeSystem,
     LocalTimeSystem,
+    ISOTimeFormat,
     GeneratorPlugin,
     AutoflowPlugin,
     TimeConductorPlugin,
@@ -100,24 +102,24 @@ define([
     URLTimeSettingsSynchronizer,
     NotificationIndicator,
     NewFolderAction,
+    CouchDBPlugin,
+    DefaultRootName,
     FLEXOPPlugin,
     HistoricalTelemetryPlugin,
     RealtimeTelemetryPlugin,
 	FLUTTERPlugin,
 	DG800Plugin,
 	HoryznPlugin,
-	SimpleVuePlugin
-
-    
+	//SimpleVuePlugin,
+	Gauge
 ) {
-    var bundleMap = {
+    const bundleMap = {
         LocalStorage: 'platform/persistence/local',
         MyItems: 'platform/features/my-items',
-        CouchDB: 'platform/persistence/couch',
         Elasticsearch: 'platform/persistence/elastic'
     };
 
-    var plugins = _.mapValues(bundleMap, function (bundleName, pluginName) {
+    const plugins = _.mapValues(bundleMap, function (bundleName, pluginName) {
         return function pluginConstructor() {
             return function (openmct) {
                 openmct.legacyRegistry.enable(bundleName);
@@ -145,32 +147,12 @@ define([
 
     plugins.Conductor = TimeConductorPlugin.default;
 
-    plugins.CouchDB = function (url) {
-        return function (openmct) {
-            if (url) {
-                var bundleName = "config/couch";
-                openmct.legacyRegistry.register(bundleName, {
-                    "extensions": {
-                        "constants": [
-                            {
-                                "key": "COUCHDB_PATH",
-                                "value": url,
-                                "priority": "mandatory"
-                            }
-                        ]
-                    }
-                });
-                openmct.legacyRegistry.enable(bundleName);
-            }
-
-            openmct.legacyRegistry.enable(bundleMap.CouchDB);
-        };
-    };
+    plugins.CouchDB = CouchDBPlugin.default;
 
     plugins.Elasticsearch = function (url) {
         return function (openmct) {
             if (url) {
-                var bundleName = "config/elastic";
+                const bundleName = "config/elastic";
                 openmct.legacyRegistry.register(bundleName, {
                     "extensions": {
                         "constants": [
@@ -192,10 +174,6 @@ define([
     plugins.Generator = function () {
         return GeneratorPlugin;
     };
-	
-	
-
-	
 
     plugins.ExampleImagery = ExampleImagery;
     plugins.ImageryPlugin = ImageryPlugin;
@@ -224,8 +202,10 @@ define([
     plugins.URLTimeSettingsSynchronizer = URLTimeSettingsSynchronizer.default;
     plugins.NotificationIndicator = NotificationIndicator.default;
     plugins.NewFolderAction = NewFolderAction.default;
-	
-	plugins.FLEXOPPlugin = FLEXOPPlugin;
+    plugins.ISOTimeFormat = ISOTimeFormat.default;
+    plugins.DefaultRootName = DefaultRootName.default;
+    
+    plugins.FLEXOPPlugin = FLEXOPPlugin;
 	//plugins.exports = exports;
 	
     plugins.HistoricalTelemetryPlugin = HistoricalTelemetryPlugin;
@@ -237,7 +217,9 @@ define([
 
 	plugins.HoryznPlugin = HoryznPlugin;
 	
-	plugins.SimpleVuePlugin = SimpleVuePlugin;
+	//plugins.SimpleVuePlugin = SimpleVuePlugin;
+	
+	plugins.Gauge = Gauge;
 
     return plugins;
 });

@@ -1,9 +1,9 @@
 //import Vue from 'vue';
 //import HelloWorld from './HelloWorld.vue';
 
-define(['vue', './HelloWorld.vue', './Gauge.vue'], //'gauge',
+define(['vue', './HelloWorld.vue'],//, './Gauge.vue'], //'gauge',
 
-function (Vue, HelloWorld,  GaugeComponent) { //Gauge,
+function (Vue, HelloWorld){ //,  GaugeComponent) { //Gauge,
 
 
 function SimpleVuePlugin() {
@@ -23,7 +23,7 @@ function SimpleVuePlugin() {
             },
             view: function (domainObject) {
                 var vm;
-                var gaugetemplate = require('./Attitude_indicator.vue').default; //or HelloWorld or ToDoApp
+                var gaugetemplate = require('./HelloWorld.vue').default; //or HelloWorld or ToDoApp
                 //var VueSpeedometer = require('vue-speedometer');
                 //Vue.component(VueSpeedometer)
 

@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Open MCT, Copyright (c) 2014-2018, United States Government
+ * Open MCT, Copyright (c) 2014-2020, United States Government
  * as represented by the Administrator of the National Aeronautics and Space
  * Administration. All rights reserved.
  *
@@ -66,7 +66,7 @@ export default class PreviewAction {
             ],
             onDestroy: () => {
                 PreviewAction.isVisible = false;
-                preview.$destroy()
+                preview.$destroy();
             }
         });
 
@@ -80,11 +80,13 @@ export default class PreviewAction {
     _isNavigatedObject(objectPath) {
         let targetObject = objectPath[0];
         let navigatedObject = this._openmct.router.path[0];
-        return targetObject.identifier.namespace === navigatedObject.identifier.namespace &&
-            targetObject.identifier.key === navigatedObject.identifier.key;
+
+        return targetObject.identifier.namespace === navigatedObject.identifier.namespace
+            && targetObject.identifier.key === navigatedObject.identifier.key;
     }
     _preventPreview(objectPath) {
         const noPreviewTypes = ['folder'];
+
         return noPreviewTypes.includes(objectPath[0].type);
     }
 }

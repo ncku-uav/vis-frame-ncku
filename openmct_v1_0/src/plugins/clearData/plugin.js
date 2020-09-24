@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Open MCT, Copyright (c) 2014-2019, United States Government
+ * Open MCT, Copyright (c) 2014-2020, United States Government
  * as represented by the Administrator of the National Aeronautics and Space
  * Administration. All rights reserved.
  *
@@ -29,11 +29,14 @@ define([
     ClearDataAction,
     Vue
 ) {
-    return function plugin(appliesToObjects) {
+    return function plugin(appliesToObjects, options = {indicator: true}) {
+        let installIndicator = options.indicator;
+
         appliesToObjects = appliesToObjects || [];
 
         return function install(openmct) {
-            let component = new Vue ({
+            if (installIndicator) {
+                let component = new Vue ({
                     provide: {
                         openmct
                     },
@@ -41,12 +44,14 @@ define([
                         GlobalClearIndicator: GlobaClearIndicator.default
                     },
                     template: '<GlobalClearIndicator></GlobalClearIndicator>'
-                }),
-                indicator = {
+                });
+
+                let indicator = {
                     element: component.$mount().$el
                 };
 
-            openmct.indicators.add(indicator);
+                openmct.indicators.add(indicator);
+            }
 
             openmct.contextMenu.registerAction(new ClearDataAction.default(openmct, appliesToObjects));
         };

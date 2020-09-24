@@ -74,7 +74,7 @@ app.get('/', function (req, res) {
 
 // Finally, open the HTTP server and log the instance to the console
 app.listen(options.port, options.host, function() {
-    console.log('Open MCT application running at http://%s:%s', options.host, options.port)
+    console.log('Open MCT application running at %s:%s', options.host, options.port)
 });
 
 // Make directory visible, for easy adding of plugins

@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Open MCT, Copyright (c) 2014-2017, United States Government
+ * Open MCT, Copyright (c) 2014-2020, United States Government
  * as represented by the Administrator of the National Aeronautics and Space
  * Administration. All rights reserved.
  *
@@ -26,28 +26,35 @@ define([
 
 ) {
     function ImageryPlugin() {
-		this.count = 0;
+
         var IMAGE_SAMPLES = [
-            "../../examples/imagery/DG-800-Position1.jpg",
-			"../../examples/imagery/DG_800_Position2.jpg",
-			"../../examples/imagery/DG_800_Position3.jpg",
-			"../../examples/imagery/DG_800_Position4.jpg",
-			"../../examples/imagery/DG_800_Position5.jpg",
-			"../../examples/imagery/DG_800_Position6.jpg"
+            "https://www.hq.nasa.gov/alsj/a16/AS16-117-18731.jpg",
+            "https://www.hq.nasa.gov/alsj/a16/AS16-117-18732.jpg",
+            "https://www.hq.nasa.gov/alsj/a16/AS16-117-18733.jpg",
+            "https://www.hq.nasa.gov/alsj/a16/AS16-117-18734.jpg",
+            "https://www.hq.nasa.gov/alsj/a16/AS16-117-18735.jpg",
+            "https://www.hq.nasa.gov/alsj/a16/AS16-117-18736.jpg",
+            "https://www.hq.nasa.gov/alsj/a16/AS16-117-18737.jpg",
+            "https://www.hq.nasa.gov/alsj/a16/AS16-117-18738.jpg",
+            "https://www.hq.nasa.gov/alsj/a16/AS16-117-18739.jpg",
+            "https://www.hq.nasa.gov/alsj/a16/AS16-117-18740.jpg",
+            "https://www.hq.nasa.gov/alsj/a16/AS16-117-18741.jpg",
+            "https://www.hq.nasa.gov/alsj/a16/AS16-117-18742.jpg",
+            "https://www.hq.nasa.gov/alsj/a16/AS16-117-18743.jpg",
+            "https://www.hq.nasa.gov/alsj/a16/AS16-117-18744.jpg",
+            "https://www.hq.nasa.gov/alsj/a16/AS16-117-18745.jpg",
+            "https://www.hq.nasa.gov/alsj/a16/AS16-117-18746.jpg",
+            "https://www.hq.nasa.gov/alsj/a16/AS16-117-18747.jpg",
+            "https://www.hq.nasa.gov/alsj/a16/AS16-117-18748.jpg"
         ];
 
         function pointForTimestamp(timestamp, name) {
             return {
                 name: name,
-                utc: timestamp,
-                local: timestamp,
-                url: IMAGE_SAMPLES[this.count]
-		     };
-			console.log(IMAGE_SAMPLES[this.count])
-			this.count = this.count + 1
-			if (this.count > 5 ){
-			this.count = 0;
-			}
+                utc: Math.floor(timestamp / 5000) * 5000,
+                local: Math.floor(timestamp / 5000) * 5000,
+                url: IMAGE_SAMPLES[Math.floor(timestamp / 5000) % IMAGE_SAMPLES.length]
+            };
         }
 
         var realtimeProvider = {
@@ -57,14 +64,14 @@ define([
             subscribe: function (domainObject, callback) {
                 var interval = setInterval(function () {
                     callback(pointForTimestamp(Date.now(), domainObject.name));
-                }, 500);
+                }, 5000);
 
                 return function () {
                     clearInterval(interval);
                 };
             }
         };
-/*
+
         var historicalProvider = {
             supportsRequest: function (domainObject, options) {
                 return domainObject.type === 'example.imagery'
@@ -78,28 +85,28 @@ define([
                     data.push(pointForTimestamp(start, domainObject.name));
                     start += 5000;
                 }
+
                 return Promise.resolve(data);
             }
         };
-*/
+
         var ladProvider = {
             supportsRequest: function (domainObject, options) {
-                return domainObject.type === 'example.imagery' &&
-                    options.strategy === 'latest';
+                return domainObject.type === 'example.imagery'
+                    && options.strategy === 'latest';
             },
             request: function (domainObject, options) {
                 return Promise.resolve([pointForTimestamp(Date.now(), domainObject.name)]);
             }
         };
 
-
         return function install(openmct) {
             openmct.types.addType('example.imagery', {
                 key: 'example.imagery',
                 name: 'Example Imagery',
                 cssClass: 'icon-image',
-                description: 'For development use. Creates example imagery ' +
-                    'data that mimics a live imagery stream.',
+                description: 'For development use. Creates example imagery '
+                    + 'data that mimics a live imagery stream.',
                 creatable: true,
                 initialize: function (object) {
                     object.telemetry = {
@@ -133,15 +140,15 @@ define([
                                 }
                             }
                         ]
-                    }
+                    };
                 }
             });
 
             openmct.telemetry.addProvider(realtimeProvider);
-            //openmct.telemetry.addProvider(historicalProvider);
+            openmct.telemetry.addProvider(historicalProvider);
             openmct.telemetry.addProvider(ladProvider);
         };
-    };
+    }
 
     return ImageryPlugin;
 });

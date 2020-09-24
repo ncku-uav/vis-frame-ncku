@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Open MCT, Copyright (c) 2014-2018, United States Government
+ * Open MCT, Copyright (c) 2014-2020, United States Government
  * as represented by the Administrator of the National Aeronautics and Space
  * Administration. All rights reserved.
  *
@@ -24,13 +24,24 @@
     class="c-so-view has-local-controls"
     :class="{
         'c-so-view--no-frame': !hasFrame,
-        'has-complex-content': complexContent
+        'has-complex-content': complexContent,
+        'is-missing': domainObject.status === 'missing'
     }"
 >
     <div class="c-so-view__header">
         <div class="c-object-label"
-             :class="[cssClass, classList]"
+             :class="{
+                 classList,
+                 'is-missing': domainObject.status === 'missing'
+             }"
         >
+            <div class="c-object-label__type-icon"
+                 :class="cssClass"
+            >
+                <span class="is-missing__indicator"
+                      title="This item is missing"
+                ></span>
+            </div>
             <div class="c-object-label__name">
                 {{ domainObject && domainObject.name }}
             </div>
@@ -46,6 +57,9 @@
             @click="expand"
         ></button>
     </div>
+    <div class="is-missing__indicator"
+         title="This item is missing"
+    ></div>
     <object-view
         ref="objectView"
         class="c-so-view__object-view"
@@ -57,7 +71,7 @@
 </template>
 
 <script>
-import ObjectView from './ObjectView.vue'
+import ObjectView from './ObjectView.vue';
 import ContextMenuDropDown from './contextMenuDropDown.vue';
 import PreviewHeader from '@/ui/preview/preview-header.vue';
 import Vue from 'vue';
@@ -92,14 +106,14 @@ export default {
         }
     },
     data() {
-        let objectType = this.openmct.types.get(this.domainObject.type),
-            cssClass = objectType && objectType.definition ? objectType.definition.cssClass : 'icon-object-unknown',
-            complexContent = !SIMPLE_CONTENT_TYPES.includes(this.domainObject.type);
+        let objectType = this.openmct.types.get(this.domainObject.type);
+        let cssClass = objectType && objectType.definition ? objectType.definition.cssClass : 'icon-object-unknown';
+        let complexContent = !SIMPLE_CONTENT_TYPES.includes(this.domainObject.type);
 
         return {
             cssClass,
             complexContent
-        }
+        };
     },
     computed: {
         classList() {
@@ -113,9 +127,9 @@ export default {
     },
     methods: {
         expand() {
-            let objectView = this.$refs.objectView,
-                parentElement = objectView.$el,
-                childElement = parentElement.children[0];
+            let objectView = this.$refs.objectView;
+            let parentElement = objectView.$el;
+            let childElement = parentElement.children[0];
 
             this.openmct.overlays.overlay({
                 element: this.getOverlayElement(childElement),
@@ -128,8 +142,11 @@ export default {
         getOverlayElement(childElement) {
             const fragment = new DocumentFragment();
             const header = this.getPreviewHeader();
+            const wrapper = document.createElement('div');
+            wrapper.classList.add('l-preview-window__object-view');
+            wrapper.append(childElement);
             fragment.append(header);
-            fragment.append(childElement);
+            fragment.append(wrapper);
 
             return fragment;
         },
@@ -146,7 +163,7 @@ export default {
                 data() {
                     return {
                         domainObject
-                    }
+                    };
                 },
                 template: '<PreviewHeader :domainObject="domainObject" :hideViewSwitcher="true" :showNotebookMenuSwitcher="true"></PreviewHeader>'
             });
@@ -157,5 +174,5 @@ export default {
             return this.$refs.objectView.getSelectionContext();
         }
     }
-}
+};
 </script>

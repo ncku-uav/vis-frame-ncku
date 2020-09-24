@@ -14,6 +14,9 @@ const gitRevision = require('child_process')
 const gitBranch = require('child_process')
     .execSync('git rev-parse --abbrev-ref HEAD')
     .toString().trim();
+const vueFile = devMode ?
+    path.join(__dirname, "node_modules/vue/dist/vue.js") :
+    path.join(__dirname, "node_modules/vue/dist/vue.min.js");
 
 const webpackConfig = {
     mode: devMode ? 'development' : 'production',
@@ -21,14 +24,7 @@ const webpackConfig = {
         openmct: './openmct.js',
         espressoTheme: './src/plugins/themes/espresso-theme.scss',
         snowTheme: './src/plugins/themes/snow-theme.scss',
-        maelstromTheme: './src/plugins/themes/maelstrom-theme.scss',
-        // SimpleVuePlugin: './example/simpleVuePlugin/plugin.js',
-		gauge: './example/Gauge_Bar/plugin2.js',
-		// HistoryPlugin: './example/HistoricalTelemetry/historical-telemetry-plugin.js',
-		// RealtimePlugin: './example/RealtimeTelemetry/realtime-telemetry-plugin.js',
-        // DG800: './example/DG800/DG800-plugin.js'
-        // Horyzn: './example/Horyzn/Horyzn-plugin.js'
-		
+        maelstromTheme: './src/plugins/themes/maelstrom-theme.scss'
     },
     output: {
         filename: '[name].js',
@@ -44,8 +40,7 @@ const webpackConfig = {
             "csv": "comma-separated-values",
             "EventEmitter": "eventemitter3",
             "bourbon": "bourbon.scss",
-            "vue": path.join(__dirname, "node_modules/vue/dist/vue.js"),
-            //"gauge": path.join(__dirname, "node_modules/vue-speedometer/dist/index.js"),
+            "vue": vueFile,
             "d3-scale": path.join(__dirname, "node_modules/d3-scale/build/d3-scale.min.js"),
             "printj": path.join(__dirname, "node_modules/printj/dist/printj.min.js"),
             "styles": path.join(__dirname, "src/styles"),
@@ -55,9 +50,6 @@ const webpackConfig = {
             "utils": path.join(__dirname, "src/utils")
         }
     },
-        node: {
-   fs: "empty"
-	},
     devtool: devMode ? 'eval-source-map' : 'source-map',
     plugins: [
         new webpack.DefinePlugin({
@@ -138,7 +130,6 @@ const webpackConfig = {
         colors: true,
         warningsFilter: /asset size limit/g
     }
-
 };
 
 module.exports = webpackConfig;

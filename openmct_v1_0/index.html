@@ -25,21 +25,17 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <title>OpenMCT</title>
+        <title></title>
         <script src="dist/openmct.js"></script>
-        
-        <script src="Gauge.js"></script>
-        <!-- <script src="src/html.js"></script> -->
         <link rel="icon" type="image/png" href="dist/favicons/favicon-96x96.png" sizes="96x96" type="image/x-icon">
         <link rel="icon" type="image/png" href="dist/favicons/favicon-32x32.png" sizes="32x32" type="image/x-icon">
         <link rel="icon" type="image/png" href="dist/favicons/favicon-16x16.png" sizes="16x16" type="image/x-icon">
-
     </head>
     <body>
     </body>
     <script>
         const THIRTY_SECONDS = 30 * 1000;
-		const ONE_MINUTE = 60 * 1000;
+        const ONE_MINUTE = 60 * 1000;
         const THIRTY_MINUTES = THIRTY_SECONDS * 60;
 
         [
@@ -62,7 +58,7 @@
         }));
         openmct.install(openmct.plugins.Conductor({
             menuOptions: [
-                {
+            	{
                     name: "Realtime",
                     timeSystem: 'utc',
                     clock: 'local',
@@ -75,7 +71,7 @@
                     name: "Fixed",
                     timeSystem: 'utc',
                     bounds: {
-                        start: Date.now() - ONE_MINUTE,
+                        start: Date.now() - THIRTY_MINUTES,
                         end: Date.now()
                     },
                     // commonly used bounds can be stored in history
@@ -111,7 +107,7 @@
                     // for utc-based time systems this is in milliseconds
                     limit: 1000 * 60 * 60 * 24
                 }
-
+                
             ]
         }));
         openmct.install(openmct.plugins.SummaryWidget());
@@ -119,29 +115,20 @@
         openmct.install(openmct.plugins.LADTable());
         openmct.install(openmct.plugins.Filters(['table', 'telemetry.plot.overlay']));
         openmct.install(openmct.plugins.ObjectMigration());
-        openmct.install(openmct.plugins.ClearData(['table', 'telemetry.plot.overlay', 'telemetry.plot.stacked']));
-        
-        
-        //openmct.install(openmct.plugins.FLEXOPPlugin());
-        //openmct.install(openmct.plugins.HistoricalTelemetryPlugin('TFLEX.telemetry', 8091));
-        //openmct.install(openmct.plugins.RealtimeTelemetryPlugin('TFLEX.telemetry', 8092));
-		// openmct.install(openmct.plugins.FLUTTERPlugin());
-		// openmct.install(openmct.plugins.HistoricalTelemetryPlugin('MODE.telemetry', 8101));
-        // openmct.install(openmct.plugins.RealtimeTelemetryPlugin('MODE.telemetry', 8102));
-
-		//openmct.install(openmct.plugins.DG800Plugin());
-		//openmct.install(openmct.plugins.HistoricalTelemetryPlugin('DG800.telemetry', '/DG800History/'));
-        //openmct.install(openmct.plugins.RealtimeTelemetryPlugin('DG800.telemetry', '/DG800Realtime/'));
+        openmct.install(openmct.plugins.ClearData(
+            ['table', 'telemetry.plot.overlay', 'telemetry.plot.stacked'],
+            {indicator: true}
+        ));
         
         openmct.install(openmct.plugins.HoryznPlugin());
 		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('Horyzn.telemetry', '/HoryznHistory/'));
         openmct.install(openmct.plugins.RealtimeTelemetryPlugin('Horyzn.telemetry', '/HoryznRealtime/'));
 
 		//openmct.install(openmct.plugins.ExampleImagery());
-		openmct.install(gauge());
-		openmct.install(openmct.plugins.SimpleVuePlugin());
-		        
-        
+		//openmct.install(gauge());
+		openmct.install(openmct.plugins.Gauge());
+		//openmct.install(openmct.plugins.SimpleVuePlugin());
+		
         openmct.start();
     </script>
 </html>

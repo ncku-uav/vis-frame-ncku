@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Open MCT, Copyright (c) 2014-2018, United States Government
+ * Open MCT, Copyright (c) 2014-2020, United States Government
  * as represented by the Administrator of the National Aeronautics and Space
  * Administration. All rights reserved.
  *
@@ -19,7 +19,6 @@
  * this source code distribution or the Licensing information page available
  * at runtime from the About dialog for additional information.
  *****************************************************************************/
-
 
 define(
     [
@@ -48,7 +47,11 @@ define(
                 mockLog,
                 abstractComposePromise,
                 domainObject = {model: {name: "mockObject"}},
-                progress = {phase: "copying", totalObjects: 10, processed: 1};
+                progress = {
+                    phase: "copying",
+                    totalObjects: 10,
+                    processed: 1
+                };
 
             beforeEach(function () {
                 policyService = jasmine.createSpyObj(
@@ -114,6 +117,7 @@ define(
 
                 locationServicePromise.then.and.callFake(function (callback) {
                     callback(newParent);
+
                     return abstractComposePromise;
                 });
 
@@ -142,7 +146,6 @@ define(
 
                 copyService = new MockCopyService();
             });
-
 
             describe("with context from context-action", function () {
                 beforeEach(function () {
@@ -228,7 +231,6 @@ define(
                 it("initializes happily", function () {
                     expect(copyAction).toBeDefined();
                 });
-
 
                 it("performs copy immediately", function () {
                     copyAction.perform();
