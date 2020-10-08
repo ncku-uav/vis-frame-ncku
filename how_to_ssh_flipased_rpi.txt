@@ -2,5 +2,5 @@ nm-connection-editor
 in ipv4 settings: method: shared to other computers
 scan with nmap for ip
 log in with pi@IPADRESS
-pw: raspberry
+pw: bluesea6
 start script in FoM folder with python3 main.py
