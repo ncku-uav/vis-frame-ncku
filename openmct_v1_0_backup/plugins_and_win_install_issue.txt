@@ -1,6 +1,0 @@
-in src/plugins/plugins.js
-add to define and function IT MUST BE IN THE RIGHT ORDER!
-add it downwards at plugins as well
-
-when running npm install on windows
-In the folder "openmct\src\plugins\themes" replace the paths from the *.scss files starting with "~stytles" with "../../styles"
