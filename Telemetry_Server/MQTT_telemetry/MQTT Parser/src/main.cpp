@@ -1,79 +1,77 @@
-#include <Arduino.h>
+#include <UIPEthernet.h>
+#include "PubSubClient.h"
 #include <ArduinoJson.h>
 
-unsigned long last = 0UL;
-int16_t counter = 0;
+// Ethernet Setup
+uint8_t mac[6] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
+byte ip[] = {192, 168, 0, 254};
+IPAddress server(192, 168, 0, 101);
 
-void JSON_test();
-void push_JSON();
+//Ethernet And MQTT Client
+EthernetClient ethClient;
+PubSubClient mqttClient(ethClient);
 
-DynamicJsonBuffer jsonBuffer;
+//MQTT callback function
+void callback(char *topic, byte *payload, unsigned int length)
+{
+  StaticJsonBuffer<175> jsonBuffer; //static buffer prooved to be more stable and is chose with some margin
+  JsonObject &root = jsonBuffer.createObject();
+  JsonObject &MQTT = root.createNestedObject("MQTT");
 
-JsonObject &root = jsonBuffer.createObject();
-JsonObject &MQTT = jsonBuffer.createObject();
-JsonObject &GPS_j = jsonBuffer.createObject();
-JsonObject &Airspeed_j = jsonBuffer.createObject();
-JsonObject &ACC_j = jsonBuffer.createObject();
-JsonObject &Mag_j = jsonBuffer.createObject();
+  //Built MQTT Message
+  MQTT["Topic"] = topic;
+  payload[length] = '\0';
+  MQTT["Payload"] = (char *)payload;
 
-uint8_t something_updated = 0;
+  root.printTo(Serial);
+  Serial.println();
+
+}
+
+void reconnect()
+{
+  // Solange wiederholen bis Verbindung wiederhergestellt ist
+  while (!mqttClient.connected())
+  {
+    //Serial.print("Versuch des MQTT Verbindungsaufbaus...");
+
+    //Verbindungsversuch:
+    if (mqttClient.connect("arduinoClient"))
+    {
+      Serial.println("MQTT erfolgreich verbunden!");
+
+      // und meldet sich bei inTopic für eingehende Nachrichten an:
+      mqttClient.subscribe("data/#");
+    }
+    else
+    { // Im Fehlerfall => Fehlermeldung und neuer Versuch
+      Serial.println("MQTT Verbindungsfehler, erneuter Versuch in 5s...");
+      //Serial.print(mqttClient.state());
+      //Serial.println(" Nächster Versuch in 5 Sekunden");
+      // 5 Sekunden Pause vor dem nächsten Versuch
+      delay(5000);
+    }
+  }
+}
 
 void setup()
 {
   Serial.begin(115200);
+
+  mqttClient.setServer(server, 1883); // Adresse des MQTT-Brokers
+  mqttClient.setCallback(callback);   // Handler für eingehende Nachrichten
+  // Ethernet-Verbindung aufbauen
+  Ethernet.begin(mac, ip);
+  // Kleine Pause um Ethernetverbindung aufzubauen
+  delay(3000);
 }
 
 void loop()
 {
-  //while (mySerial.available() > 0)
-  //gps.encode(mySerial.read());
-  push_JSON();
-}
-
-void JSON_test()
-{
-}
-
-void push_JSON()
-{
-
-  //MQTT onmessage
-  // if topic == suchandsuch -> see Thibault telemetry code
-
-  GPS_j["alt"] = counter;
-  GPS_j["satcount"] = counter;
-
-  Airspeed_j["calc"] = counter;
-  Airspeed_j["tar"] = counter;
-
-  MQTT["GPS"] = GPS_j;
-  MQTT["Airspeed"] = Airspeed_j;
-
-  ACC_j["X"] = counter;
-  ACC_j["Y"] = counter;
-  ACC_j["Z"] = counter;
-
-  MQTT["ACC"] = ACC_j;
-
-  Mag_j["X"] = counter;
-  Mag_j["Y"] = counter;
-  Mag_j["Z"] = counter;
-
-  MQTT["Mag"] = Mag_j;
-  something_updated = 1;
-
-  root["MQTT"] = MQTT;
-
-  if (something_updated == 1)
+  // Solange probieren bis es klappt:
+  if (!mqttClient.connected())
   {
-    root.printTo(Serial);
-    Serial.print("\n");
+    reconnect();
   }
-
-  if (counter == 1000)
-  {
-    counter = 0;
-  }
-
-  counter = counter + 1;
+  mqttClient.loop();
 }
