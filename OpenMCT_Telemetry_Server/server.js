@@ -5,9 +5,9 @@
 // var Spacecraft = require('./spacecraft');
 //var TFlex = require('./tflex');
 //var Flutterometer = require('./flutterometer');
- var Dg800 = require('./DG800');
-//var Horyzn = require('./horyzn');
-var RealtimeServer = require('./realtime-server_old');
+var Dg800 = require('./DG800');
+// var Horyzn = require('./horyzn');
+var RealtimeServer = require('./realtime-server');
 var HistoryServer = require('./history-server');
 //var StaticServer = require('./static-server');
 
@@ -38,6 +38,6 @@ var historyServerDG800 = new HistoryServer(dg800);
 
 app.use('/DG800Realtime', realtimeServerDG800);
 app.use('/DG800History', historyServerDG800);
-var port = process.env.PORT || 8100
+var port = process.env.PORT || 16969
 
 app.listen(port)

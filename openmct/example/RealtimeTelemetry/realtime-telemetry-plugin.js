@@ -11,7 +11,7 @@ define([
     function RealtimeTelemetryPlugin(desired_domain_object_type, serverURL, IP) {
         return function (openmct) {
             //var desired_domain_object_type = 'TFLEX.telemetry';
-            var port = 8090;
+            var port = 16969;
             var socket = new WebSocket('ws://' + IP + ':' + port + serverURL);
             var listeners = {};
 

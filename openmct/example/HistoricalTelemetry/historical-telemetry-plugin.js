@@ -14,7 +14,7 @@ define([
 
         return function install(openmct) {
             //var desired_domain_object_type = 'TFLEX.telemetry';
-            var port = 8090;
+            var port = 16969;
             var provider = {
                 supportsRequest: function (domainObject) {
                     return domainObject.type === desired_domain_object_type;
