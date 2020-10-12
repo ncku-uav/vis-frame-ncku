@@ -126,6 +126,11 @@
 		openmct.install(openmct.plugins.DG800Plugin());
 		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('DG800.telemetry', '/DG800History/', 'localhost'));
         openmct.install(openmct.plugins.RealtimeTelemetryPlugin('DG800.telemetry', '/DG800Realtime/', 'localhost'));
+        
+        openmct.install(openmct.plugins.FLUTTERPlugin());
+		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('FLUTTER.telemetry', '/FLUTTERHistory/', 'localhost'));
+        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('FLUTTER.telemetry', '/FLUTTERRealtime/', 'localhost'));
+
 
 		//openmct.install(openmct.plugins.ExampleImagery());
 		//openmct.install(gauge());

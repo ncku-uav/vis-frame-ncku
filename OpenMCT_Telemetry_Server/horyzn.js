@@ -100,7 +100,12 @@ Horyzn.prototype.generateTelemetry = function () {
         var state = { timestamp: timestamp, value: this.state[id], id: id};
         this.notify(state);
         console.log(state);
-        this.history[id].push(state);
+        try{
+            this.history[id].push(state);
+            }
+            catch (e) {
+                console.log(e)
+            }
         //this.state["comms.sent"] += JSON.stringify(state).length;
     }, this);
 };

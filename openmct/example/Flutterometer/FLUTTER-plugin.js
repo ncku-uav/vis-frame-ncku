@@ -7,7 +7,7 @@ define([
 	function FLUTTERPlugin() {
 
 function getMODEDictionary() {
-            return fetch('/example/Flutterometer/MODEdictionary.json').then(function (response){
+            return fetch('/example/Flutterometer/FLUTTERdictionary.json').then(function (response){
                 return response.json();
             });
 
@@ -18,8 +18,8 @@ function getMODEDictionary() {
 var FLUTTER_objectProvider = {
     get: function (identifier) {
         return getMODEDictionary().then(function (dictionary) {
-            console.log("FLUTTER-dictionary-plugin.js: identifier.key = " + identifier.key);
-            if (identifier.key === 'MODE') {
+            //console.log("FLUTTER-dictionary-plugin.js: identifier.key = " + identifier.key);
+            if (identifier.key === 'FLUTTER') {
                 return {
                     identifier: identifier,
                     name: dictionary.name,
@@ -33,11 +33,11 @@ var FLUTTER_objectProvider = {
                 return {
                     identifier: identifier,
                     name: measurement.name,
-                    type: 'MODE.telemetry',
+                    type: 'FLUTTER.telemetry',
                     telemetry: {
                         values: measurement.values
                     },
-                    location: 'FLUTTER.taxonomy:MODE'
+                    location: 'FLUTTER.taxonomy:FLUTTER'
                 };
             }
         });
@@ -71,14 +71,14 @@ var FLUTTER_compositionProvider = {
         // The addRoot function takes an "object identifier" as an argument
         openmct.objects.addRoot({
             namespace: 'FLUTTER.taxonomy',
-            key: 'MODE'
+            key: 'FLUTTER'
         });
 
         openmct.objects.addProvider('FLUTTER.taxonomy', FLUTTER_objectProvider);
         
         openmct.composition.addProvider(FLUTTER_compositionProvider);
     
-        openmct.types.addType('MODE.telemetry', {
+        openmct.types.addType('FLUTTER.telemetry', {
             name: 'MODE Telemetry Point',
             description: 'Modes to identify flutter',
             cssClass: 'icon-telemetry'

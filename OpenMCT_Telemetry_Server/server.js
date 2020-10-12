@@ -4,7 +4,7 @@
 
 // var Spacecraft = require('./spacecraft');
 //var TFlex = require('./tflex');
-//var Flutterometer = require('./flutterometer');
+var Flutterometer = require('./flutterometer');
 var Dg800 = require('./DG800');
 // var Horyzn = require('./horyzn');
 var RealtimeServer = require('./realtime-server');
@@ -19,7 +19,7 @@ expressWs(app);
 
 // var spacecraft = new Spacecraft();
 //var tflex = new TFlex();
-//var flutterometer = new Flutterometer();
+var flutterometer = new Flutterometer();
 var dg800 = new Dg800();
 //var horyzn = new Horyzn();
 // var realtimeServer = new RealtimeServer(spacecraft,8082);
@@ -30,11 +30,17 @@ var dg800 = new Dg800();
 //var realtimeServer = new RealtimeServer(flutterometer,8102);
 //var historyServer = new HistoryServer(flutterometer, 8101);
 
+var realtimeServerFLIPASED = new RealtimeServer(flutterometer);
+var historyServerFLIPASED = new HistoryServer(flutterometer);
+
 var realtimeServerDG800 = new RealtimeServer(dg800);
 var historyServerDG800 = new HistoryServer(dg800);
 
 //var realtimeServer = new RealtimeServer(horyzn,8212);
 //var historyServer = new HistoryServer(horyzn, 8211);
+
+app.use('/FLUTTERRealtime', realtimeServerFLIPASED);
+app.use('/FLUTTERHistory', historyServerFLIPASED);
 
 app.use('/DG800Realtime', realtimeServerDG800);
 app.use('/DG800History', historyServerDG800);

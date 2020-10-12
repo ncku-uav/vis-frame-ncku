@@ -3,15 +3,16 @@
 const dgram = require('dgram');
 const server = dgram.createSocket('udp4');
 
-server.bind(50011);
+server.bind(50013);
 
 
 function Flutterometer() {
     this.numberIds = 20;
+    this.idString = 0;
     this.state = {}
     this.timestamp = Date.now();
     
-    for (var i = 1; i <= this.numberIds; ++i){
+    for (var i = 0; i <= this.numberIds; ++i){
         this.state[`id${i}.Time`] = Date.now();
         this.state[`id${i}.Freq`] = 0;
         this.state[`id${i}.Damp`] = 0;
@@ -33,19 +34,29 @@ function Flutterometer() {
     this.count = 0
     server.on('message', (msg, rinfo) => {
         this.data = `${msg}`.split(',');
+		console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`)
+        
+        if(this.data[0] != 'nan') {
+        
+        this.idString = "id" + Math.round(this.data[0]).toString();
+        console.log(this.idString)
+        this.state[this.idString + ".Freq"] = this.data[1];
+        this.state[this.idString + ".Damp"] = this.data[2];
+        this.state[this.idString + ".Time"] = this.data[3];
 
         
 		//console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`)
         //console.log(`server got: ${this.data[8]} from ${rinfo.address}:${rinfo.port}`)
-        this.count = 0;
-        for (var i = 1; i <= this.numberIds; ++i){
-            this.state[`id${i}.Time`] = this.data[this.count];
-            this.state[`id${i}.Freq`] = this.data[this.count+1];
-            this.state[`id${i}.Damp`] = this.data[this.count+2];
-            this.count = this.count + 4;
+        // this.count = 0;
+        // for (var i = 1; i <= this.numberIds; ++i){
+        //     this.state[`id${i}.Time`] = this.data[this.count];
+        //     this.state[`id${i}.Freq`] = this.data[this.count+1];
+        //     this.state[`id${i}.Damp`] = this.data[this.count+2];
+        //     this.count = this.count + 4;
 
-            //console.log(this.state[`id${i}.Time`])
+        console.log(this.state[this.idString +".Time"])
             
+        // }
         }
 
     });
@@ -68,15 +79,21 @@ Flutterometer.prototype.generateTelemetry = function () {
         if (id.slice(4,8) === 'Time'){
 			// Actual Timestamp from received data
             this.timestamp = Math.round(this.state[id]*1000);
+            console.log(this.timestamp)
 			// Artificial timestamp
-            //this.timestamp= Date.now();
+            // this.timestamp= Date.now();
         }
         //console.log(timestamp);
         var state = { timestamp: this.timestamp, value: this.state[id], id: id};
         this.notify(state);
+        try{
         this.history[id].push(state);
+        }
+        catch (e) {
+            console.log(e)
+        }
         //this.state["comms.sent"] += JSON.stringify(state).length;
-        console.log(state);
+        //console.log(state);
         
     }, this);
     
