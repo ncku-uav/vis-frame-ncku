@@ -1,5 +1,5 @@
 
-
+//const ntpsync = require('ntpsync');
 const dgram = require('dgram');
 const server = dgram.createSocket('udp4');
 
@@ -63,7 +63,13 @@ function Dg800() {
 
     };
 
-
+	// ntpsync.ntpLocalClockDeltaPromise().then((iNTPData) => {
+	// 	console.log(`(Local Time - NTP Time) Delta = ${iNTPData.minimalNTPLatencyDelta} ms`);
+	// 	console.log(`Minimal Ping Latency was ${iNTPData.minimalNTPLatency} ms`);
+	// 	console.log(`Total ${iNTPData.totalSampleCount} successful NTP Pings`);
+	// }).catch((err) => {
+	// 	console.log(err);
+	// });
 
 
     //console.log(this.state['id3.Time'])
@@ -78,14 +84,15 @@ function Dg800() {
 	//Initialize Interval for Notifiing OpenMCT about new Telemetry
     setInterval(function () {
         this.generateTelemetry();
-    }.bind(this), 100); //z.B. 100ms
+    }.bind(this), 50); //z.B. 100ms
 
     this.count = 0
 	this.initGPSheight = 0;
 	//what to do, when a message from the UDP Port arrives
     server.on('message', (msg, rinfo) => {
 		//parse the data
-        this.data = `${msg}`.split(',');
+		this.data = `${msg}`.split(',');
+		
 
 		
 		//console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`)
@@ -94,9 +101,12 @@ function Dg800() {
 		//Save the data to the state array
 		this.state[this.data[0]] = this.data[1];
 		this.state['Time.stamp'] = Math.round(this.data[2]*1000); //convert python timestamp[s] to JS timestamp [ms]
-		// console.log(Date.now()-this.state['Time.stamp']) //check lag
-		//console.log(this.state['Time.stamp']) //check lag
-		
+		//var start = Date.now();
+		//console.log(Date.now()-this.state['Time.stamp']) //check lag
+		//console.log(this.state['Time.stamp']) //check Timestamp
+		console.log(this.data[1]) //check paylaod
+		//var end = Date.now();
+		//console.log(`time to plot: ${end-start}`);
 		//CALCULATIONS
 
 			// change gps from mm to m

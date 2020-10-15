@@ -263,6 +263,9 @@ function Gauge() {
     function LatencyView (domain) {
         var container = null;
         this.container = container;
+        var counter = 0;
+        var latency = 0;
+
 
         var min_value = domain["value.min"] || 0;
         if (typeof(min_value) === "string") {
@@ -278,6 +281,7 @@ function Gauge() {
         }
 
         function makeGauge(name) {
+
             var gauge = document.createElement("div");
             gauge.style.display = "inline-block";
             gauge.style.position = "relative";
@@ -363,9 +367,12 @@ function Gauge() {
                     title.innerText = text;
                 },
                 setValue(value) {
-                    var latency = Date.now()-value; //difference between timestamp and printing time
-                    console.log(`date: ${Date.now()}`)
-                    console.log(`value: ${value}`)
+                    latency = latency + Date.now()-value;
+                    if (counter === 10){
+                    latency = latency/10;
+                    //difference between timestamp and printing time
+                    // console.log(`date: ${Date.now()}`)
+                    // console.log(`value: ${value}`)
                     console.log(`latency: ${latency}`)
                     valuebox.innerText = Math.round((latency + Number.EPSILON) * 100) / 100;
 
@@ -377,6 +384,12 @@ function Gauge() {
                     }
                     
                     redraw(percentage);
+
+                    counter=0;
+                    latency=0;
+                }
+                counter = counter + 1;
+                console.log(counter)
                 }
             }
         }

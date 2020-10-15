@@ -1,5 +1,6 @@
 import socket
 import time
+import ntplib
 
 
 import paho.mqtt.client as mqtt
@@ -68,10 +69,14 @@ try:
 except:
     print('Initial message failed!')
 
+ntp_client = ntplib.NTPClient()
+
 while True:
 
     for i in range(len(topics)):
         #print(i)
+        #response = ntp_client.request('pool.ntp.org')
+        #timeStamp = response.tx_time
         timeStamp = time.time()
         MESSAGE = "{},{},{}".format(topics[i],data+i,timeStamp)
         # Pumping out the values
