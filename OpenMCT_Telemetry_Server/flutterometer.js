@@ -79,7 +79,7 @@ Flutterometer.prototype.generateTelemetry = function () {
         if (id.slice(4,8) === 'Time'){
 			// Actual Timestamp from received data
             this.timestamp = Math.round(this.state[id]*1000);
-            console.log(this.timestamp)
+            //console.log(this.timestamp)
 			// Artificial timestamp
             // this.timestamp= Date.now();
         }

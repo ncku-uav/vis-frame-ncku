@@ -26,7 +26,7 @@
                 }
             ]
         },
-  
+
         {
             "name": "GPS Longitude",
             "key": "data.gps.lon",
@@ -176,7 +176,7 @@
                 }
             ]
         },
-		
+
         {
             "name": "GPS fix Type",
             "key": "data.gps.fixType",
@@ -201,7 +201,7 @@
                 }
             ]
         },
-		
+
 
         {
             "name": "Fuel Mass Flow V",
@@ -227,7 +227,7 @@
                 }
             ]
         },
-		
+
 		        {
             "name": "Fuel Mass Flow Vdot",
             "key": "data.nano.vdot",
@@ -252,7 +252,7 @@
                 }
             ]
         },
-		
+
 		        {
             "name": "PPM Throttle",
             "key": "data.nano.ch1",
@@ -277,7 +277,7 @@
                 }
             ]
         },
-		
+
 		        {
             "name": "PPM Aileron 1",
             "key": "data.nano.ch2",
@@ -302,7 +302,7 @@
                 }
             ]
         },
-		
+
 				        {
             "name": "PPM Flap 1",
             "key": "data.nano.ch3",
@@ -327,7 +327,7 @@
                 }
             ]
         },
-		
+
 				        {
             "name": "PPM Flap 2",
             "key": "data.nano.ch4",
@@ -352,7 +352,7 @@
                 }
             ]
         },
-		
+
 		        {
             "name": "Aileron 2",
             "key": "data.nano.ch5",
@@ -377,7 +377,7 @@
                 }
             ]
         },
-		
+
 		{
             "name": "Elevator",
             "key": "data.nano.ch6",
@@ -402,7 +402,7 @@
                 }
             ]
         },
-		
+
 		{
             "name": "Rudder",
             "key": "data.nano.ch7",
@@ -427,7 +427,7 @@
                 }
             ]
         },
-		
+
 		{
             "name": "Killswitch",
             "key": "data.nano.ch8",
@@ -452,7 +452,7 @@
                 }
             ]
         },
-		
+
 		{
             "name": "Spoiler 1",
             "key": "data.nano.ch9",
@@ -477,7 +477,7 @@
                 }
             ]
         },
-		
+
 		{
             "name": "Spoiler 2",
             "key": "data.nano.ch10",
@@ -502,7 +502,7 @@
                 }
             ]
         },
-		
+
 		{
             "name": "Gear",
             "key": "data.nano.ch11",
@@ -527,7 +527,7 @@
                 }
             ]
         },
-		
+
 		{
             "name": "Nano Ch12",
             "key": "data.nano.ch12",
@@ -552,7 +552,7 @@
                 }
             ]
         },
-		
+
 		{
             "name": "Nano Ch13",
             "key": "data.nano.ch13",
@@ -577,8 +577,8 @@
                 }
             ]
         },
-		
-		
+
+
 				        {
             "name": "Strapdown Roll",
             "key": "data.strap.roll",
@@ -628,7 +628,7 @@
                 }
             ]
         },
-		
+
 								        {
             "name": "Strapdown Yaw",
             "key": "data.strap.yaw",
@@ -653,7 +653,7 @@
                 }
             ]
         },
-		
+
 										        {
             "name": "THR Force 1",
             "key": "data.thr.force1",
@@ -678,8 +678,8 @@
                 }
             ]
         },
-		
-		
+
+
         {
             "name": "THR Force 2",
             "key": "data.thr.force2",
@@ -704,7 +704,7 @@
                 }
             ]
         },
-		
+
 		{
             "name": "THR Temperature 1",
             "key": "data.thr.temp1",
@@ -729,7 +729,7 @@
                 }
             ]
         },
-		
+
 		{
             "name": "THR Temperature 2",
             "key": "data.thr.temp2",
@@ -754,7 +754,7 @@
                 }
             ]
         },
-		
+
 		{
             "name": "IMU Acceleration X",
             "key": "data.imu.AccX",
@@ -779,7 +779,7 @@
                 }
             ]
         },
-		
+
 				{
             "name": "IMU Acceleration Y",
             "key": "data.imu.AccY",
@@ -804,7 +804,7 @@
                 }
             ]
         },
-		
+
 				{
             "name": "IMU Acceleration Z",
             "key": "data.imu.AccZ",
@@ -829,7 +829,7 @@
                 }
             ]
         },
-		
+
 				{
             "name": "IMU Gyro X",
             "key": "data.imu.GyroX",
@@ -854,7 +854,7 @@
                 }
             ]
         },
-		
+
 		{
             "name": "IMU Gyro Y",
             "key": "data.imu.GyroY",
@@ -879,7 +879,7 @@
                 }
             ]
         },
-		
+
 		{
             "name": "IMU Gyro Z",
             "key": "data.imu.GyroZ",
@@ -904,7 +904,7 @@
                 }
             ]
         },
-		
+
 		{
             "name": "ADP Pstat",
             "key": "data.adp.pstat",
@@ -929,7 +929,7 @@
                 }
             ]
         },
-		
+
 		{
             "name": "ADP Pdyn",
             "key": "data.adp.pdyn",
@@ -954,7 +954,7 @@
                 }
             ]
         },
-		
+
 		{
             "name": "Airspeed",
             "key": "data.adp.AirSpeed",
@@ -978,16 +978,41 @@
                     }
                 }
             ]
-        }
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+        },
+
+        {
+                "name": "Timestamp",
+                "key": "Time.stamp",
+                "values": [
+                    {
+                        "key": "value",
+                        "name": "Value",
+                        "units": "ms",
+                        "format": "float",
+                        "hints": {
+                            "range": 1
+                        }
+                    },
+                    {
+                        "key": "utc",
+                        "source": "timestamp",
+                        "name": "Timestamp",
+                        "format": "utc",
+                        "hints": {
+                            "domain": 1
+                        }
+                    }
+                ]
+            }
+
+
+
+
+
+
+
+
+
+
     ]
 }

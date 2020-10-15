@@ -20,7 +20,7 @@ topics = [
         "data.gps.headingMotion" ,
         "data.gps.headingVehicle" ,
 		"data.gps.fixType" ,
-        
+
         "data.nano.vdot" ,
         "data.nano.v" ,
 		"data.nano.ch1" ,
@@ -36,23 +36,23 @@ topics = [
 		"data.nano.ch11" ,
 		"data.nano.ch12" ,
 		"data.nano.ch13" ,
-        
+
         "data.strap.roll",
         "data.strap.pitch" ,
         "data.strap.yaw" ,
-        
+
         "data.thr.force1" ,
         "data.thr.force2" ,
 		"data.thr.temp1" ,
 		"data.thr.temp2" ,
-		
+
 		"data.imu.AccX" ,
 		"data.imu.AccY" ,
 		"data.imu.AccZ" ,
 		"data.imu.GyroX" ,
 		"data.imu.GyroY" ,
 		"data.imu.GyroZ" ,
-		
+
 		"data.adp.pstat" ,
 		"data.adp.pdyn" ,
 		"data.adp.AirSpeed"
@@ -67,30 +67,28 @@ try:
     sock.sendto(MESSAGE.encode(), (UDP_IP, UDP_PORT))
 except:
     print('Initial message failed!')
-    
+
 while True:
-    
+
     for i in range(len(topics)):
         #print(i)
         timeStamp = time.time()
         MESSAGE = "{},{},{}".format(topics[i],data+i,timeStamp)
         # Pumping out the values
         sock.sendto(MESSAGE.encode(), (UDP_IP, UDP_PORT))
-        #print your message for validation and wait for the next loop 
+        #print your message for validation and wait for the next loop
         #print(MESSAGE)
-        #print('\n') 
-    
+        #print('\n')
+
     if data < 2000:
         data = data + 1
     else:
         data = 0
     print(data)
-      
-        
-    
+
+
+
     # Message for OpenMCT must be the same structure as on the receiving side (telemetrysource)
-    # especially timestamp needs to be at the same position  
+    # especially timestamp needs to be at the same position
     # for simulation of DG800 Bandwith, 40 Values at ca. 10Hz -> 400Hz
-    time.sleep(0.050)
-
-
+    time.sleep(0.0020) #considering time needed by python script
