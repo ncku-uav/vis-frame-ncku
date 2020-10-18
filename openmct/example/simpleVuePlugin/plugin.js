@@ -1,14 +1,8 @@
-//import Vue from 'vue';
-//import HelloWorld from './HelloWorld.vue';
-
-define(['vue', './HelloWorld.vue'],//, './Gauge.vue'], //'gauge',
-
-function (Vue, HelloWorld){ //,  GaugeComponent) { //Gauge,
-
+import Vue from 'Vue';
+import HelloWorld from './HelloWorld.vue';
 
 function SimpleVuePlugin() {
     return function install(openmct) {
-    
         openmct.types.addType('hello-world', {
             name: 'Hello World',
             description: 'An introduction object',
@@ -23,16 +17,10 @@ function SimpleVuePlugin() {
             },
             view: function (domainObject) {
                 var vm;
-                var gaugetemplate = require('./HelloWorld.vue').default; //or HelloWorld or ToDoApp
-                //var VueSpeedometer = require('vue-speedometer');
-                //Vue.component(VueSpeedometer)
 
                 return {
                     show: function (container) {
-                        //vm = new Vue(HelloWorld.default);
-                        vm = new Vue(gaugetemplate)
-                        
-                        
+                        vm = new Vue(HelloWorld);
                         container.appendChild(vm.$mount().$el);
                     },
                     destroy: function (container) {
@@ -43,9 +31,6 @@ function SimpleVuePlugin() {
         });
 
     };
-    
 }
-return SimpleVuePlugin;
 
-
-});
+export default SimpleVuePlugin;

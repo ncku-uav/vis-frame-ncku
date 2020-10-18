@@ -70,6 +70,10 @@ const webpackConfig = {
                 to: 'favicons'
             },
             {
+                from: 'example',
+                to: 'example'
+            },  
+            {
                 from: './index.html',
                 transform: function (content) {
                     return content.toString().replace(/dist\//g, '');

@@ -5,17 +5,20 @@ import os
 telemetry_object_name = 'Aircraft_42'
 number_of_telemetry_points = 5
 
-generate_Dictionary = False
-generate_OpenMCT_object = False
+generate_Dictionary = True
+generate_OpenMCT_object = True
 generate_server_object = True
 
 
 
 ## generate Telemetry Dictionary (metadata for the Telemetry)
 if generate_Dictionary:
-    #
+
+    #Initialisation
     new_telemetry_disctionary = {"name": telemetry_object_name, "key": "pl", "measurements": []}
     os.mkdir('../../openmct/example/'+telemetry_object_name)
+
+    # Open Example and save a modified copy
     with open('Example_Telemetry_Object/EXAMPLEdictionary.json') as dictionary_example:
         data = json.load(dictionary_example)
         for i in range(number_of_telemetry_points):
@@ -25,35 +28,46 @@ if generate_Dictionary:
             new_telemetry_disctionary['measurements'].append(copy)
             #print(new_telemetry_disctionary['measurements'][0]['name']+ ' Entry Created!')
 
+    # Save modified copy to the right Folder
     with open('../../openmct/example/'+telemetry_object_name+'/'+telemetry_object_name+'dictionary'+'.json', 'w') as outfile:
         json.dump(new_telemetry_disctionary, outfile, indent=4)
 
 
+
 ## generate Telemetry Object for OpenMCT
 if generate_OpenMCT_object:
+
+    #Initialisation
     new_telemetry_object = ''
+
+    # Open Example and save a modified copy
     with open('Example_Telemetry_Object/EXAMPLE-plugin.js') as object_example:
         data = object_example.read()
         new_telemetry_object = data.replace('EXAMPLE', telemetry_object_name)
 
+    # Save modified copy to the right Folder
     with open('../../openmct/example/'+telemetry_object_name+'/'+telemetry_object_name+'-plugin'+'.js', 'w') as outfile:
         outfile.write(new_telemetry_object)
 
+
+
 ## generate Telemetry Server Object
 if generate_server_object:
+
+    #Initialisation
     new_server_object = ''
     key = {"key.0": 0}
-    for i in range(number_of_telemetry_points):
+    for i in range(number_of_telemetry_points): #generate consistent keys for the server object
         key['key.'+str(i)] = 0
-    print(str(key))
+    
+    # Open Example and save a modified copy
     with open('Example_Telemetry_Object/Example-TelemetryServerObject.js') as object_example:
         data = object_example.read()
         new_server_object = data.replace('Example', telemetry_object_name)
         keyPosition = new_server_object.find('key')
-
         new_server_object = new_server_object[0:keyPosition-2]+str(key)+new_server_object[keyPosition+10:]
         
-
+    # Save modified copy to the right Folder
     with open('../../OpenMCT_Telemetry_Server/'+telemetry_object_name+'.js', 'w') as outfile:
         outfile.write(new_server_object)
 

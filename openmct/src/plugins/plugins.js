@@ -58,6 +58,7 @@ define([
     './newFolderAction/plugin',
     './persistence/couch/plugin',
     './defaultRootName/plugin',
+    './timeline/plugin',
     '../../example/FLEXOP/FLEXOP-plugin',
     '../../example/HistoricalTelemetry/historical-telemetry-plugin',
     '../../example/RealtimeTelemetry/realtime-telemetry-plugin',
@@ -105,6 +106,7 @@ define([
     NewFolderAction,
     CouchDBPlugin,
     DefaultRootName,
+    Timeline,
     FLEXOPPlugin,
     HistoricalTelemetryPlugin,
     RealtimeTelemetryPlugin,
@@ -206,23 +208,17 @@ define([
     plugins.NewFolderAction = NewFolderAction.default;
     plugins.ISOTimeFormat = ISOTimeFormat.default;
     plugins.DefaultRootName = DefaultRootName.default;
-    
-    plugins.FLEXOPPlugin = FLEXOPPlugin;
-	//plugins.exports = exports;
-	
-    plugins.HistoricalTelemetryPlugin = HistoricalTelemetryPlugin;
-    plugins.RealtimeTelemetryPlugin = RealtimeTelemetryPlugin;
-	
-	plugins.FLUTTERPlugin = FLUTTERPlugin;
-	
-	plugins.DG800Plugin = DG800Plugin;
+    plugins.Timeline = Timeline.default;
 
-	plugins.HoryznPlugin = HoryznPlugin;
-	
-	plugins.Aircraft_42Plugin = Aircraft_42Plugin;
-	
-	//plugins.SimpleVuePlugin = SimpleVuePlugin;
-	
+    plugins.FLEXOPPlugin = FLEXOPPlugin;
+	//plugins.exports = exports;	
+    plugins.HistoricalTelemetryPlugin = HistoricalTelemetryPlugin;
+    plugins.RealtimeTelemetryPlugin = RealtimeTelemetryPlugin;	
+	plugins.FLUTTERPlugin = FLUTTERPlugin;	
+	plugins.DG800Plugin = DG800Plugin;
+	plugins.HoryznPlugin = HoryznPlugin;	
+	plugins.Aircraft_42Plugin = Aircraft_42Plugin;	
+	//plugins.SimpleVuePlugin = SimpleVuePlugin;	
 	plugins.Gauge = Gauge;
 
     return plugins;
