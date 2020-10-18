@@ -1,6 +1,6 @@
 import socket
 import time
-import ntplib
+#import ntplib
 
 
 import paho.mqtt.client as mqtt
@@ -69,7 +69,7 @@ try:
 except:
     print('Initial message failed!')
 
-ntp_client = ntplib.NTPClient()
+#ntp_client = ntplib.NTPClient()
 
 while True:
 
