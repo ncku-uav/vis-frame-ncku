@@ -45,7 +45,7 @@
         );
 
         openmct.install(openmct.plugins.LocalStorage());
-        openmct.install(openmct.plugins.Espresso());
+        openmct.install(openmct.plugins.STFEstyling());
         openmct.install(openmct.plugins.MyItems());
         openmct.install(openmct.plugins.Generator());
         openmct.install(openmct.plugins.ExampleImagery());
@@ -59,7 +59,7 @@
         }));
         openmct.install(openmct.plugins.Conductor({
             menuOptions: [
-            {
+                {
                     name: "Realtime",
                     timeSystem: 'utc',
                     clock: 'local',
@@ -124,6 +124,7 @@
 		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('TFLEX.telemetry', '/FLEXOPHistory/', 'localhost'));
         openmct.install(openmct.plugins.RealtimeTelemetryPlugin('TFLEX.telemetry', '/FLEXOPRealtime/', 'localhost'));
 
+3
         //openmct.install(openmct.plugins.HoryznPlugin());
 		//openmct.install(openmct.plugins.HistoricalTelemetryPlugin('Horyzn.telemetry', '/HoryznHistory/', 'localhost'));
         //openmct.install(openmct.plugins.RealtimeTelemetryPlugin('Horyzn.telemetry', '/HoryznRealtime/', 'localhost'));
@@ -139,12 +140,14 @@
 		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('Aircraft_42.telemetry', '/Aircraft_42History/', 'localhost'));
         openmct.install(openmct.plugins.RealtimeTelemetryPlugin('Aircraft_42.telemetry', '/Aircraft_42Realtime/', 'localhost'));
 
+        //openmct.install(openmct.plugins.HistoricalTelemetryPlugin('DG800.telemetry', '/HistoryReader/', 'localhost' ));
 
 		//openmct.install(openmct.plugins.ExampleImagery());
 		//openmct.install(gauge());
 		openmct.install(openmct.plugins.Gauge());
-		//openmct.install(openmct.plugins.SimpleVuePlugin());
-		
+        //openmct.install(openmct.plugins.SimpleVuePlugin());
+        openmct.install(openmct.plugins.ButtonPlugin());
+        
         openmct.start();
     </script>
 </html>

@@ -136,6 +136,7 @@
                     "name": "Value",
                     "units": "deg",
                     "format": "float",
+                    "max" : 1000,
                     "hints": {
                         "range": 1
                     }
@@ -588,6 +589,7 @@
                     "name": "Value",
                     "units": "deg",
                     "format": "float",
+                    "max" : 1000,
                     "hints": {
                         "range": 1
                     }

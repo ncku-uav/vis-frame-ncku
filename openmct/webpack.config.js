@@ -24,7 +24,8 @@ const webpackConfig = {
         openmct: './openmct.js',
         espressoTheme: './src/plugins/themes/espresso-theme.scss',
         snowTheme: './src/plugins/themes/snow-theme.scss',
-        maelstromTheme: './src/plugins/themes/maelstrom-theme.scss'
+        maelstromTheme: './src/plugins/themes/maelstrom-theme.scss',
+        stfeTheme: './example/STFEstyling/stfe-theme.scss'
     },
     output: {
         filename: '[name].js',
@@ -70,9 +71,10 @@ const webpackConfig = {
                 to: 'favicons'
             },
             {
-                from: 'example',
-                to: 'example'
-            },  
+				from: 'example',
+				to: 'example'
+			},
+
             {
                 from: './index.html',
                 transform: function (content) {
