@@ -59,7 +59,7 @@
         }));
         openmct.install(openmct.plugins.Conductor({
             menuOptions: [
-            {
+                {
                     name: "Realtime",
                     timeSystem: 'utc',
                     clock: 'local',
@@ -119,7 +119,7 @@
             ['table', 'telemetry.plot.overlay', 'telemetry.plot.stacked'],
             {indicator: true}
         ));
-
+        
         //openmct.install(openmct.plugins.HoryznPlugin());
 		//openmct.install(openmct.plugins.HistoricalTelemetryPlugin('Horyzn.telemetry', '/HoryznHistory/', 'localhost'));
         //openmct.install(openmct.plugins.RealtimeTelemetryPlugin('Horyzn.telemetry', '/HoryznRealtime/', 'localhost'));
@@ -142,7 +142,7 @@
 		openmct.install(openmct.plugins.Gauge());
         //openmct.install(openmct.plugins.SimpleVuePlugin());
         openmct.install(openmct.plugins.ButtonPlugin());
-		
+        
         openmct.start();
     </script>
 </html>
