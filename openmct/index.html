@@ -120,6 +120,10 @@
             {indicator: true}
         ));
 
+        openmct.install(openmct.plugins.FLEXOPPlugin());
+		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('TFLEX.telemetry', '/FLEXOPHistory/', 'localhost'));
+        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('TFLEX.telemetry', '/FLEXOPRealtime/', 'localhost'));
+
         //openmct.install(openmct.plugins.HoryznPlugin());
 		//openmct.install(openmct.plugins.HistoricalTelemetryPlugin('Horyzn.telemetry', '/HoryznHistory/', 'localhost'));
         //openmct.install(openmct.plugins.RealtimeTelemetryPlugin('Horyzn.telemetry', '/HoryznRealtime/', 'localhost'));

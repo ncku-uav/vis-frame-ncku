@@ -2,39 +2,15 @@
     "name": "TFLEX",
     "key": "pl",
     "measurements": [
+        
         {
-            "name": "Sent",
-            "key": "comms.sent",
+            "name": "RX MUX 1 Battery",
+            "key": "Bat.RX_MUX1",
             "values": [
                 {
                     "key": "value",
-                    "name": "Value",
-                    "units": "bytes",
-                    "format": "integer",
-                    "hints": {
-                        "range": 1
-                    }
-                },
-                {
-                    "key": "utc",
-                    "source": "timestamp",
-                    "name": "Timestamp",
-                    "format": "utc",
-                    "hints": {
-                        "domain": 1
-                    }
-                }
-            ]
-        },
-  
-        {
-            "name": "Check Number",
-            "key": "Check.no",
-            "values": [
-                {
-                    "key": "value",
-                    "name": "Value",
-                    "units": "-",
+                    "name": "Volts",
+                    "units": "V",
                     "format": "float",
                     "hints": {
                         "range": 1
@@ -53,13 +29,13 @@
         },
 
         {
-            "name": "Altitude",
-            "key": "GPS.alt",
+            "name": "RX MUX 2 Battery",
+            "key": "Bat.RX_MUX2",
             "values": [
                 {
                     "key": "value",
-                    "name": "Value",
-                    "units": "meters",
+                    "name": "Volts",
+                    "units": "V",
                     "format": "float",
                     "hints": {
                         "range": 1
@@ -78,13 +54,13 @@
         },
 
         {
-            "name": "Speed",
-            "key": "GPS.speed",
+            "name": "RX MUX 3 Battery",
+            "key": "Bat.RX_MUX3",
             "values": [
                 {
                     "key": "value",
-                    "name": "Value",
-                    "units": "meters/second",
+                    "name": "Volts",
+                    "units": "V",
                     "format": "float",
                     "hints": {
                         "range": 1
@@ -103,13 +79,13 @@
         },
 
         {
-            "name": "Pitch",
-            "key": "Att.pitch",
+            "name": "Battery Flight Head",
+            "key": "Bat.FlightHead",
             "values": [
                 {
                     "key": "value",
-                    "name": "Value",
-                    "units": "deg",
+                    "name": "Volts",
+                    "units": "V",
                     "format": "float",
                     "hints": {
                         "range": 1
@@ -128,88 +104,13 @@
         },
 
         {
-            "name": "Acc x-direction",
-            "key": "ACC.x",
+            "name": "Error",
+            "key": "err.Flag",
             "values": [
                 {
                     "key": "value",
-                    "name": "Value",
-                    "units": "g",
-                    "format": "float",
-                    "hints": {
-                        "range": 1
-                    }
-                },
-                {
-                    "key": "utc",
-                    "source": "timestamp",
-                    "name": "Timestamp",
-                    "format": "utc",
-                    "hints": {
-                        "domain": 1
-                    }
-                }
-            ]
-        },
-
-        {
-            "name": "Acc y-direction",
-            "key": "ACC.y",
-            "values": [
-                {
-                    "key": "value",
-                    "name": "Value",
-                    "units": "g",
-                    "format": "float",
-                    "hints": {
-                        "range": 1
-                    }
-                },
-                {
-                    "key": "utc",
-                    "source": "timestamp",
-                    "name": "Timestamp",
-                    "format": "utc",
-                    "hints": {
-                        "domain": 1
-                    }
-                }
-            ]
-        },
-
-        {
-            "name": "Acc z-direction",
-            "key": "ACC.z",
-            "values": [
-                {
-                    "key": "value",
-                    "name": "Value",
-                    "units": "g",
-                    "format": "float",
-                    "hints": {
-                        "range": 1
-                    }
-                },
-                {
-                    "key": "utc",
-                    "source": "timestamp",
-                    "name": "Timestamp",
-                    "format": "utc",
-                    "hints": {
-                        "domain": 1
-                    }
-                }
-            ]
-        },
-
-        {
-            "name": "Roll",
-            "key": "Att.roll",
-            "values": [
-                {
-                    "key": "value",
-                    "name": "Value",
-                    "units": "deg",
+                    "name": "Volts",
+                    "units": "V",
                     "format": "float",
                     "hints": {
                         "range": 1
