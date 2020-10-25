@@ -22,6 +22,13 @@ function HistoryServer(telemetrySource) {
         }, []);
         res.status(200).json(response).end();
     });
+    server.post('/command/*', function (req,res) {
+        var commands = req.params[0]
+        console.log('Command received!')
+        //console.log(commands)
+        telemetrySource.command(req.params[0])
+        res.status(200).end()
+    })
     return server;
     //server.listen(port);
     //console.log('History server now running at http://localhost:' + port);

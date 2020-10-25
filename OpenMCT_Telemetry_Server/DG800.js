@@ -2,6 +2,7 @@
 //const ntpsync = require('ntpsync');
 const dgram = require('dgram');
 const server = dgram.createSocket('udp4');
+const fs = require('fs');
 
 server.bind(50012);
 
@@ -209,6 +210,29 @@ Dg800.prototype.listen = function (listener) {
             return l !== listener;
         });
     }.bind(this);
+};
+
+Dg800.prototype.command = function (command) {
+	if(command === ':startLog'){
+
+		var date = new Date();
+		var year = date.getFullYear();
+		var month = date.getMonth() + 1;      // "+ 1" becouse the 1st month is 0
+		var day = date.getDate();
+		var hour = date.getHours();
+		var minutes = date.getMinutes();
+		var secconds = date.getSeconds();
+		var seedatetime = year+ '-'+ month+ '-'+ day+ ' '+ hour+ ':'+ minutes+ ':'+ secconds;
+		
+		const write = JSON.stringify(this.history)
+		fs.writeFile('saved_logs/DG800_'+seedatetime+'.json', write, (err) => {
+			if (err) {
+				throw err;
+			}
+		console.log("History saved!")
+		});
+	}
+	
 };
 
 module.exports = function () {

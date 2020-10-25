@@ -11,6 +11,7 @@ var Aircraft_42 = require('./Aircraft_42');
 var RealtimeServer = require('./realtime-server');
 var HistoryServer = require('./history-server');
 //var StaticServer = require('./static-server');
+var HistoryReader = require('./history_reader');
 
 var expressWs = require('express-ws');
 var app = require('express')();
@@ -31,6 +32,7 @@ var aircraft_42 = new Aircraft_42();
 //var historyServer = new HistoryServer(tflex, 8091);
 //var realtimeServer = new RealtimeServer(flutterometer,8102);
 //var historyServer = new HistoryServer(flutterometer, 8101);
+//var historyReader = new HistoryReader;
 
 var realtimeServerFLIPASED = new RealtimeServer(flutterometer);
 var historyServerFLIPASED = new HistoryServer(flutterometer);
@@ -40,6 +42,8 @@ var historyServerDG800 = new HistoryServer(dg800);
 
 var realtimeServerAircraft_42 = new RealtimeServer(aircraft_42);
 var historyServerAircraft_42 = new HistoryServer(aircraft_42);
+
+//var historyServerReader = new HistoryServer(historyReader);
 
 
 
@@ -51,6 +55,8 @@ app.use('/DG800History', historyServerDG800);
 
 app.use('/Aircraft_42Realtime', realtimeServerAircraft_42);
 app.use('/Aircraft_42History', historyServerAircraft_42);
+
+//app.use('/HistoryReader', historyServerReader);
 
 var port = process.env.PORT || 16969
 app.listen(port)

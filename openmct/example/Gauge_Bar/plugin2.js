@@ -35,9 +35,12 @@ function Gauge() {
             row.style.width = "100%";
             var head = document.createElement("td");
             head.innerText = name;
+            head.style.fontsize = "14px";
+            head.style.color = "#34B6F7";
             row.appendChild(head);
             
             var box = document.createElement("td");
+            box.colSpan = "2";
             row.appendChild(box);
 
             var bar = createProgressBar();
@@ -57,11 +60,15 @@ function Gauge() {
             bar.style.width = "100%";
             bar.style.height = "30px";
             bar.classList.add("plot-display-area");
+            
 
             var percentage = document.createElement("div");
             bar.appendChild(percentage);
             percentage.classList.add("c-button");
-            percentage.classList.add("c-button--major");
+            //percentage.classList.add("c-button--major");
+            percentage.style.background = "#E0E0E0";
+            percentage.style.fontsize = "14px";
+            percentage.style.color = "#000000";
             percentage.style.width = "0%";
             percentage.style.height = "100%";
             percentage.style.padding = "0";
@@ -337,6 +344,7 @@ function Gauge() {
             var title = document.createElement("td");
             title.innerText = name;
             title.style.textAlign = "center";
+            title.style.color = "#34B6F7";
             row.appendChild(title);
 
             var max = document.createElement("td");
@@ -492,13 +500,13 @@ function Gauge() {
                 context.font = '24px verdana';
                 context.textAlign = 'center';
                 context.textBaseline = 'middle';
-                context.fillStyle = "gray";
+                context.fillStyle = "#010101";
                 context.clearRect(0,0, canvas.width, canvas.height);
 
                 // Draw full outline
                 context.beginPath();
                 context.arc(centre.x, centre.y, radius, Math.PI, 0, false), 
-                context.strokeStyle='lightgray';
+                context.strokeStyle='#202020';
                 context.lineWidth=outerLineThickness;
                 context.stroke();
 
@@ -506,7 +514,7 @@ function Gauge() {
                 if (percent > 0) {
                     context.beginPath();
                     context.arc(centre.x, centre.y, radius, Math.PI, (-Math.PI) * (1 - percent), false), 
-                    context.strokeStyle='red';
+                    context.strokeStyle='white';
                     context.lineWidth=innerLineThickness;
                     context.stroke();
                 }
@@ -524,6 +532,7 @@ function Gauge() {
             var title = document.createElement("td");
             title.innerText = name;
             title.style.textAlign = "center";
+            title.style.color = "#34B6F7";
             row.appendChild(title);
 
             var max = document.createElement("td");
