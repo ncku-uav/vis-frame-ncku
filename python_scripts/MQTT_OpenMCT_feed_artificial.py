@@ -70,6 +70,9 @@ except:
     print('Initial message failed!')
 
 #ntp_client = ntplib.NTPClient()
+lon = 11.273738
+lat = 48.069299
+hdg = 0
 
 while True:
 
@@ -77,6 +80,37 @@ while True:
         #print(i)
         #response = ntp_client.request('pool.ntp.org')
         #timeStamp = response.tx_time
+        
+        
+        
+        if topics[i]=="data.gps.lon":
+            if lon >= 11.296338:
+                lon = 11.273738
+            timeStamp = time.time()
+            MESSAGE = "{},{},{}".format(topics[i],lon,timeStamp)
+            sock.sendto(MESSAGE.encode(), (UDP_IP, UDP_PORT))
+            lon = lon + 0.000062778
+            continue
+        
+        if topics[i]=="data.gps.lat":
+            #print("hi")
+            if lat >= 48.069299+0.0226:
+                lat = 48.069299
+            timeStamp = time.time()
+            MESSAGE = "{},{},{}".format(topics[i],lat,timeStamp)
+            sock.sendto(MESSAGE.encode(), (UDP_IP, UDP_PORT))
+            lat = lat + 0.000062778
+            continue
+
+        if topics[i]=="data.gps.headingMotion":
+            if hdg == 360:
+                hdg = 0
+            timeStamp = time.time()
+            MESSAGE = "{},{},{}".format(topics[i],hdg,timeStamp)
+            sock.sendto(MESSAGE.encode(), (UDP_IP, UDP_PORT))
+            hdg = hdg + 1
+            continue
+
         timeStamp = time.time()
         MESSAGE = "{},{},{}".format(topics[i],data+i,timeStamp)
         # Pumping out the values
@@ -84,8 +118,9 @@ while True:
         #print your message for validation and wait for the next loop
         #print(MESSAGE)
         #print('\n')
+        
 
-    if data < 2000:
+    if data < 180:
         data = data + 1
     else:
         data = 0
@@ -96,4 +131,4 @@ while True:
     # Message for OpenMCT must be the same structure as on the receiving side (telemetrysource)
     # especially timestamp needs to be at the same position
     # for simulation of DG800 Bandwith, 40 Values at ca. 10Hz -> 400Hz
-    time.sleep(0.0020) #considering time needed by python script
+    time.sleep(0.1) #considering time needed by python script

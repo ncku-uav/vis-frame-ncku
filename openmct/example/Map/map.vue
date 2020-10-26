@@ -9,28 +9,18 @@
     :zoom="12"
     @load="onMapLoaded"
   >
-      <!-- <MglMarker :coordinates="coordinates" color="blue" /> -->
-      <!-- <MglGeojsonLayer
-        :sourceId="geoJsonSource.data.id"
-        :source="geoJsonSource"
-        layerId="somethingSomething"
-        :layer="geoJsonLayer"
-      /> -->
 
-      <MglMarker
-      :key="aircraftMarker"
-      :coordinates="coordinates"
-      :rotatePlane=rotateFctn
-      
-      
+    <MglMarker
+    :key="aircraftMarker"
+    :coordinates="[lon,lat]"
     >
       <template slot="marker">
         <span>
         <img
           v-bind:style="'transform:rotate(' + rotateFctn + 'deg);'"
-          src="./plane.png"
-          width="25"
-          height="25"          
+          src="/example/Map/plane.png"
+          width="40"
+          height="40"          
           />
           </span>
       </template>
@@ -44,14 +34,13 @@
 <script>
 import Mapbox from "mapbox-gl";
 
-import {MglMap, MglMarker, MglNavigationControl, MglGeojsonLayer } from "vue-mapbox";
+import {MglMap, MglMarker} from "vue-mapbox";
 
 
 export default {
   components: {
     MglMap,
-    MglMarker,
-    MglGeojsonLayer    
+    MglMarker   
   },
   data() {
     return {
@@ -59,8 +48,11 @@ export default {
       mapStyle: "mapbox://styles/mapbox/outdoors-v11", // your map style
       map: {},
       coordinates: [11.286146,48.082427],
-      aircraftMarker: "aircraft",
-      rotatePlane: "0"
+      rotatePlane: "0",
+      aircraftMarker: "AC",
+      lat: 48.082427,
+      lon: 11.286146
+      
               
     };
   },
@@ -73,10 +65,6 @@ export default {
   },
   computed: {
     // a computed getter
-    reversedMessage: function () {
-      // `this` points to the vm instance
-      return this.message.split('').reverse().join('')
-    },
     rotateFctn: function () {
         //console.log(this.rotatePlane)
             return this.rotatePlane
@@ -86,7 +74,6 @@ export default {
     onMapLoaded(event) {
     var mapCanvas = document.getElementsByClassName('mapboxgl-canvas')[0];
     var mapDiv = document.getElementById('mapWrap');
-    var Ac = document.getElementById('icon');
     
       // in component
       if (this.load === null) {
@@ -97,34 +84,17 @@ export default {
       
       mapDiv.style.width = '100%';
       mapCanvas.style.width = '100%';
-      var canvasHeight = mapDiv.clientHeight -50;
+      var canvasHeight = mapDiv.clientHeight;
       mapCanvas.style.height = canvasHeight .toString()+'px';
 
       this.load.resize();
 
-      console.log(this.load);
+      //console.log(this.load);
 
-    
-
-         
-
-
-    
-            
-      //console.log(mapDiv.clientHeight.toString()+'px')
     }
   }
   
 };
 </script>
 
-<style scoped>
-.marker {
-  background-image: url('/plane.png');
-  background-size: cover;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-</style>
+

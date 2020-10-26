@@ -66,10 +66,11 @@ define([
 	'../../example/DG800/DG800-plugin',
 	'../../example/Horyzn/Horyzn-plugin',
 	'../../example/Aircraft_42/Aircraft_42-plugin',
-	//'../../example/simpleVuePlugin/plugin',
+	'../../example/simpleVuePlugin/plugin_update',
 	'../../example/Gauge_Bar/plugin2',
     '../../example/Button/plugin',
-    '../../example/STFEstyling/stfe'
+    '../../example/STFEstyling/stfe',
+    '../../example/Map/plugin'
 ], function (
     _,
     UTCTimeSystem,
@@ -116,10 +117,11 @@ define([
 	DG800Plugin,
 	HoryznPlugin,
 	Aircraft_42Plugin,
-	//SimpleVuePlugin,
+	SimpleVuePlugin,
 	Gauge,
     ButtonPlugin,
-    STFEstyling
+    STFEstyling,
+    MapPlugin
 ) {
     const bundleMap = {
         LocalStorage: 'platform/persistence/local',
@@ -222,10 +224,11 @@ define([
 	plugins.DG800Plugin = DG800Plugin;
 	plugins.HoryznPlugin = HoryznPlugin;	
 	plugins.Aircraft_42Plugin = Aircraft_42Plugin;	
-	//plugins.SimpleVuePlugin = SimpleVuePlugin;	
+	plugins.SimpleVuePlugin = SimpleVuePlugin;	
 	plugins.Gauge = Gauge;
     plugins.ButtonPlugin = ButtonPlugin;
     plugins.STFEstyling = STFEstyling.default;
+    plugins.MapPlugin = MapPlugin;
 
     return plugins;
 });

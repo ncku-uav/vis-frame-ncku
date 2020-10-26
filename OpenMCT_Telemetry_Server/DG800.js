@@ -84,7 +84,7 @@ function Dg800() {
 
 	//Initialize Interval for Notifiing OpenMCT about new Telemetry
     setInterval(function () {
-        this.generateTelemetry();
+        //this.generateTelemetry();
     }.bind(this), 50); //z.B. 100ms
 
     this.count = 0
@@ -150,7 +150,7 @@ function Dg800() {
 
 			//console.log(this.state);
 			
-			//this.generateTelemetry();
+			this.generateTelemetry();
 
 
 
@@ -172,11 +172,11 @@ Dg800.prototype.generateTelemetry = function () {
     Object.keys(this.state).forEach(function (id) {
 
         // Real Timestamp
-		this.timestamp = this.state['Time.stamp'];
+		//this.timestamp = this.state['Time.stamp'];
 		// console.log(Date.now()-this.state['Time.stamp']) //check lag
 
 		// Artificial timestamp
-        // this.timestamp= Date.now();
+        this.timestamp= Date.now();
 
         //console.log(timestamp);
         var state = { timestamp: this.timestamp, value: this.state[id], id: id};
