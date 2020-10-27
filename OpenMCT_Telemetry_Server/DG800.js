@@ -57,9 +57,6 @@ function Dg800() {
 		"data.adp.pdyn" :0,
 		"data.adp.AirSpeed" :0,
 
-
-
-
         "Time.stamp": 0
 
     };

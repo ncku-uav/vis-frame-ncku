@@ -1,28 +1,5 @@
 import numpy as np
-
-errFlag = [
-    "err.Flag", 0
-]
-
-ads = [
-    "err.Flag", 0
-]
-
-ppm = [
-    "err.Flag", 0
-]
-
-dd = [
-    "err.Flag", 0
-]
-
-ecu = [
-    "err.Flag", 0
-]
-
-servo_ref = [
-    "err.Flag", 0
-]
+import struct
 
 imu = [
     "err.Flag", 0
@@ -32,17 +9,28 @@ shm = [
     "err.Flag", 0
 ]
 
-bat = [
-    "Bat.RX_MUX1", 0,
-    "Bat.RX_MUX2", 0,
-    "Bat.RX_MUX3", 0,
-    "Bat.FlightHead", 0
-]
-def parser(configID, MsgID, payload):
+
+def parser(CommandMessage, MsgID, payload):
     #print(str(msg)+'imported!')
     # define the function blocks
+
+## ErrorFlag
+    errFlag = [
+    "err.Flag", 0
+    ]
+
     def errorFlag():
         return(errFlag)
+
+
+
+## BATTERY
+    bat = [
+        "Bat.RX_MUX1", 0,
+        "Bat.RX_MUX2", 0,
+        "Bat.RX_MUX3", 0,
+        "Bat.FlightHead", 0
+    ]
 
     def Battery():
         #bat = np.zeros(4)
@@ -58,6 +46,8 @@ def parser(configID, MsgID, payload):
             #print(bat)
         return(bat)
 
+
+## XSENS
     xsens = [
             'xSens.Hour',        np.uint8(0),
             'xSens.Minute',      np.uint8(0), 
@@ -79,7 +69,7 @@ def parser(configID, MsgID, payload):
             'xSens.VelX',             np.float32(0), 
             'xSens.Sec',            np.double(0), 
             'xSens.Latency',        np.double(0)        
-        ]   
+    ]   
     #print(xsens[9:14])    
 
     def XSENS():
@@ -98,24 +88,113 @@ def parser(configID, MsgID, payload):
         #print(xsens[29:34:2])
         return(xsens)
 
+
+## ADS
+    ads = [
+            'ads.altitude',        np.float32(0),
+            'ads.angleOfAttack',      np.float32(0), 
+            'ads.sideslip',      np.float32(0), 
+            'ads.velocity', np.uint32(0)
+        ]               
+
     def ADS():
+        ads[1] = np.ndarray((1,), buffer = payload[0:3], dtype=np.dtype('>f4')) #alt
+        ads[3] = np.ndarray((1,), buffer = payload[3:6], dtype=np.dtype('>f4')) #AoA
+        ads[5] = np.ndarray((1,), buffer = payload[6:9], dtype=np.dtype('>f4')) #sideslip
+        ads[7] = np.ndarray((1,), buffer = payload[9:12], dtype=np.dtype('>u4')) #v
+
         return(ads) 
-
-    def PPM():
-        return(ppm) 
-
-    def DD():
-        return(dd) 
     
+
+## PPM
+    ppm = [None] * 34
+    count = 0
+    for i in range(int(len(ppm)/2)):
+        ppm[count] = 'ppm.ch'+str(i)
+        count = count + 2
+    
+    def PPM():
+        data = np.ndarray((16,1), buffer = payload, dtype=np.dtype('>u2')) #v
+        count = 1
+        for i in range(int(len(ppm)/2)):
+            ppm[count] = data[i]
+        return(ppm) 
+## DD
+    dd = [
+    "dd.1", 0
+    ]
+    def DD():
+        return(dd)     
+
+
+
+## ECU
+    ecu = [
+    'ecu.FuelFlowPerSec', 0, #1
+    'ecu.PupmVoltage', 0, #3
+    'ecu.RPMActual', 0, #5
+    'ecu.RPMControl', 0, #7
+    'ecu.Status', 0, #9
+    'ecu.Temp', 0, #11
+    'ecu.Throttle', 0 #13
+    ]
+
     def ECU():
-        return(ecu) 
+        ecuStr = payload[2:].decode("utf-8") #evtl auch nutzbar in message_parser
+        ecuFuel = struct.unpack(np.double, payload[0])[0] * 16 + struct.unpack(np.double, payload[1])[0]
+
+        count = 1
+        for i in range(int(len(ecuStr)/2)):
+            firstByte = ecuStr[count-1]
+            ecuStr[count-1] = ecuStr[count]
+            ecuStr[count] = firstByte
+            count = count + 2
+
+        strArray = ecuStr.split(",")
+        dataCount = len(strArray)
+
+        if dataCount < 2:
+            return(ecu)
+        
+        if strArray[1]=='WRP':
+            ecu[7] = float(strArray[2]) #RPM
+        elif dataCount == 5:
+            ecu[5] = float(strArray[0]) #RPM actual
+            ecu[11] = float(strArray[1]) #Temp
+            ecu[3] = float(strArray[2]) #PumpV
+            ecu[9] = float(strArray[3]) #Status
+            ecu[13] = float(strArray[4]) #Throttle
+
+        if ecu[5] > 0:
+            ecu[1] = 0.1911 * ecuFuel +0.0606
+        
+        return[ecu]
+
+
+        
+## SERVO_REF
+    servo_ref = [None] * 34
+    count = 0
+    for i in range(int(len(servo_ref)/2)):
+        servo_ref[count] = 'servo_rev.ID'+str(i)
+        count = count + 2
     
     def SERVO_REF():
+
+        data = np.ndarray((21,1), buffer = payload, dtype=np.dtype('>u2')) #v
+        count = 1
+        for i in range(int(len(servo_ref)/2)):
+            servo_ref[count] = data[i]
+        
         return(servo_ref) 
 
+
+## IMU
     def IMU():
         return(imu) 
-    
+
+
+## SHM
     def SHM():
         return(shm) 
 

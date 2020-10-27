@@ -1,6 +1,12 @@
 import numpy as np
 
-def getCommandMsg():
+
+
+def getCommandMsg(StatusFlags, Battery, XSens, ADS, PPM, DD, ECU, ServoRef, IMU_1, IMU_2, SHM_1, SHM_2):
+
+    OnOffBits = StatusFlags + Battery + XSens + ADS + PPM + DD + ECU + ServoRef
+    OnOffInt = int(OnOffBits,2)
+        
     
     configId = 12 #configuration identifier for flight head
 
@@ -15,7 +21,7 @@ def getCommandMsg():
     header[1] = (np.uint8(configId))
     #print(header)
     
-    commandMessage = [251,255,255,255,255]
+    commandMessage = [OnOffInt, int(IMU_1,2), int(IMU_2,2), int(SHM_1,2), int(SHM_2,2)]
 
     message[0:2] = header
     message[2:7] = commandMessage
