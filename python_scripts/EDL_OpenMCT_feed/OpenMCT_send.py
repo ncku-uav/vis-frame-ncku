@@ -25,8 +25,8 @@ def sendtoOMCT(data,timestamp):
             sock.sendto(MESSAGE.encode(), (UDP_IP, UDP_PORT))
 
             #print and reset your message for validation and wait for the next loop 
-            print(MESSAGE)
-            print('\n')
+            #print(MESSAGE)
+            #print('\n')
             #MESSAGE = ''        
             
             #time.sleep(0.5)

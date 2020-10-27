@@ -47,16 +47,16 @@ var realtimeServerAircraft_42 = new RealtimeServer(aircraft_42);
 var historyServerAircraft_42 = new HistoryServer(aircraft_42);
 
 
-// app.use('/FLEXOPRealtime', realtimeServerFLEXOP);
-// app.use('/FLEXOPHistory', historyServerFLEXOP);
+app.use('/FLEXOPRealtime', realtimeServerFLEXOP);
+app.use('/FLEXOPHistory', historyServerFLEXOP);
 
 //var historyServerReader = new HistoryServer(historyReader);
 
 // app.use('/FLUTTERRealtime', realtimeServerFLIPASED);
 // app.use('/FLUTTERHistory', historyServerFLIPASED);
 
-app.use('/DG800Realtime', realtimeServerDG800);
-app.use('/DG800History', historyServerDG800);
+// app.use('/DG800Realtime', realtimeServerDG800);
+// app.use('/DG800History', historyServerDG800);
 
 // app.use('/Aircraft_42Realtime', realtimeServerAircraft_42);
 // app.use('/Aircraft_42History', historyServerAircraft_42);

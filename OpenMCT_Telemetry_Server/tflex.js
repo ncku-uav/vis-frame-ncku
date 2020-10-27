@@ -29,8 +29,8 @@ function TFlex() {
     }, this);
 
     setInterval(function () {
-        //this.generateTelemetry();
-    }.bind(this), 50);
+        //this.generateTelemetryInterval();
+    }.bind(this), 100);
 
 
 
@@ -57,10 +57,11 @@ function TFlex() {
         
             if (this.data[0] === "Bat.FlightHead"){
                 this.state[this.data[0]] = this.data[1]*0.0062;
-                console.log(this.state[this.data[0]])
-            }
-        
-            console.log(this.state)
+                //console.log(this.state[this.data[0]])
+			}
+			
+			     
+            //console.log(this.data[0])
 
         // to notify telemetry server every time new data arrives in uncomment here
 		this.generateTelemetry();
@@ -96,7 +97,7 @@ TFlex.prototype.generateTelemetry = function () {
 	//var timestamp= Date.now();
 
 	// built message
-	var message = { timestamp: timestamp, value: this.data[1], id: this.data[0]};
+	var message = { timestamp: timestamp, value: this.state[this.data[0]], id: this.data[0]};
 	// notify realtimeserver
 	this.notify(message);
 	//console.log(message);
@@ -104,6 +105,7 @@ TFlex.prototype.generateTelemetry = function () {
 		this.history[this.data[0]].push(message);
 		}
 		catch (e) {
+			console.log(message)
 			console.log(e)
 		}
 }

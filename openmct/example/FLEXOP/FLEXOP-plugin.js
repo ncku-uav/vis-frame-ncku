@@ -21,7 +21,7 @@ define([
         var FLEXOP_objectProvider = {
             get: function (identifier) {
                 return getTFLEXDictionary().then(function (dictionary) {
-                    console.log("FLEXOP-dictionary-plugin.js: identifier.key = " + identifier.key);
+                    //console.log("FLEXOP-dictionary-plugin.js: identifier.key = " + identifier.key);
                     if (identifier.key === 'TFLEX') {
                         return {
                             identifier: identifier,

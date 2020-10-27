@@ -4,9 +4,12 @@ import numpy as np
 import time
 import struct
 from message_parser import parser
+from message_parser import initalizeParser
 from checksum_calculator import calcChecksum
 from command_message import getCommandMsg
 from OpenMCT_send import sendtoOMCT
+
+from bitarray import bitarray
 
 # which com port
 comPort = '/dev/ttyUSB0'
@@ -17,13 +20,18 @@ Battery = '1'
 XSens = '1' 
 ADS = '1' 
 PPM = '1'
-DD = '0' #does not get parsed atm 
+DD = '0' #does not get parsed atm was not implemented in EDL as well
 ECU = '1'
 ServoRef = '1'
 IMU_1 = '11111111' # Analog Acc Z / GyroX / Gyro Y / Digital Acc Z / IMU1 ...IMU4
 IMU_2 = '11111111' # IMU5...IMU12
 SHM_1 = '11111111' # Position / Temp / SHM14 ... SHM9
 SHM_2 = '11111111' # SHM8 ... SHM1
+
+initalizeParser(StatusFlags, Battery, XSens, ADS, PPM, DD, ECU, ServoRef, IMU_1, IMU_2, SHM_1, SHM_2)
+
+b = bitarray(IMU_1)
+print(IMU_1[0]=='1')
 
 IDs = { #IDs with corresponding message length
     0 : 16, #ErrorFlag: ID:0, payload length: 1
@@ -67,12 +75,15 @@ while True:
             msgID = struct.unpack('B', ser.read(1))[0]
             #print('Msg ID: ' + str(MsgID))
             
-            for i in range(IDs[msgID]):
-                variableBits = variableBits+'B'
-                #print(variableBits)
+            try:
+                for i in range(IDs[msgID]):
+                    variableBits = variableBits+'B'
+                    #print(variableBits)
             
-            payload = struct.unpack(variableBits, ser.read(IDs[msgID]))
-            #print(payload)
+                payload = struct.unpack(variableBits, ser.read(IDs[msgID]))
+                #print(payload)
+            except:
+                 print('unknown Key: '+str(msgID)) 
                 
             check = ser.read(1)
             head_payload = (150,configID,msgID)+payload
