@@ -66,7 +66,7 @@ def parser(CommandMessage, MsgID, payload):
             'xSens.AccY',         np.float32(0),
             'xSens.AccZ',         np.float32(0), 
             'xSens.VelX',             np.float32(0),
-            'xSens.VelX',             np.float32(0), 
+            'xSens.VelY',             np.float32(0), 
             'xSens.Sec',            np.double(0), 
             'xSens.Latency',        np.double(0)        
     ]   
@@ -173,7 +173,7 @@ def parser(CommandMessage, MsgID, payload):
 
         
 ## SERVO_REF
-    servo_ref = [None] * 34
+    servo_ref = [None] * 44
     count = 0
     for i in range(int(len(servo_ref)/2)):
         servo_ref[count] = 'servo_rev.ID'+str(i)

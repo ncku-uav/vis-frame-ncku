@@ -39,8 +39,7 @@ function SimpleVuePlugin() {
                     show: function (container) {
                         vm = new Vue(gaugetemplate.default);
                         //vm.message = 'Nooooo';
-                        vm.coordinates = [11.286146,48.082427];
-                        vm.rotatePlane = "0";
+                        
                         
                         
                         

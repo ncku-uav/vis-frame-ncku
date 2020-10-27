@@ -9,102 +9,51 @@ server.bind(50012);
 
 function Dg800() {
 
-	// initialize Data Parameters
-    this.state = {
+	
+	// Initialize working Parameters and Object
 
-        "data.gps.iTOW": 0,
-        "data.gps.lon": 0,
-        "data.gps.lat" : 0,
-        "data.gps.heightMS" : 0,
-        "data.gps.gSpeed": 0,
-        "data.gps.headingMotion" :0,
-        "data.gps.headingVehicle" :0,
-		"data.gps.fixType" :0,
+	// read the keys from dictionary
+		let rawDict = fs.readFileSync('../openmct/example/DG800/DG800dictionary.json')
+		let dict = JSON.parse(rawDict)
+		//console.log(dict.measurements.map(obj => obj.key))
 
-        "data.nano.vdot" :0,
-        "data.nano.v" :0,
-		"data.nano.ch1" :0,
-		"data.nano.ch2" :0,
-		"data.nano.ch3" :0,
-		"data.nano.ch4" :0,
-		"data.nano.ch5" :0,
-		"data.nano.ch6" :0,
-		"data.nano.ch7" :0,
-		"data.nano.ch8" :0,
-		"data.nano.ch9" :0,
-		"data.nano.ch10" :0,
-		"data.nano.ch11" :0,
-		"data.nano.ch12" :0,
-		"data.nano.ch13" :0,
+		this.state={};
+		(dict.measurements.map(obj => obj.key)).forEach(function (k) {
+			this.state[k] = 0;
+		}, this);
+		//console.log(this.state)
 
-        "data.strap.roll": 0,
-        "data.strap.pitch" :0,
-        "data.strap.yaw" :0,
-
-        "data.thr.force1" :0,
-        "data.thr.force2" :0,
-		"data.thr.temp1" :0,
-		"data.thr.temp2" :0,
-
-		"data.imu.AccX" :0,
-		"data.imu.AccY" :0,
-		"data.imu.AccZ" :0,
-		"data.imu.GyroX" :0,
-		"data.imu.GyroY" :0,
-		"data.imu.GyroZ" :0,
-
-		"data.adp.pstat" :0,
-		"data.adp.pdyn" :0,
-		"data.adp.AirSpeed" :0,
-
-        "Time.stamp": 0
-
-    };
-
-	// ntpsync.ntpLocalClockDeltaPromise().then((iNTPData) => {
-	// 	console.log(`(Local Time - NTP Time) Delta = ${iNTPData.minimalNTPLatencyDelta} ms`);
-	// 	console.log(`Minimal Ping Latency was ${iNTPData.minimalNTPLatency} ms`);
-	// 	console.log(`Total ${iNTPData.totalSampleCount} successful NTP Pings`);
-	// }).catch((err) => {
-	// 	console.log(err);
-	// });
-
-
-    //console.log(this.state['id3.Time'])
-	//Initialize working Parameters and Object
     this.history = {};
     this.listeners = [];
-	this.data = new Array();
+	this.data = [];
 	Object.keys(this.state).forEach(function (k) {
         this.history[k] = [];
 	}, this);
 
-	//Initialize Interval for Notifiing OpenMCT about new Telemetry
-    setInterval(function () {
-        //this.generateTelemetry();
-    }.bind(this), 50); //z.B. 100ms
+	// to notify telemetry server interval based (STFE) uncomment here
+    // setInterval(function () {
+    //     this.generateTelemetryInterval();
+    // }.bind(this), 100); //z.B. 100ms
 
-    this.count = 0
-	this.initGPSheight = 0;
+    var count = 0
+	var initGPSheight = 0;
 	//what to do, when a message from the UDP Port arrives
     server.on('message', (msg, rinfo) => {
 		//parse the data
 		this.data = `${msg}`.split(',');
 		
-
-		
+		// Check server message
 		//console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`)
         //console.log(`server got: ${this.data[8]} from ${rinfo.address}:${rinfo.port}`)
 		
 		//Save the data to the state array
 		this.state[this.data[0]] = this.data[1];
 		this.state['Time.stamp'] = Math.round(this.data[2]*1000); //convert python timestamp[s] to JS timestamp [ms]
-		//var start = Date.now();
-		//console.log(Date.now()-this.state['Time.stamp']) //check lag
+		
+		//console.log(Date.now()-this.state['Time.stamp']) //check lag incomming
 		//console.log(this.state['Time.stamp']) //check Timestamp
-		console.log(this.data[1]) //check paylaod
-		//var end = Date.now();
-		//console.log(`time to plot: ${end-start}`);
+		//console.log(this.state[this.data[0]]) //check paylaod
+		
 		//CALCULATIONS
 
 			// change gps from mm to m
@@ -122,9 +71,9 @@ function Dg800() {
 
 
 			// initial ground height
-			if (this.data[0] === 'data.gps.heightMS' && this.state['data.gps.fixType'] === '3' && this.count < 100){
-			this.initGPSheight = this.data[1]/1000;
-			this.count = this.count + 1;
+			if (this.data[0] === 'data.gps.heightMS' && this.state['data.gps.fixType'] === '3' && count < 100){
+			initGPSheight = this.data[1]/1000;
+			count = count + 1;
 			}
 
 /*			// fuel consumption in percent
@@ -145,52 +94,79 @@ function Dg800() {
 			//console.log(this.state['data.adp.AirSpeed']);
 			}
 
-			//console.log(this.state);
-			
-			this.generateTelemetry();
+		//console.log(this.state);
+		
+		// to notify telemetry server every time new data arrives in uncomment here
+		this.generateTelemetry();
 
+		// SAVE HISTORY HERE?! or downsample when called on interval?
+		// // Real Timestamp
+		// var timestamp = this.state['Time.stamp'];
+		// // Artificial timestamp
+		// //var timestamp= Date.now();
 
+		// // built message
+		// var message = { timestamp: timestamp, value: this.data[1], id: this.data[0]};
+		// 	try{ // store in history
+		// 		this.history[this.data[0]].push(message);
+		// 		}
+		// 		catch (e) {
+		// 			console.log(e)
+		// 		}
 
     });
-
-
     console.log("DG-800 initialized!");
-
 };
 
 
-
-/**
- * Takes a measurement of state, stores in history, and notifies
- * listeners.
- */
+// to update every time new data comes in
 Dg800.prototype.generateTelemetry = function () {
+
+	// Real Timestamp
+	var timestamp = this.state['Time.stamp'];
+	// Artificial timestamp
+	//var timestamp= Date.now();
+
+	// built message
+	var message = { timestamp: timestamp, value: this.data[1], id: this.data[0]};
+	// notify realtimeserver
+	this.notify(message);
+	//console.log(message);
+	try{ // store in history
+		this.history[this.data[0]].push(message);
+		}
+		catch (e) {
+			console.log(e)
+		}
+}
+
+
+// to update interval based (STFE)
+Dg800.prototype.generateTelemetryInterval = function () {
 
     Object.keys(this.state).forEach(function (id) {
 
         // Real Timestamp
-		//this.timestamp = this.state['Time.stamp'];
-		// console.log(Date.now()-this.state['Time.stamp']) //check lag
-
+		var timestamp = this.state['Time.stamp'];
 		// Artificial timestamp
-        this.timestamp= Date.now();
+        //var timestamp= Date.now();
 
-        //console.log(timestamp);
-        var state = { timestamp: this.timestamp, value: this.state[id], id: id};
-        this.notify(state);
-		//console.log(state);
-        try{
-			this.history[id].push(state);
+		// built message
+		var message = { timestamp: timestamp, value: this.state[id], id: id};
+		// notify realtimeserver
+        this.notify(message);
+		try{ // store in history
+			this.history[id].push(message);
 			}
 			catch (e) {
 				console.log(e)
 			}
         //this.state["comms.sent"] += JSON.stringify(state).length;
 
-
-    }, this);
-
+	}, this);
+	//console.log(state);
 };
+
 
 // notifiy function, called in generate Telemetry, notifies listeners
 Dg800.prototype.notify = function (point) {
@@ -199,7 +175,8 @@ Dg800.prototype.notify = function (point) {
     });
 };
 
-//
+
+// manages listeners for realtime telemetry
 Dg800.prototype.listen = function (listener) {
     this.listeners.push(listener);
     return function () {
@@ -209,6 +186,8 @@ Dg800.prototype.listen = function (listener) {
     }.bind(this);
 };
 
+
+// what to do on incoming command
 Dg800.prototype.command = function (command) {
 	if(command === ':startLog'){
 
@@ -231,6 +210,7 @@ Dg800.prototype.command = function (command) {
 	}
 	
 };
+
 
 module.exports = function () {
     return new Dg800()

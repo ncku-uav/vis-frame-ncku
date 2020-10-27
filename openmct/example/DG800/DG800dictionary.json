@@ -2,6 +2,7 @@
     "name": "DG800",
     "key": "pl",
     "measurements": [
+        
         {
             "name": "GPS iTOW",
             "key": "data.gps.iTOW",
