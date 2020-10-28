@@ -17,7 +17,7 @@ def sendtoOMCT(data,timestamp):
         datapoints = len(data)/2
         count = 0
         #print("sendin")
-        for i in range(datapoints):
+        for i in range(int(datapoints)):
             MESSAGE = '{},{},{}'.format(data[count],data[count+1],timestamp)
             count = count +2
             # Pumping out the values
