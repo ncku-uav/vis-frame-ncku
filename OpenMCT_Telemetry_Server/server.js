@@ -21,10 +21,10 @@ expressWs(app);
 
 // var spacecraft = new Spacecraft();
 var tflex = new TFlex();
-var flutterometer = new Flutterometer();
-var dg800 = new Dg800();
+// var flutterometer = new Flutterometer();
+// var dg800 = new Dg800();
 //var horyzn = new Horyzn();
-var aircraft_42 = new Aircraft_42();
+// var aircraft_42 = new Aircraft_42();
 // var realtimeServer = new RealtimeServer(spacecraft,8082);
 // var historyServer = new HistoryServer(spacecraft, 8081);
 //var staticServer = new StaticServer(8080);
@@ -37,14 +37,14 @@ var aircraft_42 = new Aircraft_42();
 var realtimeServerFLEXOP = new RealtimeServer(tflex);
 var historyServerFLEXOP = new HistoryServer(tflex);
 
-var realtimeServerFLIPASED = new RealtimeServer(flutterometer);
-var historyServerFLIPASED = new HistoryServer(flutterometer);
+// var realtimeServerFLIPASED = new RealtimeServer(flutterometer);
+// var historyServerFLIPASED = new HistoryServer(flutterometer);
 
-var realtimeServerDG800 = new RealtimeServer(dg800);
-var historyServerDG800 = new HistoryServer(dg800);
+// var realtimeServerDG800 = new RealtimeServer(dg800);
+// var historyServerDG800 = new HistoryServer(dg800);
 
-var realtimeServerAircraft_42 = new RealtimeServer(aircraft_42);
-var historyServerAircraft_42 = new HistoryServer(aircraft_42);
+// var realtimeServerAircraft_42 = new RealtimeServer(aircraft_42);
+// var historyServerAircraft_42 = new HistoryServer(aircraft_42);
 
 
 app.use('/FLEXOPRealtime', realtimeServerFLEXOP);

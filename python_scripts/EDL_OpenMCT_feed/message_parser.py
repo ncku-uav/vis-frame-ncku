@@ -6,8 +6,52 @@ def initalizeParser(StatusFlags, Battery, XSens, ADS, PPM, DD, ECU, ServoRef, IM
     if StatusFlags[0] == '1': 
         global errFlag
         errFlag = [
-            "err.Flag", 0
-            ]
+                'Flag.RxMux1.Autopilot', 0,  #1
+                'Flag.RxMux1.SPI', 0,         #3
+                'Flag.RxMux1.ECU_PIN', 0,     #5
+                'Flag.RxMux1.ECU_PPM', 0,     #7
+                'Flag.RxMux1.JETI', 0,        #9
+                'Flag.RxMux1.GRP', 0,         #11
+                'Flag.RxMux1.c_JETI', 0,      #13
+                'Flag.RxMux1.c_GRP', 0, #15
+
+                'Flag.RxMux2.Autopilot', 0,  #17 
+                'Flag.RxMux2.SPI', 0,         #19
+                'Flag.RxMux2.ECU_PIN', 0,     #21
+                'Flag.RxMux2.ECU_PPM', 0,     #23
+                'Flag.RxMux2.JETI', 0,        #25
+                'Flag.RxMux2.GRP', 0,         #27
+                'Flag.RxMux2.c_JETI', 0,      #29
+                'Flag.RxMux2.c_GRP', 0, #31
+
+                'Flag.RxMux3.Autopilot', 0,   #33
+                'Flag.RxMux3.SPI', 0,         #35
+                'Flag.RxMux3.ECU_PIN', 0,     #37
+                'Flag.RxMux3.ECU_PPM', 0,     #39
+                'Flag.RxMux3.JETI', 0,        #41
+                'Flag.RxMux3.GRP', 0,         #43
+                'Flag.RxMux3.c_JETI', 0,      #45
+                'Flag.RxMux3.c_GRP', 0,   #47
+
+                'Flag.flightHAT.XsensConfigFault', 0,     #49   
+                'Flag.flightHAT.XsensUnexpectedConfigAck', 0,    #51
+                'Flag.flightHAT.XsensConfigChecksumFault', 0,    #53
+                'Flag.flightHAT.XsensConfigReceiveFault', 0,     #55
+                'Flag.flightHAT.XsensWrongHeader', 0,        #57
+                'Flag.flightHAT.XsensChecksumFault', 0,      #59
+                'Flag.flightHAT.XsensDataTypeError', 0,      #61
+                'Flag.flightHAT.XsensUnexpectedByteIndex', 0,    #63
+                'Flag.flightHAT.XsensUnexpectedDataID', 0,   #65
+                'Flag.flightHAT.ADSConfigFault', 0,          #67
+                'Flag.flightHAT.ADSChecksumFault', 0,        #69
+                'Flag.flightHAT.ADSTooMuchDataTypes', 0,     #71
+                'Flag.flightHAT.IMUWrongRequestID', 0,       #73
+                'Flag.flightHAT.IMUWrongID', 0,              #75
+                'Flag.flightHAT.SHMWrongID', 0,              #77
+                'Flag.flightHAT.WrongRXMUXChecksum', 0   #79
+
+        ]
+
     if Battery[0] == '1': 
         global bat
         bat = [
@@ -49,7 +93,7 @@ def initalizeParser(StatusFlags, Battery, XSens, ADS, PPM, DD, ECU, ServoRef, IM
                 'ads.angleOfAttack',      np.uint32(0), 
                 'ads.sideslip',      np.uint32(0), 
                 'ads.velocity', np.uint32(0)
-            ]
+        ]
     if PPM[0] == '1': 
         global ppm
         ppm = [None] * 32
@@ -67,14 +111,14 @@ def initalizeParser(StatusFlags, Battery, XSens, ADS, PPM, DD, ECU, ServoRef, IM
     if ECU[0] == '1': 
         global ecu
         ecu = [
-    'ecu.FuelFlowPerSec', 0, #1
-    'ecu.PupmVoltage', 0, #3
-    'ecu.RPMActual', 0, #5
-    'ecu.RPMControl', 0, #7
-    'ecu.Status', 0, #9
-    'ecu.Temp', 0, #11
-    'ecu.Throttle', 0 #13
-    ]
+            'ecu.FuelFlowPerSec', 0, #1
+            'ecu.PupmVoltage', 0, #3
+            'ecu.RPMActual', 0, #5
+            'ecu.RPMControl', 0, #7
+            'ecu.Status', 0, #9
+            'ecu.Temp', 0, #11
+            'ecu.Throttle', 0 #13
+        ]
 
     if ServoRef[0] == '1': 
         global servo_ref
@@ -88,45 +132,86 @@ def initalizeParser(StatusFlags, Battery, XSens, ADS, PPM, DD, ECU, ServoRef, IM
     global imu
     imu=[]
     if IMU_1[0] == '1':
-        imu.extend(['imu.AnlAccZ', 0])
+        pos = 1
+        for j in IMU_1[4:]:
+            if j == '1':
+                imu.extend(['imu'+str(pos)+'.AnlAccZ', 0])
+            pos = pos +1
+        pos = 5
+        for j in IMU_2[:]:
+            if j == '1':
+                imu.extend(['imu'+str(pos)+'.AnlAccZ', 0])
+            pos = pos +1
+
     if IMU_1[1] == '1':
-        imu.extend(['imu.GyroX', 0])
+        pos = 1
+        for j in IMU_1[4:]:
+            if j == '1':
+                imu.extend(['imu'+str(pos)+'.GyroX', 0])
+            pos = pos +1
+        pos = 5
+        for j in IMU_2[:]:
+            if j == '1':
+                imu.extend(['imu'+str(pos)+'.GyroX', 0])
+            pos = pos +1
+
     if IMU_1[2] == '1':
-        imu.extend(['imu.GyroY', 0])
+        pos = 1
+        for j in IMU_1[4:]:
+            if j == '1':
+                imu.extend(['imu'+str(pos)+'.GyroY', 0])
+            pos = pos +1
+        pos = 5
+        for j in IMU_2[:]:
+            if j == '1':
+                imu.extend(['imu'+str(pos)+'.GyroY', 0])
+            pos = pos +1
+
     if IMU_1[3] == '1':
-        imu.extend(['imu.DigAccZ', 0])
-    count=1
-    for bit in IMU_1[4:]:
-        if bit=='1':
-            imu.extend(['imu.IMU'+str(count), 0])
-        count = count +1
-    count=5
-    for bit in IMU_2:
-        if bit=='1':
-            imu.extend(['imu.IMU'+str(count), 0])
-        count = count +1
+        pos = 1
+        for j in IMU_1[4:]:
+            if j == '1':
+                imu.extend(['imu'+str(pos)+'.DigAccZ', 0])
+            pos = pos +1
+        pos = 5
+        for j in IMU_2[:]:
+            if j == '1':
+                imu.extend(['imu'+str(pos)+'.DigAccZ', 0])
+            pos = pos +1
+    #print(imu)
 
     global shm
-    shm = []
+    shm=[]
     if SHM_1[0] == '1':
-        shm.extend(['shm.Pos', 0])
+        pos = 14
+        for j in SHM_1[2:]:
+            if j == '1':
+                shm.extend(['shm'+str(pos)+'.Pos', 0])
+            pos = pos - 1
+        pos = 8
+        for j in SHM_2[:]:
+            if j == '1':
+                shm.extend(['shm'+str(pos)+'.Pos', 0])
+            pos = pos - 1
+
     if SHM_1[1] == '1':
-        shm.extend(['shm.Temp', 0])
-    count=14
-    for bit in SHM_1[2:]:
-        if bit=='1':
-            shm.extend(['shm.SHM'+str(count), 0])
-        count = count -1
-    count=8
-    for bit in SHM_2:
-        if bit=='1':
-            shm.extend(['shm.SHM'+str(count), 0])
-        count = count -1
+        pos = 14
+        for j in SHM_1[2:]:
+            if j == '1':
+                shm.extend(['shm'+str(pos)+'.Temp', 0])
+            pos = pos -1
+        pos = 8
+        for j in SHM_2[:]:
+            if j == '1':
+                shm.extend(['shm'+str(pos)+'.Temp', 0])
+            pos = pos -1
     #print(shm)
-    
+
+def bitget(number, pos):
+    return (number >> pos) & 1    
 
 
-def parser(CommandMessage, MsgID, payload):
+def parser(IMU_noVar, IMU_noIMU, SHM_noVar, SHM_noSHM, IMU_1, SHM_1, MsgID, payload):
     #print(str(msg)+'imported!')
     # define the function blocks
 
@@ -144,7 +229,56 @@ def parser(CommandMessage, MsgID, payload):
         rx_mux3U16 = np.ndarray((1,), buffer = payload[10:12], dtype=np.uint16)
         rx_mux3TimeU16 = np.ndarray((1,), buffer = payload[12:14], dtype=np.uint16)
 
-        #print(rx_mux1)
+        errFlag[49] = bitget(flightHatU16,15)[0]
+        errFlag[51] = bitget(flightHatU16,14)[0]
+        errFlag[53] = bitget(flightHatU16,13)[0]
+        errFlag[55] = bitget(flightHatU16,12)[0]
+        errFlag[57] = bitget(flightHatU16,11)[0]
+        errFlag[59] = bitget(flightHatU16,10)[0]
+        errFlag[61] = bitget(flightHatU16,9)[0]
+        errFlag[63] = bitget(flightHatU16,8)[0]
+        errFlag[65] = bitget(flightHatU16,7)[0]
+        errFlag[67] = bitget(flightHatU16,6)[0]
+        errFlag[69] = bitget(flightHatU16,5)[0]
+        errFlag[71] = bitget(flightHatU16,4)[0]
+        errFlag[73] = bitget(flightHatU16,3)[0]
+        errFlag[75] = bitget(flightHatU16,2)[0]
+        errFlag[77] = bitget(flightHatU16,1)[0]
+        errFlag[79] = bitget(flightHatU16,0)[0]
+
+        errFlag[1] = bitget(rx_mux1U16,0)[0]
+        errFlag[2] = bitget(rx_mux1U16,1)[0]
+        errFlag[5] = bitget(rx_mux1U16,2)[0]
+        errFlag[7] = bitget(rx_mux1U16,3)[0]
+        errFlag[9] = bitget(rx_mux1U16,4)[0]
+        errFlag[11] = bitget(rx_mux1U16,5)[0]
+        errFlag[13] = bitget(rx_mux1U16,6)[0]
+        errFlag[15] = bitget(rx_mux1U16,7)[0]
+        # Bit 8: DD1,
+        # Bit 9: DD2,
+        # Bit 10: Chute
+        # Bit 11-15: Unused
+
+        errFlag[17] = bitget(rx_mux2U16,0)[0]
+        errFlag[19] = bitget(rx_mux2U16,1)[0]
+        errFlag[21] = bitget(rx_mux2U16,2)[0]
+        errFlag[23] = bitget(rx_mux2U16,3)[0]
+        errFlag[25] = bitget(rx_mux2U16,4)[0]
+        errFlag[27] = bitget(rx_mux2U16,5)[0]
+        errFlag[29] = bitget(rx_mux2U16,6)[0]
+
+        errFlag[33] = bitget(rx_mux3U16,0)[0]
+        errFlag[35] = bitget(rx_mux3U16,1)[0]
+        errFlag[37] = bitget(rx_mux3U16,2)[0]
+        errFlag[39] = bitget(rx_mux3U16,3)[0]
+        errFlag[41] = bitget(rx_mux3U16,4)[0]
+        errFlag[43] = bitget(rx_mux3U16,5)[0]
+        errFlag[45] = bitget(rx_mux3U16,6)[0]
+        errFlag[47] = bitget(rx_mux3U16,7)[0]
+     
+
+        #print(errFlag)
+
 
         return(errFlag)
 
@@ -254,7 +388,7 @@ def parser(CommandMessage, MsgID, payload):
 ## SERVO_REF
     def SERVO_REF():
 
-        data = np.ndarray((21,), buffer = payload, dtype=np.dtype('>u2')) #v
+        data = np.ndarray((21,), buffer = payload, dtype=np.dtype('>u2'))
         count = 1
         for i in range(int(len(servo_ref)/2)-1):
             servo_ref[count] = data[i]
@@ -265,13 +399,55 @@ def parser(CommandMessage, MsgID, payload):
 
 ## IMU
     def IMU():
+        
         #print(payload)
+        varCount = IMU_noVar*IMU_noIMU
+        u16_IMU = np.ndarray((varCount,), buffer = payload, dtype=np.dtype('>i2'))
+        offsU16 = 0
+        offsIMU = 0
+        
+        if IMU_1[0] == '1':
+            imu[1:IMU_noIMU*2:2] = u16_IMU[offsU16:IMU_noIMU*IMU_noVar:IMU_noVar]
+            offsU16 = offsU16 +1
+            offsIMU = offsIMU + IMU_noIMU
+
+        if IMU_1[1] == '1':
+            imu[1:IMU_noIMU*2:2] = u16_IMU[offsU16:IMU_noIMU*IMU_noVar:IMU_noVar]
+            offsU16 = offsU16 +1
+            offsIMU = offsIMU + IMU_noIMU
+
+        if IMU_1[2] == '1':
+            imu[1:IMU_noIMU*2:2] = u16_IMU[offsU16:IMU_noIMU*IMU_noVar:IMU_noVar]
+            offsU16 = offsU16 +1
+            offsIMU = offsIMU + IMU_noIMU
+
+        if IMU_1[3] == '1':
+            imu[1:IMU_noIMU*2:2] = u16_IMU[offsU16:IMU_noIMU*IMU_noVar:IMU_noVar]
+            offsU16 = offsU16 +1
+            
+        #print(imu)
+
         return(imu) 
 
 
 ## SHM
     def SHM():
-        #print(payload)
+        varCount = SHM_noVar*SHM_noSHM
+        u16_SHM = np.ndarray((varCount,), buffer = payload, dtype=np.dtype('>i2'))
+        offsU16 = 0
+        offsSHM = 0
+       
+        if SHM_1[0] == '1':
+            shm[1:SHM_noSHM*2:2] = u16_SHM[offsU16:SHM_noSHM*SHM_noVar:SHM_noVar]
+            offsU16 = offsU16 +1
+            offsSHM = offsSHM + SHM_noSHM
+
+        if SHM_1[1] == '1':
+            shm[1:SHM_noSHM*2:2] = u16_SHM[offsU16:SHM_noSHM*SHM_noVar:SHM_noVar]
+            offsU16 = offsU16 +1
+
+        #print(shm)            
+
         return(shm) 
 
     # map the inputs to the function blocks

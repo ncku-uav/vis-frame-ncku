@@ -3,6 +3,7 @@ import sys
 import numpy as np
 import time
 import struct
+import random
 from message_parser import parser
 from message_parser import initalizeParser
 from checksum_calculator import calcChecksum
@@ -15,6 +16,7 @@ from bitarray import bitarray
 comPort = '/dev/ttyUSB0'
 baudrate = 57600
 
+cmdID = 23
 StatusFlags = '1' 
 Battery = '1'
 XSens = '1' 
@@ -23,15 +25,37 @@ PPM = '1'
 DD = '0' #does not get parsed atm was not implemented in EDL as well
 ECU = '1'
 ServoRef = '1'
-IMU_1 = '11111111' # Analog Acc Z / GyroX / Gyro Y / Digital Acc Z / IMU1 ...IMU4
+IMU_1 = '01111111' # Analog Acc Z / GyroX / Gyro Y / Digital Acc Z / IMU1 ...IMU4
 IMU_2 = '11111111' # IMU5...IMU12
 SHM_1 = '11111111' # Position / Temp / SHM14 ... SHM9
 SHM_2 = '11111111' # SHM8 ... SHM1
 
-initalizeParser(StatusFlags, Battery, XSens, ADS, PPM, DD, ECU, ServoRef, IMU_1, IMU_2, SHM_1, SHM_2)
+# Get number of variables and number of IMUS/SHM
+IMU_noVar = 0
+for i in IMU_1[0:4]:
+    if i == '1':
+        IMU_noVar = IMU_noVar +1    
+IMU_noIMU = 0
+for i in IMU_1[4:]:
+    if i == '1':
+        IMU_noIMU = IMU_noIMU +1
+for i in IMU_2:
+    if i == '1':
+        IMU_noIMU = IMU_noIMU +1
 
-b = bitarray(IMU_1)
-print(IMU_1[0]=='1')
+SHM_noVar = 0
+for i in SHM_1[0:2]:
+    if i == '1':
+        SHM_noVar = SHM_noVar +1    
+SHM_noSHM = 0
+for i in SHM_1[2:]:
+    if i == '1':
+        SHM_noSHM = SHM_noSHM +1
+for i in SHM_2:
+    if i == '1':
+        SHM_noSHM = SHM_noSHM +1
+
+initalizeParser(StatusFlags, Battery, XSens, ADS, PPM, DD, ECU, ServoRef, IMU_1, IMU_2, SHM_1, SHM_2)
 
 IDs = { #IDs with corresponding message length
     0 : 16, #ErrorFlag: ID:0, payload length: 1
@@ -42,24 +66,32 @@ IDs = { #IDs with corresponding message length
     35: 1, #DD
     42: 28, #ECU
     49: 44, #SERVO_REF
-    56: 98, #IMU
-    63: 58 #SHM
+    56: IMU_noVar*IMU_noIMU*2 + 2, #IMU
+    63: SHM_noVar*SHM_noSHM*2 + 2 #SHM
 }
+#print(IMU_noVar*IMU_noIMU*2 + 2)
 
 #init serial connection to telemetry module
 ser = serial.Serial(comPort, baudrate, timeout=30)
 print(ser.name)
 
-CommandMessage = getCommandMsg(StatusFlags, Battery, XSens, ADS, PPM, DD, ECU, ServoRef, IMU_1, IMU_2, SHM_1, SHM_2)
+CommandMessage = getCommandMsg(cmdID, StatusFlags, Battery, XSens, ADS, PPM, DD, ECU, ServoRef, IMU_1, IMU_2, SHM_1, SHM_2)
 
 print(CommandMessage)
-ser.write(CommandMessage)
-time.sleep(1)
+for i in range(100):
+    ser.write(CommandMessage)
+    time.sleep(0.01)
+
 count = 0
 
 while True:
     #try:
-                
+        if count > 500:
+            #resending of commandMsg for a more stable connection (according to EDL)
+            ser.write(CommandMessage)
+            count = 0
+            #print(str(CommandMessage) + ' requested')
+        count = count + 1   
         x=0
         variableBits=''
         z = ser.read(1)
@@ -87,13 +119,15 @@ while True:
                 
             check = ser.read(1)
             head_payload = (150,configID,msgID)+payload
-            #print(head_payload)
+            #if msgID == 63:
+                #print(head_payload)
   
             if calcChecksum(head_payload):
                 payload = np.array(payload,dtype=np.uint8)
-                data = parser(CommandMessage, msgID, payload)
+                data = parser(IMU_noVar, IMU_noIMU, SHM_noVar, SHM_noSHM, IMU_1, SHM_1, msgID, payload)
                 #print(data)
                 sendtoOMCT(data, time.time())
+            
                 
     #except:
         #print('fail!')         
