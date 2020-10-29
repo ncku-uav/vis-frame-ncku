@@ -22,7 +22,7 @@ expressWs(app);
 // var spacecraft = new Spacecraft();
 var tflex = new TFlex();
 // var flutterometer = new Flutterometer();
-// var dg800 = new Dg800();
+var dg800 = new Dg800();
 //var horyzn = new Horyzn();
 // var aircraft_42 = new Aircraft_42();
 // var realtimeServer = new RealtimeServer(spacecraft,8082);
@@ -40,8 +40,8 @@ var historyServerFLEXOP = new HistoryServer(tflex);
 // var realtimeServerFLIPASED = new RealtimeServer(flutterometer);
 // var historyServerFLIPASED = new HistoryServer(flutterometer);
 
-// var realtimeServerDG800 = new RealtimeServer(dg800);
-// var historyServerDG800 = new HistoryServer(dg800);
+var realtimeServerDG800 = new RealtimeServer(dg800);
+var historyServerDG800 = new HistoryServer(dg800);
 
 // var realtimeServerAircraft_42 = new RealtimeServer(aircraft_42);
 // var historyServerAircraft_42 = new HistoryServer(aircraft_42);
@@ -55,8 +55,8 @@ app.use('/FLEXOPHistory', historyServerFLEXOP);
 // app.use('/FLUTTERRealtime', realtimeServerFLIPASED);
 // app.use('/FLUTTERHistory', historyServerFLIPASED);
 
-// app.use('/DG800Realtime', realtimeServerDG800);
-// app.use('/DG800History', historyServerDG800);
+app.use('/DG800Realtime', realtimeServerDG800);
+app.use('/DG800History', historyServerDG800);
 
 // app.use('/Aircraft_42Realtime', realtimeServerAircraft_42);
 // app.use('/Aircraft_42History', historyServerAircraft_42);

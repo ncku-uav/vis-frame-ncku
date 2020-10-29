@@ -31,6 +31,7 @@
         <link rel="icon" type="image/png" href="dist/favicons/favicon-32x32.png" sizes="32x32" type="image/x-icon">
         <link rel="icon" type="image/png" href="dist/favicons/favicon-16x16.png" sizes="16x16" type="image/x-icon">
         <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="node_modules/jqwidgets-scripts/jqwidgets/styles/jqx.base.css" />
     </head>
     <body>
     </body>
@@ -129,9 +130,9 @@
         //openmct.install(openmct.plugins.HoryznPlugin());
 		//openmct.install(openmct.plugins.HistoricalTelemetryPlugin('Horyzn.telemetry', '/HoryznHistory/', 'localhost'));
         //openmct.install(openmct.plugins.RealtimeTelemetryPlugin('Horyzn.telemetry', '/HoryznRealtime/', 'localhost'));
-		// openmct.install(openmct.plugins.DG800Plugin());
-		// openmct.install(openmct.plugins.HistoricalTelemetryPlugin('DG800.telemetry', '/DG800History/', 'localhost'));
-        // openmct.install(openmct.plugins.RealtimeTelemetryPlugin('DG800.telemetry', '/DG800Realtime/', 'localhost'));
+		openmct.install(openmct.plugins.DG800Plugin());
+		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('DG800.telemetry', '/DG800History/', 'localhost'));
+        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('DG800.telemetry', '/DG800Realtime/', 'localhost'));
         
         // openmct.install(openmct.plugins.FLUTTERPlugin());
 		// openmct.install(openmct.plugins.HistoricalTelemetryPlugin('FLUTTER.telemetry', '/FLUTTERHistory/', 'localhost'));
@@ -146,7 +147,7 @@
 		//openmct.install(openmct.plugins.ExampleImagery());
 		//openmct.install(gauge());
 		openmct.install(openmct.plugins.Gauge());
-        //openmct.install(openmct.plugins.SimpleVuePlugin());
+        openmct.install(openmct.plugins.SimpleVuePlugin());
         openmct.install(openmct.plugins.ButtonPlugin());
         openmct.install(openmct.plugins.MapPlugin())
         

@@ -62,12 +62,12 @@ define([
     '../../example/FLEXOP/FLEXOP-plugin',
     '../../example/HistoricalTelemetry/historical-telemetry-plugin',
     '../../example/RealtimeTelemetry/realtime-telemetry-plugin',
-	'../../example/Flutterometer/FLUTTER-plugin',
-	'../../example/DG800/DG800-plugin',
-	'../../example/Horyzn/Horyzn-plugin',
-	'../../example/Aircraft_42/Aircraft_42-plugin',
-	'../../example/simpleVuePlugin/plugin_update',
-	'../../example/Gauge_Bar/plugin2',
+    '../../example/Flutterometer/FLUTTER-plugin',
+    '../../example/DG800/DG800-plugin',
+    '../../example/Horyzn/Horyzn-plugin',
+    '../../example/Aircraft_42/Aircraft_42-plugin',
+    '../../example/simpleVuePlugin/plugin_update',
+    '../../example/Gauge_Bar/plugin',
     '../../example/Button/plugin',
     '../../example/STFEstyling/stfe',
     '../../example/Map/plugin'
@@ -113,12 +113,12 @@ define([
     FLEXOPPlugin,
     HistoricalTelemetryPlugin,
     RealtimeTelemetryPlugin,
-	FLUTTERPlugin,
-	DG800Plugin,
-	HoryznPlugin,
-	Aircraft_42Plugin,
-	SimpleVuePlugin,
-	Gauge,
+    FLUTTERPlugin,
+    DG800Plugin,
+    HoryznPlugin,
+    Aircraft_42Plugin,
+    SimpleVuePlugin,
+    Gauge,
     ButtonPlugin,
     STFEstyling,
     MapPlugin
@@ -215,17 +215,17 @@ define([
     plugins.ISOTimeFormat = ISOTimeFormat.default;
     plugins.DefaultRootName = DefaultRootName.default;
     plugins.Timeline = Timeline.default;
-    
+
     plugins.FLEXOPPlugin = FLEXOPPlugin;
-	//plugins.exports = exports;	
+    //plugins.exports = exports;
     plugins.HistoricalTelemetryPlugin = HistoricalTelemetryPlugin;
-    plugins.RealtimeTelemetryPlugin = RealtimeTelemetryPlugin;	
-	plugins.FLUTTERPlugin = FLUTTERPlugin;	
-	plugins.DG800Plugin = DG800Plugin;
-	plugins.HoryznPlugin = HoryznPlugin;	
-	plugins.Aircraft_42Plugin = Aircraft_42Plugin;	
-	plugins.SimpleVuePlugin = SimpleVuePlugin;	
-	plugins.Gauge = Gauge;
+    plugins.RealtimeTelemetryPlugin = RealtimeTelemetryPlugin;
+    plugins.FLUTTERPlugin = FLUTTERPlugin;
+    plugins.DG800Plugin = DG800Plugin;
+    plugins.HoryznPlugin = HoryznPlugin;
+    plugins.Aircraft_42Plugin = Aircraft_42Plugin;
+    plugins.SimpleVuePlugin = SimpleVuePlugin;
+    plugins.Gauge = Gauge;
     plugins.ButtonPlugin = ButtonPlugin;
     plugins.STFEstyling = STFEstyling.default;
     plugins.MapPlugin = MapPlugin;

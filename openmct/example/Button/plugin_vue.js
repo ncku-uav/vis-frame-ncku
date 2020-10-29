@@ -23,94 +23,93 @@
 //import ButtonViewProvider from './ConditionWidgetViewProvider.js';
 //const ButtonViewProvider = require('./ButtonViewProvider.js');
 
-
 define([
     //'./ConditionWidgetViewProvider.js'
     'vue', './components/ConditionWidget.vue'
-], function ( Vue, ConditionWidgetComponent
+], function (Vue, ConditionWidgetComponent
     //ButtonViewProvider
 ) {
 
-function ButtonPlugin() {
-    return function install(openmct) {
+    function ButtonPlugin() {
+        return function install(openmct) {
 
+            openmct.objectViews.addProvider({
 
-        openmct.objectViews.addProvider({
-        
-        key: 'CustomButton',
-        name: 'Condition Widget',
-        cssClass: 'icon-condition-widget',
-        canView: function (domainObject) {
-            return domainObject.type === 'CustomButton';
-        },
-        canEdit: function (domainObject) {
-            return domainObject.type === 'CustomButton';
-        },
-        view: function (domainObject) {
-            let component;
+                key: 'CustomButton',
+                name: 'Condition Widget',
+                cssClass: 'icon-condition-widget',
+                canView: function (domainObject) {
+                    return domainObject.type === 'CustomButton';
+                },
+                canEdit: function (domainObject) {
+                    return domainObject.type === 'CustomButton';
+                },
+                view: function (domainObject) {
+                    let component;
 
-            return {
-                show: function (element) {
-                    component = new Vue({
-                        el: element,
-                        components: {
-                            ConditionWidgetComponent: ConditionWidgetComponent
+                    return {
+                        show: function (element) {
+                            component = new Vue({
+                                el: element,
+                                components: {
+                                    ConditionWidgetComponent: ConditionWidgetComponent
+                                },
+                                provide: {
+                                    openmct,
+                                    domainObject
+                                },
+                                template: '<condition-widget-component></condition-widget-component>'
+                            });
                         },
-                        provide: {
-                            openmct,
-                            domainObject
-                        },
-                        template: '<condition-widget-component></condition-widget-component>'
-                    });
+                        destroy: function (element) {
+                            component.$destroy();
+                            component = undefined;
+                        }
+                    };
                 },
-                destroy: function (element) {
-                    component.$destroy();
-                    component = undefined;
+                priority: function () {
+                    return 1;
                 }
-            };
-        },
-        priority: function () {
-            return 1;
-        }
-        });
+            });
 
-        openmct.types.addType('CustomButton', {
-            name: "Custom Button",
-            description: "A button that can be used as pleased.",
-            creatable: true,
-            cssClass: 'icon-condition-widget',
-            initialize(domainObject) {
-                domainObject.label = 'Custom Button';
-            },
-            form: [
-                {
-                    "key": "label",
-                    "name": "Label",
-                    "control": "textfield",
-                    property: [
-                        "label"
-                    ],
-                    "required": true,
-                    "cssClass": "l-input"
+            openmct.types.addType('CustomButton', {
+                name: "Custom Button",
+                description: "A button that can be used as pleased.",
+                creatable: true,
+                cssClass: 'icon-condition-widget',
+                initialize(domainObject) {
+                    domainObject.label = 'Custom Button';
                 },
-                {
-                    "key": "url",
-                    "name": "URL",
-                    "control": "textfield",
-                    "required": false,
-                    "cssClass": "l-input-lg"
-                },
-                {
-                    "key": "port",
-                    "name": "Port",
-                    "control": "textfield",
-                    "required": false,
-                    "cssClass": "l-input-lg"
-                }
-            ]
-        });
-    };
-}
-return ButtonPlugin;
+                form: [
+                    {
+                        "key": "label",
+                        "name": "Label",
+                        "control": "textfield",
+                        property: [
+                            "label"
+                        ],
+                        "required": true,
+                        "cssClass": "l-input"
+                    },
+                    {
+                        "key": "url",
+                        "name": "URL",
+                        "control": "textfield",
+                        "required": false,
+                        "cssClass": "l-input-lg"
+                    },
+                    {
+                        "key": "port",
+                        "name": "Port",
+                        "control": "textfield",
+                        "required": false,
+                        "cssClass": "l-input-lg"
+                    }
+                ]
+            });
+        };
+    }
+
+    return ButtonPlugin;
 });
 

@@ -16,5 +16,5 @@ export function installTheme(openmct, themeName) {
 
     document.head.appendChild(newTheme);
 
-    console.log('STFE Styling activated!')
+    console.log('STFE Styling activated!');
 }

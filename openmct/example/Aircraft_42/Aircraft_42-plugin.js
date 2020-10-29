@@ -1,4 +1,3 @@
- 
 
 define([
 
@@ -9,13 +8,11 @@ define([
     function Aircraft_42Plugin() {
 
         function getAircraft_42Dictionary() {
-            return fetch('/example/Aircraft_42/Aircraft_42dictionary.json').then(function (response){
+            return fetch('/example/Aircraft_42/Aircraft_42dictionary.json').then(function (response) {
                 return response.json();
             });
 
-            }
-
-
+        }
 
         // An object provider builds Domain Objects
         var Aircraft_42_objectProvider = {
@@ -33,6 +30,7 @@ define([
                         var measurement = dictionary.measurements.filter(function (m) {
                             return m.key === identifier.key;
                         })[0];
+
                         return {
                             identifier: identifier,
                             name: measurement.name,
@@ -53,8 +51,8 @@ define([
         // "load" returns an array of Identifier objects (like the channels this telemetry stream offers)
         var Aircraft_42_compositionProvider = {
             appliesTo: function (domainObject) {
-                return domainObject.identifier.namespace === 'Aircraft_42.taxonomy' &&
-                    domainObject.type === 'folder';
+                return domainObject.identifier.namespace === 'Aircraft_42.taxonomy'
+                    && domainObject.type === 'folder';
             },
             load: function (domainObject) {
                 return getAircraft_42Dictionary()
@@ -68,9 +66,6 @@ define([
                     });
             }
         };
-
-
-
 
         return function install(openmct) {
             // The addRoot function takes an "object identifier" as an argument
@@ -88,8 +83,8 @@ define([
                 description: 'Telemetry of Aircraft_42',
                 cssClass: 'icon-telemetry'
             });
-        }
-    };
+        };
+    }
 
     return Aircraft_42Plugin;
 });

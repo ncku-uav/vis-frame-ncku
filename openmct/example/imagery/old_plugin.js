@@ -26,7 +26,7 @@ define([
 
 ) {
     function ImageryPlugin() {
-	
+
 	        var IMAGE_SAMPLES = [
             "https://www.hq.nasa.gov/alsj/a16/AS16-117-18731.jpg",
             "https://www.hq.nasa.gov/alsj/a16/AS16-117-18732.jpg",
@@ -57,7 +57,6 @@ define([
             };
         }
 
-        
         var realtimeProvider = {
             supportsSubscribe: function (domainObject) {
                 return domainObject.type === 'example.imagery';
@@ -86,28 +85,28 @@ define([
                     data.push(pointForTimestamp(start, domainObject.name));
                     start += 5000;
                 }
+
                 return Promise.resolve(data);
             }
         };
 
         var ladProvider = {
             supportsRequest: function (domainObject, options) {
-                return domainObject.type === 'example.imagery' &&
-                    options.strategy === 'latest';
+                return domainObject.type === 'example.imagery'
+                    && options.strategy === 'latest';
             },
             request: function (domainObject, options) {
                 return Promise.resolve([pointForTimestamp(Date.now(), domainObject.name)]);
             }
         };
 
-
         return function install(openmct) {
             openmct.types.addType('example.imagery', {
                 key: 'example.imagery',
                 name: 'Example Imagery',
                 cssClass: 'icon-image',
-                description: 'For development use. Creates example imagery ' +
-                    'data that mimics a live imagery stream.',
+                description: 'For development use. Creates example imagery '
+                    + 'data that mimics a live imagery stream.',
                 creatable: true,
                 initialize: function (object) {
                     object.telemetry = {
@@ -141,7 +140,7 @@ define([
                                 }
                             }
                         ]
-                    }
+                    };
                 }
             });
 
@@ -149,7 +148,7 @@ define([
             //openmct.telemetry.addProvider(historicalProvider);
             openmct.telemetry.addProvider(ladProvider);
         };
-    };
+    }
 
     return ImageryPlugin;
 });

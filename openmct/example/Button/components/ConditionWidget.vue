@@ -28,7 +28,7 @@
     <div class="c-condition-widget__label">
         {{ internalDomainObject.label }}
     </div>
-    
+
 </component>
 
 </template>
