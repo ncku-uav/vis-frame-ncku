@@ -23,9 +23,6 @@ function ProgressBarView(domain) {
         return (value - min) / (max - min);
     }
 
-    
-
-
     function createRow(name) {
         var tblBody = document.createElement("tblBody");
 
@@ -60,11 +57,8 @@ function ProgressBarView(domain) {
 
         var bar = createProgressBar();
         box.appendChild(bar.content);
-
               
         var ticks = createTicks();
-        
-
         box.appendChild(ticks.content);
 
         tblBody.appendChild(row)
@@ -143,18 +137,11 @@ function ProgressBarView(domain) {
         bar.classList.add("plot-display-area");
 
         var percentage = document.createElement("progress");
-        bar.appendChild(percentage);
-        //percentage.classList.add("c-button");
-        //percentage.classList.add("c-button--major");
-        percentage.style.backgroundColor = "#E0E0E0";
-        percentage.style.background = "#E0E0E0";
-        percentage.style.fontsize = "14px";
-        percentage.style.color = "#000000";
         percentage.style.width = "0%";
         percentage.style.height = "100%";
-        percentage.style.padding = "0";
-        //bar.style.transform  = "rotate(-90deg)"
-
+        percentage.style.padding = "0";        
+        bar.appendChild(percentage);
+       
         return {
             content: bar,
             setPercent(float) {
@@ -166,7 +153,7 @@ function ProgressBarView(domain) {
                 }
 
                 percentage.style.width = width + "%";
-                percentage.innerText = Math.round(float) + "%";
+                //percentage.innerText = Math.round(float) + "%";
             },
             setNormalizedPercent(float) {
                 if (!float) {
@@ -188,7 +175,7 @@ function ProgressBarView(domain) {
         dom.appendChild(container);
 
         composition.forEach((id, index) => {
-            var row = createRow(id.key);
+            var row = createRow(domain.name);
             container.appendChild(row.content);
 
             openmct.objects.get(id).then(function (cDomain) {

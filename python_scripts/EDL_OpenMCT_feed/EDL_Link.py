@@ -13,7 +13,7 @@ from OpenMCT_send import sendtoOMCT
 from bitarray import bitarray
 
 # which com port
-comPort = '/dev/ttyUSB0'
+comPort = '/dev/ttyUSB1'
 baudrate = 57600
 
 cmdID = 23
@@ -25,10 +25,10 @@ PPM = '1'
 DD = '0' #does not get parsed atm was not implemented in EDL as well
 ECU = '1'
 ServoRef = '1'
-IMU_1 = '01111111' # Analog Acc Z / GyroX / Gyro Y / Digital Acc Z / IMU1 ...IMU4
+IMU_1 = '11111111' # Analog Acc Z / GyroX / Gyro Y / Digital Acc Z / IMU1 ...IMU4
 IMU_2 = '11111111' # IMU5...IMU12
-SHM_1 = '11111111' # Position / Temp / SHM14 ... SHM9
-SHM_2 = '11111111' # SHM8 ... SHM1
+SHM_1 = '11111111' # Position / Temp / SHM1 ... SHM6
+SHM_2 = '11111111' # SHM7 ... SHM14
 
 # Get number of variables and number of IMUS/SHM
 IMU_noVar = 0
@@ -79,16 +79,16 @@ CommandMessage = getCommandMsg(cmdID, StatusFlags, Battery, XSens, ADS, PPM, DD,
 
 print(CommandMessage)
 for i in range(100):
-    ser.write(CommandMessage)
+    #ser.write(CommandMessage)
     time.sleep(0.01)
 
 count = 0
-
+pckg = 0
 while True:
     #try:
         if count > 500:
             #resending of commandMsg for a more stable connection (according to EDL)
-            ser.write(CommandMessage)
+            #ser.write(CommandMessage)
             count = 0
             #print(str(CommandMessage) + ' requested')
         count = count + 1   
@@ -119,7 +119,7 @@ while True:
                 
             check = ser.read(1)
             head_payload = (150,configID,msgID)+payload
-            #if msgID == 63:
+            #if msgID == 63: #to check raw payload of a specific payload (ID see id dicrtinary)
                 #print(head_payload)
   
             if calcChecksum(head_payload):
@@ -127,6 +127,9 @@ while True:
                 data = parser(IMU_noVar, IMU_noIMU, SHM_noVar, SHM_noSHM, IMU_1, SHM_1, msgID, payload)
                 #print(data)
                 sendtoOMCT(data, time.time())
+                pckg = pckg +1
+                print(pckg)
+
             
                 
     #except:

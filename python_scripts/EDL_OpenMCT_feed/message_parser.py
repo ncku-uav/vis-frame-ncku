@@ -1,5 +1,6 @@
 import numpy as np
 import struct
+from load_wing_config import getCoefficients
 
 def initalizeParser(StatusFlags, Battery, XSens, ADS, PPM, DD, ECU, ServoRef, IMU_1, IMU_2, SHM_1, SHM_2):
 
@@ -127,6 +128,8 @@ def initalizeParser(StatusFlags, Battery, XSens, ADS, PPM, DD, ECU, ServoRef, IM
         for i in range(int(len(servo_ref)/2)):
             servo_ref[count] = 'servo_rev.ID'+str(i)
             count = count + 2
+        global PWM_coeff
+        PWM_coeff = getCoefficients('PWM')
         
 
     global imu
@@ -183,28 +186,30 @@ def initalizeParser(StatusFlags, Battery, XSens, ADS, PPM, DD, ECU, ServoRef, IM
     global shm
     shm=[]
     if SHM_1[0] == '1':
-        pos = 14
+        pos = 1
         for j in SHM_1[2:]:
             if j == '1':
                 shm.extend(['shm'+str(pos)+'.Pos', 0])
-            pos = pos - 1
-        pos = 8
+            pos = pos + 1
+        pos = 7
         for j in SHM_2[:]:
             if j == '1':
                 shm.extend(['shm'+str(pos)+'.Pos', 0])
-            pos = pos - 1
+            pos = pos + 1
 
     if SHM_1[1] == '1':
-        pos = 14
+        pos = 1
         for j in SHM_1[2:]:
             if j == '1':
                 shm.extend(['shm'+str(pos)+'.Temp', 0])
-            pos = pos -1
-        pos = 8
+            pos = pos +1
+        pos = 7
         for j in SHM_2[:]:
             if j == '1':
                 shm.extend(['shm'+str(pos)+'.Temp', 0])
-            pos = pos -1
+            pos = pos +1
+    global SHM_coeff
+    SHM_coeff = getCoefficients('SHM')
     #print(shm)
 
 def bitget(number, pos):
@@ -387,12 +392,14 @@ def parser(IMU_noVar, IMU_noIMU, SHM_noVar, SHM_noSHM, IMU_1, SHM_1, MsgID, payl
         
 ## SERVO_REF
     def SERVO_REF():
-
+        #print(PWM_coeff)
         data = np.ndarray((21,), buffer = payload, dtype=np.dtype('>u2'))
         count = 1
         for i in range(int(len(servo_ref)/2)-1):
-            servo_ref[count] = data[i]
+            servo_ref[count] = data[i]*PWM_coeff[i][1]*0.2+PWM_coeff[i][2] #0.2 is for transformation to pulse microseconds
             count = count + 2
+            #print(servo_ref[count-1])
+            #print(PWM_coeff[i])
         #print(servo_ref)
         return(servo_ref) 
 
@@ -432,21 +439,30 @@ def parser(IMU_noVar, IMU_noIMU, SHM_noVar, SHM_noSHM, IMU_1, SHM_1, MsgID, payl
 
 ## SHM
     def SHM():
+        #print(SHM_coeff)
         varCount = SHM_noVar*SHM_noSHM
         u16_SHM = np.ndarray((varCount,), buffer = payload, dtype=np.dtype('>i2'))
         offsU16 = 0
         offsSHM = 0
        
-        if SHM_1[0] == '1':
-            shm[1:SHM_noSHM*2:2] = u16_SHM[offsU16:SHM_noSHM*SHM_noVar:SHM_noVar]
-            offsU16 = offsU16 +1
-            offsSHM = offsSHM + SHM_noSHM
+        if SHM_1[0] == '1' and SHM_1[0] == '1':
+           shm[1:SHM_noSHM*2:2] = (u16_SHM[0:SHM_noSHM*2-1:2])
+           shm[SHM_noSHM*2+1:SHM_noSHM*4:2] = (u16_SHM[1:SHM_noSHM*2:2]*0.8057-500)/10
+        count = 1
+        for i in range(14):
+            shm[count] = shm[count]*SHM_coeff[i][1]+SHM_coeff[i][2]
+            count = count +2
 
-        if SHM_1[1] == '1':
-            shm[1:SHM_noSHM*2:2] = u16_SHM[offsU16:SHM_noSHM*SHM_noVar:SHM_noVar]
-            offsU16 = offsU16 +1
+        # if SHM_1[0] == '1':
+        #     shm[1:SHM_noSHM*2:2] = u16_SHM[offsU16:SHM_noSHM*SHM_noVar:SHM_noVar]
+        #     offsU16 = offsU16 +1
+        #     offsSHM = offsSHM + SHM_noSHM
 
-        #print(shm)            
+        # if SHM_1[1] == '1':
+        #     shm[1:SHM_noSHM*2:2] = u16_SHM[offsU16:SHM_noSHM*SHM_noVar:SHM_noVar]
+        #     offsU16 = offsU16 +1
+
+        print(shm)            
 
         return(shm) 
 

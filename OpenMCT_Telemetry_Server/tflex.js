@@ -121,6 +121,36 @@ function TFlex() {
                 this.state[this.data[0]] = -this.data[1]/9.806;
                 //console.log(this.state[this.data[0]])
 			}
+
+			if (this.data[0] === "shm13.Pos"){
+                this.state['Dpos.TailR1'] = Math.abs(this.state[this.data[0]]-this.state['servo_rev.ID13'])
+				//console.log(Math.abs(this.state[this.data[0]]-this.state['servo_rev.ID13']))
+				var timestamp = this.state['Time.stamp'];
+				var message = { timestamp: timestamp, value: this.state['Dpos.TailR1'], id: this.data[0]};
+				this.notify(message);
+				try{ // store in history
+					this.history['Dpos.TailR1'].push(message);
+					}
+					catch (e) {
+						console.log(e)
+					}
+			}
+
+			if (this.data[0] === 'servo_rev.ID13'){
+                this.state['Dpos.TailR1'] = Math.abs(this.state["shm13.Pos"]-this.state[this.data[0]])
+				//console.log(this.state[this.data[0]]-this.state["shm13.Pos"])
+				var timestamp = this.state['Time.stamp'];
+				var message = { timestamp: timestamp, value: this.state['Dpos.TailR1'], id: this.data[0]};
+				this.notify(message);
+				try{ // store in history
+					this.history['Dpos.TailR1'].push(message);
+					}
+					catch (e) {
+						console.log(e)
+					}
+			}
+
+			
 			
 			
 			

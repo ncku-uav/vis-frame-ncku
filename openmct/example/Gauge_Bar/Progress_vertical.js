@@ -4,7 +4,7 @@ define([
 
 ) {
 
-function FuelBarView(domain) {
+function ProgressBarVerticalView(domain) {
     var container = null;
 
     var subscriptions = null;
@@ -24,7 +24,6 @@ function FuelBarView(domain) {
     }
 
     function createRow(name) {
-
         var tblBody = document.createElement("tblBody");
 
         var row = document.createElement("tr");
@@ -36,9 +35,11 @@ function FuelBarView(domain) {
         head.style.width = "1%"
         head.style.verticalAlign = "middle"
         row.appendChild(head);
+        
 
         var row2 = document.createElement("tr");
         row2.style.width = "100%";
+        
 
         var valuebox = document.createElement("td");
         valuebox.id = "Value";
@@ -54,12 +55,17 @@ function FuelBarView(domain) {
         var box = document.createElement("td");
         row2.appendChild(box);
 
-        var bar = createFuelBar();
+        var bar = createProgressBar();        
         box.appendChild(bar.content);
+              
+        // var ticks = createTicks();
+        // bar.content.style.transform = "rotate(-90deg)"
+        // box.appendChild(ticks.content);
 
         tblBody.appendChild(row)
         tblBody.appendChild(row2)
 
+        
         return {
             content: tblBody,
             progress: bar,
@@ -67,44 +73,103 @@ function FuelBarView(domain) {
                 head.innerText = text;
             },
             setValue(value) {
-                
-                valuebox.innerText = (100 - (Math.round( (getPercentOf(value)+ Number.EPSILON) * 100) / 100)*100).toString() + '%'
+                valuebox.innerText = Math.round((value + Number.EPSILON) * 100) / 100;
                 
             }
         };
     }
 
-    function createFuelBar() {
+    function createTicks() {
+        var container = document.createElement("div");
+        container.style.height = "100%";
+        container.style.width = "10px";
+        container.style.textAlign = "center"
+        container.style.fontSize = "12px";
+        container.style.color = "C0C0C0";
+        
+        var tag1 = document.createElement("div");
+        tag1.innerText = min.toString();
+        tag1.style.position = "relative";
+        tag1.style.float = "top"
+        tag1.style.width = "15%";
+        tag1.style.textAlign = "top"
+        container.appendChild(tag1);
+        
+        var tag2 =  document.createElement("div");
+        tag2.innerText = (min+(max-min)*0.25).toString()
+        tag2.style.position = "relative";
+        tag2.style.float = "top"
+        tag2.style.width = "23%";
+        container.appendChild(tag2);
+
+        var tag3 =  document.createElement("div");
+        tag3.innerText = (min+(max-min)*0.5).toString()
+        tag3.style.position = "relative";
+        //tag3.style.left = "50%"
+        tag3.style.float = "top"
+        tag3.style.width = "23%";
+        container.appendChild(tag3);
+
+        var tag4 =  document.createElement("div");
+        tag4.innerText = (min+(max-min)*0.75).toString()
+        tag4.style.position = "relative";
+        //tag4.style.left = "50%"
+        tag4.style.float = "top"
+        tag4.style.width = "23%";
+        container.appendChild(tag4);
+
+        var tag5 =  document.createElement("div");
+        tag5.innerText = max.toString();
+        tag5.style.position = "relative";
+        //tag5.style.left = "100%"
+        tag5.style.float = "top"
+        tag5.style.width = "15%";
+        tag5.style.textAlign = "bottom"
+        container.appendChild(tag5);
+
+        return {
+            content: container,
+        };
+    }
+
+    function createProgressBar() {
         var bar = document.createElement("div");
+        
         bar.style.width = "100%";
         bar.style.height = "30px";
+        bar.style.display = "block";
+        bar.style.position = "relative";
+        bar.style.transform = "rotate(-90deg)"  
         bar.classList.add("plot-display-area");
 
         var percentage = document.createElement("progress");
         percentage.style.width = "0%";
         percentage.style.height = "100%";
-        percentage.style.padding = "0";        
+        percentage.style.padding = "0";
+        
+        //percentage.style.transform = "rotate(-90deg)"        
         bar.appendChild(percentage);
-
+       
         return {
             content: bar,
             setPercent(float) {
                 var width = float;
                 if (width > 100) {
-                    width = 0;
-                } else if (width < 0) {
                     width = 100;
+                } else if (width < 0) {
+                    width = 0;
                 }
 
                 percentage.style.width = width + "%";
                 //percentage.innerText = Math.round(float) + "%";
+                //percentage.value = float*100
             },
             setNormalizedPercent(float) {
                 if (!float) {
-                    float = 100;
+                    float = 0;
                 }
 
-                this.setPercent(100 - float * 100);
+                this.setPercent(float * 100);
             }
         };
     }
@@ -136,7 +201,7 @@ function FuelBarView(domain) {
                     }
 
                     row.progress.setNormalizedPercent(getPercentOf(data[first.source || first.key]));
-
+                    
                     var value = data[first.source || first.key];
                     if (typeof (value) === "string") {
                         value = parseFloat(value);
@@ -171,6 +236,6 @@ function FuelBarView(domain) {
     return this;
 }
 
-return FuelBarView
+return ProgressBarVerticalView
 
 });

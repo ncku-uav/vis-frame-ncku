@@ -146,7 +146,7 @@ function GaugeView(domain) {
         //console.log(compostition.)
 
         composition.forEach((id, index) => {
-            var gauge = makeGauge(id.key);
+            var gauge = makeGauge(domain.name);
             //console.log(id.getName())
             container.appendChild(gauge.content);
 

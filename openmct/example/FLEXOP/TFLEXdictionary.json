@@ -729,7 +729,7 @@
         },
 
         {
-            "name": "PPM Chanel 0",
+            "name": "PPM Channel  1",
             "key": "ppm.ch0",
             "values": [
                 {
@@ -753,7 +753,7 @@
             ]
         },
         {
-            "name": "PPM Chanel 1",
+            "name": "PPM Channel  2",
             "key": "ppm.ch1",
             "values": [
                 {
@@ -777,7 +777,7 @@
             ]
         },
         {
-            "name": "PPM Chanel 2",
+            "name": "PPM Channel  3",
             "key": "ppm.ch2",
             "values": [
                 {
@@ -801,7 +801,7 @@
             ]
         },
         {
-            "name": "PPM Chanel 3",
+            "name": "PPM Channel  4",
             "key": "ppm.ch3",
             "values": [
                 {
@@ -825,7 +825,7 @@
             ]
         },
         {
-            "name": "PPM Chanel 4",
+            "name": "PPM Channel  5",
             "key": "ppm.ch4",
             "values": [
                 {
@@ -849,7 +849,7 @@
             ]
         },
         {
-            "name": "PPM Chanel 5",
+            "name": "PPM Channel  6",
             "key": "ppm.ch5",
             "values": [
                 {
@@ -873,7 +873,7 @@
             ]
         },
         {
-            "name": "PPM Chanel 6",
+            "name": "PPM Channel  7",
             "key": "ppm.ch6",
             "values": [
                 {
@@ -897,7 +897,7 @@
             ]
         },
         {
-            "name": "PPM Chanel 7",
+            "name": "PPM Channel  8",
             "key": "ppm.ch7",
             "values": [
                 {
@@ -921,7 +921,7 @@
             ]
         },
         {
-            "name": "PPM Chanel 8",
+            "name": "PPM Channel  9",
             "key": "ppm.ch8",
             "values": [
                 {
@@ -945,7 +945,7 @@
             ]
         },
         {
-            "name": "PPM Chanel 9",
+            "name": "PPM Channel  10",
             "key": "ppm.ch9",
             "values": [
                 {
@@ -969,7 +969,7 @@
             ]
         },
         {
-            "name": "PPM Chanel 10",
+            "name": "PPM Channel  11",
             "key": "ppm.ch10",
             "values": [
                 {
@@ -993,7 +993,7 @@
             ]
         },
         {
-            "name": "PPM Chanel 11",
+            "name": "PPM Channel  12",
             "key": "ppm.ch11",
             "values": [
                 {
@@ -1017,7 +1017,7 @@
             ]
         },
         {
-            "name": "PPM Chanel 12",
+            "name": "PPM Channel  13",
             "key": "ppm.ch12",
             "values": [
                 {
@@ -1041,7 +1041,7 @@
             ]
         },
         {
-            "name": "PPM Chanel 13",
+            "name": "PPM Channel  14",
             "key": "ppm.ch13",
             "values": [
                 {
@@ -1065,7 +1065,7 @@
             ]
         },
         {
-            "name": "PPM Chanel 14",
+            "name": "PPM Channel  15",
             "key": "ppm.ch14",
             "values": [
                 {
@@ -1089,7 +1089,7 @@
             ]
         },
         {
-            "name": "PPM Chanel 15",
+            "name": "PPM Channel  16",
             "key": "ppm.ch15",
             "values": [
                 {
@@ -1314,7 +1314,7 @@
         },
 
         {
-            "name": "Servo Ref Chanel 0",
+            "name": "PWM Channel 1",
             "key": "servo_rev.ID0",
             "values": [
                 {
@@ -1338,7 +1338,7 @@
             ]
         },
         {
-            "name": "Servo Ref Chanel 1",
+            "name": "PWM Channel 2",
             "key": "servo_rev.ID1",
             "values": [
                 {
@@ -1362,7 +1362,7 @@
             ]
         },
         {
-            "name": "Servo Ref Chanel 2",
+            "name": "PWM Channel 3",
             "key": "servo_rev.ID2",
             "values": [
                 {
@@ -1386,7 +1386,7 @@
             ]
         },
         {
-            "name": "Servo Ref Chanel 3",
+            "name": "PWM Channel  4",
             "key": "servo_rev.ID3",
             "values": [
                 {
@@ -1410,7 +1410,7 @@
             ]
         },
         {
-            "name": "Servo Ref Chanel 4",
+            "name": "PWM Channel  5",
             "key": "servo_rev.ID4",
             "values": [
                 {
@@ -1434,7 +1434,7 @@
             ]
         },
         {
-            "name": "Servo Ref Chanel 5",
+            "name": "PWM Channel  6",
             "key": "servo_rev.ID5",
             "values": [
                 {
@@ -1458,7 +1458,7 @@
             ]
         },
         {
-            "name": "Servo Ref Chanel 6",
+            "name": "PWM Channel  7",
             "key": "servo_rev.ID6",
             "values": [
                 {
@@ -1482,7 +1482,7 @@
             ]
         },
         {
-            "name": "Servo Ref Chanel 7",
+            "name": "PWM Channel  8",
             "key": "servo_rev.ID7",
             "values": [
                 {
@@ -1506,7 +1506,7 @@
             ]
         },
         {
-            "name": "Servo Ref Chanel 8",
+            "name": "PWM Channel  9",
             "key": "servo_rev.ID8",
             "values": [
                 {
@@ -1530,7 +1530,7 @@
             ]
         },
         {
-            "name": "Servo Ref Chanel 9",
+            "name": "PWM Channel  10",
             "key": "servo_rev.ID9",
             "values": [
                 {
@@ -1554,7 +1554,7 @@
             ]
         },
         {
-            "name": "Servo Ref Chanel 10",
+            "name": "PWM Channel  11",
             "key": "servo_rev.ID10",
             "values": [
                 {
@@ -1578,7 +1578,7 @@
             ]
         },
         {
-            "name": "Servo Ref Chanel 11",
+            "name": "PWM Channel  12",
             "key": "servo_rev.ID11",
             "values": [
                 {
@@ -1602,7 +1602,7 @@
             ]
         },
         {
-            "name": "Servo Ref Chanel 12",
+            "name": "PWM Channel  13",
             "key": "servo_rev.ID12",
             "values": [
                 {
@@ -1626,7 +1626,7 @@
             ]
         },
         {
-            "name": "Servo Ref Chanel 13",
+            "name": "PWM Channel  14",
             "key": "servo_rev.ID13",
             "values": [
                 {
@@ -1650,7 +1650,7 @@
             ]
         },
         {
-            "name": "Servo Ref Chanel 14",
+            "name": "PWM Channel  15",
             "key": "servo_rev.ID14",
             "values": [
                 {
@@ -1674,7 +1674,7 @@
             ]
         },
         {
-            "name": "Servo Ref Chanel 15",
+            "name": "PWM Channel  16",
             "key": "servo_rev.ID15",
             "values": [
                 {
@@ -1698,7 +1698,7 @@
             ]
         },
         {
-            "name": "Servo Ref Chanel 16",
+            "name": "PWM Channel  17",
             "key": "servo_rev.ID16",
             "values": [
                 {
@@ -1722,7 +1722,7 @@
             ]
         },
         {
-            "name": "Servo Ref Chanel 17",
+            "name": "PWM Channel  18",
             "key": "servo_rev.ID17",
             "values": [
                 {
@@ -1746,7 +1746,7 @@
             ]
         },
         {
-            "name": "Servo Ref Chanel 18",
+            "name": "PWM Channel  19",
             "key": "servo_rev.ID18",
             "values": [
                 {
@@ -1770,7 +1770,7 @@
             ]
         },
         {
-            "name": "Servo Ref Chanel 19",
+            "name": "PWM Channel  20",
             "key": "servo_rev.ID19",
             "values": [
                 {
@@ -1794,8 +1794,33 @@
             ]
         },
         {
-            "name": "Servo Ref Chanel 20",
+            "name": "PWM Channel  21",
             "key": "servo_rev.ID20",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "unit",
+                    "format": "integer",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+
+        {
+            "name": "D Pos Tail R1",
+            "key": "Dpos.TailR1",
             "values": [
                 {
                     "key": "value",
