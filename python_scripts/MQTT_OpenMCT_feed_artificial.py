@@ -1,7 +1,5 @@
 import socket
 import time
-#import ntplib
-
 
 import paho.mqtt.client as mqtt
 
@@ -13,6 +11,7 @@ MESSAGE = "23,567,32,4356,456,132,4353467" #init message
 data = 0 #artificial data
 
 topics = [
+    # those are the keys for the DG800, which are declared in the dictionary on OpenMCT side
         "data.gps.iTOW",
         "data.gps.lon",
         "data.gps.lat" ,
@@ -69,7 +68,6 @@ try:
 except:
     print('Initial message failed!')
 
-#ntp_client = ntplib.NTPClient()
 lon = 11.273738
 lat = 48.069299
 hdg = 0
@@ -78,11 +76,8 @@ while True:
 
     for i in range(len(topics)):
         #print(i)
-        #response = ntp_client.request('pool.ntp.org')
-        #timeStamp = response.tx_time
         
-        
-        
+        # a little logic to create "meaningful" poitional data (Map Plugin testing)
         if topics[i]=="data.gps.lon":
             if lon >= 11.296338:
                 lon = 11.273738
@@ -111,16 +106,18 @@ while True:
             hdg = hdg + 1
             continue
 
+
         timeStamp = time.time()
         MESSAGE = "{},{},{}".format(topics[i],data+i,timeStamp)
         # Pumping out the values
         sock.sendto(MESSAGE.encode(), (UDP_IP, UDP_PORT))
+
         #print your message for validation and wait for the next loop
         #print(MESSAGE)
         #print('\n')
         
 
-    if data < 180:
+    if data < 1000:
         data = data + 1
     else:
         data = 0

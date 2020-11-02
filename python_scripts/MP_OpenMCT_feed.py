@@ -1,15 +1,15 @@
 import socket
 import time
 
-UDP_IP = "127.0.0.1"
-UDP_PORT = 50011
-MESSAGE = "23,567,32,4356,456,132,4353467"
+UDP_IP = "127.0.0.1" #localhost
+UDP_PORT = 50011 # your telemetry Object port
+MESSAGE = "23,567,32,4356,456,132,4353467" # random test message
 
+# set up UDP Port
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # Internet, UDP
 sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
 
 i = 0
-
 try:
     while True:
         # Little counter to check for concurrency
@@ -17,6 +17,8 @@ try:
             i = 0
         else:
             i += 1
+
+        #choose your values (more available, check MP documentation)
 
         rollValue = cs.roll
         pitchVal = cs.pitch

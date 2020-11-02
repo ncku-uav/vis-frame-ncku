@@ -122,8 +122,8 @@ define([
                         if (counter === 10) {
                             latency = latency / 10;
                             //difference between timestamp and printing time
-                            // console.log(`date: ${Date.now()}`)
-                            // console.log(`value: ${value}`)
+                             console.log(`date: ${Date.now()}`)
+                             console.log(`value: ${value}`)
                             console.log(`latency: ${latency}`);
                             valuebox.innerText = Math.round((latency + Number.EPSILON) * 100) / 100;
 

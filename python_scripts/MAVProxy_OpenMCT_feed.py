@@ -2,6 +2,10 @@ from pymavlink import mavutil
 import socket
 import time
 
+# gets data from a MAVProxy instance through a UDP Port
+# example on a MavLink implementation
+# can request specific data
+
 def recv_match(self, condition=None, type=None, blocking=False, timeout=None):
     '''Receive the next MAVLink message that matches the given type and condition
     type:        Message name(s) as a string or list of strings - e.g. 'SYS_STATUS'
