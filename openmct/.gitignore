@@ -11,6 +11,9 @@
 *.css
 *.css.map
 
+# still add Progress Bar styling
+!progress_bar.css
+
 # Intellij project configuration files
 *.idea
 *.iml
