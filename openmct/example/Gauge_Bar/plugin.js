@@ -5,7 +5,7 @@ define(['./Gauge.js', './Latency.js','./Progress.js', './Progress_vertical.js', 
     GaugeView,
     LatencyView,
     ProgressBarView,
-    ProgressBarViewVertical,
+    //ProgressBarViewVertical,
     FuelBarView
     
 ) {
@@ -60,47 +60,47 @@ define(['./Gauge.js', './Latency.js','./Progress.js', './Progress_vertical.js', 
                 }
             });
 
-            openmct.types.addType(progress_type_vertival, {
-                name: 'Progress Bar Vertical',
-                description: 'Progress bars indicate visually what percentage of a resource is used on a vertical bar',
-                cssClass: "icon-minus",
-                creatable: true,
-                initialize: function (domain) {
-                    domain.composition = [];
-                },
-                form: [
-                    {
-                        "key": "value.min",
-                        "name": "Min Value",
-                        "control": "textfield",
-                        "cssClass": "l-input-lg"
-                    },
-                    {
-                        "key": "value.max",
-                        "name": "Max Value",
-                        "control": "textfield",
-                        "cssClass": "l-input-lg"
-                    }
-                ]
-            });
+            // openmct.types.addType(progress_type_vertival, {
+            //     name: 'Progress Bar Vertical',
+            //     description: 'Progress bars indicate visually what percentage of a resource is used on a vertical bar',
+            //     cssClass: "icon-minus",
+            //     creatable: true,
+            //     initialize: function (domain) {
+            //         domain.composition = [];
+            //     },
+            //     form: [
+            //         {
+            //             "key": "value.min",
+            //             "name": "Min Value",
+            //             "control": "textfield",
+            //             "cssClass": "l-input-lg"
+            //         },
+            //         {
+            //             "key": "value.max",
+            //             "name": "Max Value",
+            //             "control": "textfield",
+            //             "cssClass": "l-input-lg"
+            //         }
+            //     ]
+            // });
 
 
-            openmct.objectViews.addProvider({
-                key: progress_type_vertival,
-                name: "Progress Bar View vertical",
-                canView: function (domain) {
-                    return domain.type === progress_type_vertival;
-                },
-                view: function (domain) {
-                    return new ProgressBarViewVertical(domain);
-                },
-                canEdit: function (domain) {
-                    return false;
-                },
-                priority: function () {
-                    return 1;
-                }
-            });
+            // openmct.objectViews.addProvider({
+            //     key: progress_type_vertival,
+            //     name: "Progress Bar View vertical",
+            //     canView: function (domain) {
+            //         return domain.type === progress_type_vertival;
+            //     },
+            //     view: function (domain) {
+            //         return new ProgressBarViewVertical(domain);
+            //     },
+            //     canEdit: function (domain) {
+            //         return false;
+            //     },
+            //     priority: function () {
+            //         return 1;
+            //     }
+            // });
 
             openmct.types.addType(fuel_type, {
                 name: 'Fuel Bar',

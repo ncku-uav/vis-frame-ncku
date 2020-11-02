@@ -42,17 +42,17 @@
         const ONE_MINUTE = 60 * 1000;
         const THIRTY_MINUTES = THIRTY_SECONDS * 60;
 
-        [
-            'example/eventGenerator'
-        ].forEach(
-            openmct.legacyRegistry.enable.bind(openmct.legacyRegistry)
-        );
+        // [
+        //     'example/eventGenerator'
+        // ].forEach(
+        //     openmct.legacyRegistry.enable.bind(openmct.legacyRegistry)
+        // );
 
         openmct.install(openmct.plugins.LocalStorage());
         openmct.install(openmct.plugins.STFEstyling());
         openmct.install(openmct.plugins.MyItems());
         openmct.install(openmct.plugins.Generator());
-        openmct.install(openmct.plugins.ExampleImagery());
+        // openmct.install(openmct.plugins.ExampleImagery());
         openmct.install(openmct.plugins.Timeline());
         openmct.install(openmct.plugins.UTCTimeSystem());
         openmct.install(openmct.plugins.AutoflowView({
@@ -149,7 +149,7 @@
 		//openmct.install(openmct.plugins.ExampleImagery());
 		//openmct.install(gauge());
 		openmct.install(openmct.plugins.Gauge());
-        openmct.install(openmct.plugins.SimpleVuePlugin());
+        //openmct.install(openmct.plugins.SimpleVuePlugin());
         openmct.install(openmct.plugins.ButtonPlugin());
         openmct.install(openmct.plugins.MapPlugin())
         
