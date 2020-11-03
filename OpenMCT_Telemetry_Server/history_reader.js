@@ -3,8 +3,8 @@ const fs = require('fs');
 
 function History() {
 
-
-	fs.readFile('saved_logs/DG800_2020-10-23 1:9:49.json', 'utf-8', (err, data) => {
+	// file path of saved history
+	fs.readFile('saved_logs/DG800_2020-11-03 23-28-12.json', 'utf-8', (err, data) => {
 		if (err) {
 			throw err;
 		}

@@ -189,25 +189,32 @@ Dg800.prototype.listen = function (listener) {
 
 // what to do on incoming command
 Dg800.prototype.command = function (command) {
-	if(command === ':startLog'){
+	addZero = function(dateNumber) {
+		if (dateNumber.toString().length == 1){
+			dateNumber = '0'+dateNumber.toString()
+		}
+		return dateNumber
+	}
+	if(command === ':saveHistory'){
 
 		var date = new Date();
 		var year = date.getFullYear();
-		var month = date.getMonth() + 1;      // "+ 1" becouse the 1st month is 0
-		var day = date.getDate();
-		var hour = date.getHours();
-		var minutes = date.getMinutes();
-		var secconds = date.getSeconds();
-		var seedatetime = year+ '-'+ month+ '-'+ day+ ' '+ hour+ ':'+ minutes+ ':'+ secconds;
+		var month = addZero(date.getMonth() + 1);      // "+ 1" becouse the 1st month is 0
+		var day = addZero(date.getDate());
+		var hour = addZero(date.getHours());
+		var minutes = addZero(date.getMinutes());
+		var seconds = addZero(date.getSeconds());
+		var seedatetime = year+ '-'+ month+ '-'+ day+ ' '+ hour+ '-'+ minutes+ '-'+ seconds;
 		
 		const write = JSON.stringify(this.history)
-		fs.writeFile('saved_logs/DG800_'+seedatetime+'.json', write, (err) => {
+		fs.writeFile(__dirname + '/saved_logs/DG800_'+seedatetime+'.json', write, (err) => {
 			if (err) {
 				throw err;
 			}
 		console.log("History saved!")
 		});
 	}
+
 	
 };
 

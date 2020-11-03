@@ -1,5 +1,5 @@
 
-define(['./Gauge.js', './Latency.js','./Progress.js', './Progress_vertical.js',  './Fuel.js'
+define(['./Gauge.js', './Latency.js','./Progress.js', './Fuel.js' // './Progress_vertical.js',  './Fuel.js'
 
 ], function (
     GaugeView,
@@ -22,7 +22,7 @@ define(['./Gauge.js', './Latency.js','./Progress.js', './Progress_vertical.js', 
             
             openmct.types.addType(progress_type, {
                 name: 'Progress Bar',
-                description: 'Progress bars indicate visually what percentage of a resource is used on a horizontal bar',
+                description: 'Progress bars indicates a value visually on a horizontal bar',
                 cssClass: "icon-minus",
                 creatable: true,
                 initialize: function (domain) {
@@ -53,7 +53,7 @@ define(['./Gauge.js', './Latency.js','./Progress.js', './Progress_vertical.js', 
                     return new ProgressBarView(domain);
                 },
                 canEdit: function (domain) {
-                    return false;
+                    return true;
                 },
                 priority: function () {
                     return 1;
@@ -104,7 +104,7 @@ define(['./Gauge.js', './Latency.js','./Progress.js', './Progress_vertical.js', 
 
             openmct.types.addType(fuel_type, {
                 name: 'Fuel Bar',
-                description: 'Fuel bars indicate visually what percentage of Fuel is left on a horizontal bar',
+                description: 'Fuel bars indicates in percentage (between max an min value given) how much Fuel is left on a horizontal bar',
                 cssClass: "icon-minus",
                 creatable: true,
                 initialize: function (domain) {
@@ -135,7 +135,7 @@ define(['./Gauge.js', './Latency.js','./Progress.js', './Progress_vertical.js', 
                     return new FuelBarView(domain);
                 },
                 canEdit: function (domain) {
-                    return false;
+                    return true;
                 },
                 priority: function () {
                     return 1;
@@ -144,7 +144,7 @@ define(['./Gauge.js', './Latency.js','./Progress.js', './Progress_vertical.js', 
 
             openmct.types.addType(latency_type, {
                 name: 'Latency',
-                description: 'Gauges indicate visually what percentage of a resource is used on a circular dial',
+                description: 'Gauges indicates a value visually circular dial',
                 cssClass: "icon-timer",
                 creatable: true,
                 initialize: function (domain) {
@@ -182,7 +182,7 @@ define(['./Gauge.js', './Latency.js','./Progress.js', './Progress_vertical.js', 
                     return new LatencyView(domain);
                 },
                 canEdit: function (domain) {
-                    return false;
+                    return true;
                 },
                 priority: function () {
                     return 1;
@@ -229,7 +229,7 @@ define(['./Gauge.js', './Latency.js','./Progress.js', './Progress_vertical.js', 
                     return new GaugeView(domain);
                 },
                 canEdit: function (domain) {
-                    return false;
+                    return true;
                 },
                 priority: function () {
                     return 1;

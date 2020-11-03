@@ -32,7 +32,7 @@ var dg800 = new Dg800();
 //var historyServer = new HistoryServer(tflex, 8091);
 //var realtimeServer = new RealtimeServer(flutterometer,8102);
 //var historyServer = new HistoryServer(flutterometer, 8101);
-//var historyReader = new HistoryReader;
+var historyReader = new HistoryReader;
 
 var realtimeServerFLEXOP = new RealtimeServer(tflex);
 var historyServerFLEXOP = new HistoryServer(tflex);
@@ -50,7 +50,7 @@ var historyServerDG800 = new HistoryServer(dg800);
 app.use('/FLEXOPRealtime', realtimeServerFLEXOP);
 app.use('/FLEXOPHistory', historyServerFLEXOP);
 
-//var historyServerReader = new HistoryServer(historyReader);
+var historyServerReader = new HistoryServer(historyReader);
 
 // app.use('/FLUTTERRealtime', realtimeServerFLIPASED);
 // app.use('/FLUTTERHistory', historyServerFLIPASED);
@@ -61,7 +61,7 @@ app.use('/DG800History', historyServerDG800);
 // app.use('/Aircraft_42Realtime', realtimeServerAircraft_42);
 // app.use('/Aircraft_42History', historyServerAircraft_42);
 
-//app.use('/HistoryReader', historyServerReader);
+app.use('/HistoryReader', historyServerReader);
 
 var port = process.env.PORT || 16969
 app.listen(port)

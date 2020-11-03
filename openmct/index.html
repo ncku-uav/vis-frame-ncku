@@ -128,10 +128,11 @@
 		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('TFLEX.telemetry', '/FLEXOPHistory/', 'localhost'));
         openmct.install(openmct.plugins.RealtimeTelemetryPlugin('TFLEX.telemetry', '/FLEXOPRealtime/', 'localhost'));
 
-3
+// Several often used Telemetry Plugins
         //openmct.install(openmct.plugins.HoryznPlugin());
 		//openmct.install(openmct.plugins.HistoricalTelemetryPlugin('Horyzn.telemetry', '/HoryznHistory/', 'localhost'));
         //openmct.install(openmct.plugins.RealtimeTelemetryPlugin('Horyzn.telemetry', '/HoryznRealtime/', 'localhost'));
+
 		openmct.install(openmct.plugins.DG800Plugin());
 		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('DG800.telemetry', '/DG800History/', 'localhost'));
         openmct.install(openmct.plugins.RealtimeTelemetryPlugin('DG800.telemetry', '/DG800Realtime/', 'localhost'));
@@ -144,10 +145,9 @@
 		// openmct.install(openmct.plugins.HistoricalTelemetryPlugin('Aircraft_42.telemetry', '/Aircraft_42History/', 'localhost'));
         // openmct.install(openmct.plugins.RealtimeTelemetryPlugin('Aircraft_42.telemetry', '/Aircraft_42Realtime/', 'localhost'));
 
+// History Reader Plugin
         //openmct.install(openmct.plugins.HistoricalTelemetryPlugin('DG800.telemetry', '/HistoryReader/', 'localhost' ));
 
-		//openmct.install(openmct.plugins.ExampleImagery());
-		//openmct.install(gauge());
 		openmct.install(openmct.plugins.Gauge());
         //openmct.install(openmct.plugins.SimpleVuePlugin());
         openmct.install(openmct.plugins.ButtonPlugin());
