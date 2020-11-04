@@ -27,23 +27,23 @@ define([
 ) {
 
     var RED = {
-            sin: 0.9,
-            cos: 0.6
+        key: 900,
+            cos: 0.9
         },
         YELLOW = {
-            sin: 0.5,
-            cos: 0.2
+            key: 500,
+            cos: 0.5
         },
         LIMITS = {
             rh: {
                 cssClass: "is-limit--upr is-limit--red",
-                low: RED,
+                low: 900,
                 high: Number.POSITIVE_INFINITY,
                 name: "Red High"
             },
             rl: {
                 cssClass: "is-limit--lwr is-limit--red",
-                high: -RED,
+                high: -900,
                 low: Number.NEGATIVE_INFINITY,
                 name: "Red Low"
             },
@@ -61,18 +61,23 @@ define([
             }
         };
 
-    function SinewaveLimitProvider() {
+    function DG800LimitProvider() {
 
     }
 
-    SinewaveLimitProvider.prototype.supportsLimits = function (domainObject) {
-        return domainObject.type === 'generator';
+    DG800LimitProvider.prototype.supportsLimits = function (domainObject) {
+        return domainObject.type === 'DG800.telemetry';
     };
 
-    SinewaveLimitProvider.prototype.getLimitEvaluator = function (domainObject) {
+    DG800LimitProvider.prototype.getLimitEvaluator = function (domainObject) {
         return {
             evaluate: function (datum, valueMetadata) {
                 var range = valueMetadata && valueMetadata.key;
+                var count = 0;
+                if(count < 1){
+                console.log('range: '+ YELLOW[range])
+                count = count+1;
+                }
 
                 if (datum[range] > RED[range]) {
                     return LIMITS.rh;
@@ -93,5 +98,5 @@ define([
         };
     };
 
-    return SinewaveLimitProvider;
+    return DG800LimitProvider;
 });

@@ -1,8 +1,8 @@
 
 define([
-
+    //"./DG800LimitProvider_Test",
 ], function (
-
+    //DG800LimitProvider
 ) {
 
     function DG800Plugin() {
@@ -77,6 +77,8 @@ define([
             openmct.objects.addProvider('DG800.taxonomy', DG800_objectProvider);
 
             openmct.composition.addProvider(DG800_compositionProvider);
+
+            //openmct.telemetry.addProvider(new DG800LimitProvider());
 
             openmct.types.addType('DG800.telemetry', {
                 name: 'DG800 Telemetry Point',

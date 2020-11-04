@@ -4,8 +4,6 @@ const dgram = require('dgram');
 const server = dgram.createSocket('udp4');
 const fs = require('fs');
 
-server.bind(50012);
-
 
 function Dg800() {
 
@@ -114,7 +112,15 @@ function Dg800() {
 		// 			console.log(e)
 		// 		}
 
-    });
+	});
+	server.on('error', (err) => {
+		console.log(`DG800 UDP server error:\n${err.stack}`);
+		server.close();
+	  });
+
+	// port specified in the associated python scrip
+	server.bind(50012);
+
     console.log("DG-800 initialized!");
 };
 
@@ -189,32 +195,43 @@ Dg800.prototype.listen = function (listener) {
 
 // what to do on incoming command
 Dg800.prototype.command = function (command) {
-	addZero = function(dateNumber) {
-		if (dateNumber.toString().length == 1){
-			dateNumber = '0'+dateNumber.toString()
-		}
-		return dateNumber
-	}
-	if(command === ':saveHistory'){
 
+	if(command === ':saveHistory'){
+		//zero needed for right time and date format when copy-pasting in OpenMCT
+		addZero = function(dateNumber) {
+			if (dateNumber.toString().length == 1){
+				dateNumber = '0'+dateNumber.toString()
+			}
+			return dateNumber
+		}
+		
+		//Generate timestamp for the File
 		var date = new Date();
 		var year = date.getFullYear();
-		var month = addZero(date.getMonth() + 1);      // "+ 1" becouse the 1st month is 0
+		var month = addZero(date.getMonth() + 1);      // "+ 1" because the 1st month is 0
 		var day = addZero(date.getDate());
 		var hour = addZero(date.getHours());
 		var minutes = addZero(date.getMinutes());
 		var seconds = addZero(date.getSeconds());
 		var seedatetime = year+ '-'+ month+ '-'+ day+ ' '+ hour+ '-'+ minutes+ '-'+ seconds;
-		
-		const write = JSON.stringify(this.history)
-		fs.writeFile(__dirname + '/saved_logs/DG800_'+seedatetime+'.json', write, (err) => {
-			if (err) {
-				throw err;
-			}
-		console.log("History saved!")
-		});
-	}
 
+		//Using Promises for not interrupting the main loop
+		function asyncStringify(str) {
+			return new Promise((resolve, reject) => {
+			  resolve(JSON.stringify(str));
+			});
+		  }
+
+		asyncStringify(this.history).then(function(write) {//write is the value of the resolved promise in asyncStringify
+			fs.writeFile(__dirname + '/saved_logs/DG800_'+seedatetime+'.json', write, (err) => {
+				if (err) {
+					throw err;
+				}
+				console.log('History Saved!')
+			}) 
+		});
+	
+	};
 	
 };
 

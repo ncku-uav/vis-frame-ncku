@@ -47,8 +47,10 @@
         // ].forEach(
         //     openmct.legacyRegistry.enable.bind(openmct.legacyRegistry)
         // );
+        
+        // Here, the Elasticsearch or CouchDB plugin can also be used to persist user-created objects on a server
+        openmct.install(openmct.plugins.LocalStorage()); 
 
-        openmct.install(openmct.plugins.LocalStorage());
         openmct.install(openmct.plugins.STFEstyling());
         openmct.install(openmct.plugins.MyItems());
         openmct.install(openmct.plugins.Generator());

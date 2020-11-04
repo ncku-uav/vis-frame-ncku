@@ -66,7 +66,7 @@ try:
 
         timeStamp = time.time()
 
-        # Build a message
+        # Build a message (since we do not have keys implemented here, to parse the message we )
         MESSAGE = "{},{},{},{},{},{},{},{},{}".format(pitchVal, rollValue, airspeedVal, altVal, axVal,ayVal,azVal i, timeStamp)
         # Show the timestep
         print(MESSAGE)
