@@ -1,95 +1,241 @@
- 
 
-define([
-
-], function (
-
-) {
-
-    function EXAMPLEPlugin() {
-
-        function getEXAMPLEDictionary() {
-            return fetch('/example/EXAMPLE/EXAMPLEdictionary.json').then(function (response){
-                return response.json();
-            });
-
-            }
+//const ntpsync = require('ntpsync');
+const dgram = require('dgram');
+const server = dgram.createSocket('udp4');
+const fs = require('fs');
 
 
+function EXAMPLE() {
 
-        // An object provider builds Domain Objects
-        var EXAMPLE_objectProvider = {
-            get: function (identifier) {
-                return getEXAMPLEDictionary().then(function (dictionary) {
-                    //console.log("EXAMPLE-dictionary-plugin.js: identifier.key = " + identifier.key);
-                    if (identifier.key === 'EXAMPLE') {
-                        return {
-                            identifier: identifier,
-                            name: dictionary.name,
-                            type: 'folder',
-                            location: 'ROOT'
-                        };
-                    } else {
-                        var measurement = dictionary.measurements.filter(function (m) {
-                            return m.key === identifier.key;
-                        })[0];
-                        return {
-                            identifier: identifier,
-                            name: measurement.name,
-                            type: 'EXAMPLE.telemetry',
-                            telemetry: {
-                                values: measurement.values
-                            },
-                            location: 'EXAMPLE.taxonomy:EXAMPLE'
-                        };
-                    }
-                });
-            }
-        };
+	
+	// Initialize working Parameters and Object
 
-        // The composition of a domain object is the list of objects it contains, as shown (for example) in the tree for browsing.
-        // Can be used to populate a hierarchy under a custom root-level object based on the contents of a telemetry dictionary.
-        // "appliesTo"  returns a boolean value indicating whether this composition provider applies to the given object
-        // "load" returns an array of Identifier objects (like the channels this telemetry stream offers)
-        var EXAMPLE_compositionProvider = {
-            appliesTo: function (domainObject) {
-                return domainObject.identifier.namespace === 'EXAMPLE.taxonomy' &&
-                    domainObject.type === 'folder';
-            },
-            load: function (domainObject) {
-                return getEXAMPLEDictionary()
-                    .then(function (dictionary) {
-                        return dictionary.measurements.map(function (m) {
-                            return {
-                                namespace: 'EXAMPLE.taxonomy',
-                                key: m.key
-                            };
-                        });
-                    });
-            }
-        };
+	// read the keys from dictionary
+		let rawDict = fs.readFileSync('../openmct/example/EXAMPLE/EXAMPLEdictionary.json')
+		let dict = JSON.parse(rawDict)
+		//console.log(dict.measurements.map(obj => obj.key))
+
+		this.state={};
+		(dict.measurements.map(obj => obj.key)).forEach(function (k) {
+			this.state[k] = 0;
+		}, this);
+		//console.log(this.state)
+
+    this.history = {};
+    this.listeners = [];
+	this.data = [];
+	Object.keys(this.state).forEach(function (k) {
+        this.history[k] = [];
+	}, this);
+
+	// to notify telemetry server interval based (STFE) uncomment here
+    // setInterval(function () {
+    //     this.generateTelemetryInterval();
+    // }.bind(this), 100); //z.B. 100ms
+
+    var count = 0
+	var initGPSheight = 0;
+	//what to do, when a message from the UDP Port arrives
+    server.on('message', (msg, rinfo) => {
+		//parse the data
+		this.data = `${msg}`.split(',');
+		
+		// Check server message
+		//console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`)
+        //console.log(`server got: ${this.data[8]} from ${rinfo.address}:${rinfo.port}`)
+		
+		//Save the data to the state array
+		this.state[this.data[0]] = this.data[1];
+		this.state['Time.stamp'] = Math.round(this.data[2]*1000); //convert python timestamp[s] to JS timestamp [ms]
+		
+		//console.log(Date.now()-this.state['Time.stamp']) //check lag incomming
+		//console.log(this.state['Time.stamp']) //check Timestamp
+		//console.log(this.state[this.data[0]]) //check paylaod
+		
+		//CALCULATIONS
+
+			// change gps from mm to m
+			if (this.data[0] === 'data.gps.heightMS' || this.data[0] === 'data.gps.gSpeed'){
+			this.state[this.data[0]] = Math.round((this.data[1]/1000 - this.initGPSheight) *100)/100;
+			}
+			if (this.data[0] === 'data.gps.gSpeed'){
+			this.state[this.data[0]] = this.data[1]/1000;
+			}
+
+			// rescale thrust ppm for display
+			if (this.data[0] === 'data.nano.ch1'){
+			this.state[this.data[0]] = this.data[1]/40;
+			}
 
 
+			// initial ground height
+			if (this.data[0] === 'data.gps.heightMS' && this.state['data.gps.fixType'] === '3' && count < 100){
+			initGPSheight = this.data[1]/1000;
+			count = count + 1;
+			}
+
+/*			// fuel consumption in percent
+			if (this.data[0] === 'data.nano.v'){
+			this.state['data.nano.v'] = this.data[1]/7.5
+			console.log(this.state[this.data[0]])
+			}
+*/
+			// calculation airspeed
+			if (this.data[0] === 'data.adp.pdyn'){
+			this.state['data.adp.AirSpeed'] = Math.round((Math.sqrt((2*Math.abs(this.state['data.adp.pdyn']))/(this.state['data.adp.pstat']/(287*(parseFloat(this.state['data.thr.temp1'])+273.15)))))*100)/100;
+			//console.log(this.state['data.adp.AirSpeed']);
+			}
+
+			// round Fuel Mass Flow
+			if (this.data[0] === 'data.nano.v'){
+			this.state['data.nano.v'] = Math.round(this.data[1]/7.5*100)/100;
+			//console.log(this.state['data.adp.AirSpeed']);
+			}
+
+		//console.log(this.state);
+		
+		// to notify telemetry server every time new data arrives in uncomment here
+		this.generateTelemetry();
+
+		// SAVE HISTORY HERE?! or downsample when called on interval?
+		// // Real Timestamp
+		// var timestamp = this.state['Time.stamp'];
+		// // Artificial timestamp
+		// //var timestamp= Date.now();
+
+		// // built message
+		// var message = { timestamp: timestamp, value: this.data[1], id: this.data[0]};
+		// 	try{ // store in history
+		// 		this.history[this.data[0]].push(message);
+		// 		}
+		// 		catch (e) {
+		// 			console.log(e)
+		// 		}
+
+	});
+	server.on('error', (err) => {
+		console.log(`EXAMPLE UDP server error:\n${err.stack}`);
+		server.close();
+	  });
+
+	// port specified in the associated python scrip
+	server.bind(50012);
+
+    console.log("DG-800 initialized!");
+};
 
 
-        return function install(openmct) {
-            // The addRoot function takes an "object identifier" as an argument
-            openmct.objects.addRoot({
-                namespace: 'EXAMPLE.taxonomy',
-                key: 'EXAMPLE'
-            });
+// to update every time new data comes in
+EXAMPLE.prototype.generateTelemetry = function () {
 
-            openmct.objects.addProvider('EXAMPLE.taxonomy', EXAMPLE_objectProvider);
+	// Real Timestamp
+	var timestamp = this.state['Time.stamp'];
+	// Artificial timestamp
+	//var timestamp= Date.now();
 
-            openmct.composition.addProvider(EXAMPLE_compositionProvider);
+	// built message
+	var message = { timestamp: timestamp, value: this.data[1], id: this.data[0]};
+	// notify realtimeserver
+	this.notify(message);
+	//console.log(message);
+	try{ // store in history
+		this.history[this.data[0]].push(message);
+		}
+		catch (e) {
+			console.log(e)
+		}
+}
 
-            openmct.types.addType('EXAMPLE.telemetry', {
-                name: 'EXAMPLE Telemetry Point',
-                description: 'Telemetry of EXAMPLE',
-                cssClass: 'icon-telemetry'
-            });
-        }
-    };
 
-    return EXAMPLEPlugin;
-});
+// to update interval based (STFE)
+EXAMPLE.prototype.generateTelemetryInterval = function () {
+
+    Object.keys(this.state).forEach(function (id) {
+
+        // Real Timestamp
+		var timestamp = this.state['Time.stamp'];
+		// Artificial timestamp
+        //var timestamp= Date.now();
+
+		// built message
+		var message = { timestamp: timestamp, value: this.state[id], id: id};
+		// notify realtimeserver
+        this.notify(message);
+		try{ // store in history
+			this.history[id].push(message);
+			}
+			catch (e) {
+				console.log(e)
+			}
+        //this.state["comms.sent"] += JSON.stringify(state).length;
+
+	}, this);
+	//console.log(state);
+};
+
+
+// notifiy function, called in generate Telemetry, notifies listeners
+EXAMPLE.prototype.notify = function (point) {
+    this.listeners.forEach(function (l) {
+        l(point);
+    });
+};
+
+
+// manages listeners for realtime telemetry
+EXAMPLE.prototype.listen = function (listener) {
+    this.listeners.push(listener);
+    return function () {
+        this.listeners = this.listeners.filter(function (l) {
+            return l !== listener;
+        });
+    }.bind(this);
+};
+
+
+// what to do on incoming command
+EXAMPLE.prototype.command = function (command) {
+
+	if(command === ':saveHistory'){
+		//zero needed for right time and date format when copy-pasting in OpenMCT
+		addZero = function(dateNumber) {
+			if (dateNumber.toString().length == 1){
+				dateNumber = '0'+dateNumber.toString()
+			}
+			return dateNumber
+		}
+		
+		//Generate timestamp for the File
+		var date = new Date();
+		var year = date.getFullYear();
+		var month = addZero(date.getMonth() + 1);      // "+ 1" because the 1st month is 0
+		var day = addZero(date.getDate());
+		var hour = addZero(date.getHours());
+		var minutes = addZero(date.getMinutes());
+		var seconds = addZero(date.getSeconds());
+		var seedatetime = year+ '-'+ month+ '-'+ day+ ' '+ hour+ '-'+ minutes+ '-'+ seconds;
+
+		//Using Promises for not interrupting the main loop
+		function asyncStringify(str) {
+			return new Promise((resolve, reject) => {
+			  resolve(JSON.stringify(str));
+			});
+		  }
+
+		asyncStringify(this.history).then(function(write) {//write is the value of the resolved promise in asyncStringify
+			fs.writeFile(__dirname + '/saved_logs/EXAMPLE_'+seedatetime+'.json', write, (err) => {
+				if (err) {
+					throw err;
+				}
+				console.log('History Saved!')
+			}) 
+		});
+	
+	};
+	
+};
+
+
+module.exports = function () {
+    return new EXAMPLE()
+};
