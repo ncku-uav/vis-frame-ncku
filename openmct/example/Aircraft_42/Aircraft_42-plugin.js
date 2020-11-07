@@ -1,8 +1,8 @@
 
 define([
-
+    //"./Aircraft_42LimitProvider_Test",
 ], function (
-
+    //Aircraft_42LimitProvider
 ) {
 
     function Aircraft_42Plugin() {
@@ -77,6 +77,8 @@ define([
             openmct.objects.addProvider('Aircraft_42.taxonomy', Aircraft_42_objectProvider);
 
             openmct.composition.addProvider(Aircraft_42_compositionProvider);
+
+            //openmct.telemetry.addProvider(new Aircraft_42LimitProvider());
 
             openmct.types.addType('Aircraft_42.telemetry', {
                 name: 'Aircraft_42 Telemetry Point',

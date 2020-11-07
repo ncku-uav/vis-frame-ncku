@@ -25,41 +25,50 @@ define([
 ], function (
 
 ) {
+    //set your limits HIGH -> upper limit; LOW -> lower limit, use keys also used in dictionary
+    var RED_HIGH = {
+            
+        },
+        RED_LOW = {
+            'data.gps.gSpeed': 15,
+            'data.gps.heightMS': 10
+        },
 
-    var RED = {
-        key: 900,
-            cos: 0.9
+        YELLOW_HIGH = {
+            
         },
-        YELLOW = {
-            key: 500,
-            cos: 0.5
+        YELLOW_LOW = {
+            'data.gps.gSpeed': 25,
+            'data.gps.heightMS': 20
         },
+        
         LIMITS = {
             rh: {
                 cssClass: "is-limit--upr is-limit--red",
-                low: 900,
+                low: RED_HIGH,
                 high: Number.POSITIVE_INFINITY,
                 name: "Red High"
             },
             rl: {
                 cssClass: "is-limit--lwr is-limit--red",
-                high: -900,
+                high: RED_LOW,
                 low: Number.NEGATIVE_INFINITY,
                 name: "Red Low"
             },
             yh: {
                 cssClass: "is-limit--upr is-limit--yellow",
-                low: YELLOW,
-                high: RED,
+                low: YELLOW_HIGH,
+                high: RED_HIGH,
                 name: "Yellow High"
             },
             yl: {
                 cssClass: "is-limit--lwr is-limit--yellow",
-                low: -RED,
-                high: -YELLOW,
+                low: RED_LOW,
+                high: YELLOW_LOW,
                 name: "Yellow Low"
             }
         };
+        
 
     function DG800LimitProvider() {
 
@@ -72,26 +81,22 @@ define([
     DG800LimitProvider.prototype.getLimitEvaluator = function (domainObject) {
         return {
             evaluate: function (datum, valueMetadata) {
-                var range = valueMetadata && valueMetadata.key;
-                var count = 0;
-                if(count < 1){
-                console.log('range: '+ YELLOW[range])
-                count = count+1;
-                }
-
-                if (datum[range] > RED[range]) {
+                var key = domainObject.identifier.key
+                var value = valueMetadata && valueMetadata.key;
+                                
+                if (datum[value] > RED_HIGH[key]) {
                     return LIMITS.rh;
                 }
 
-                if (datum[range] < -RED[range]) {
+                if (datum[value] < RED_LOW[key]) {
                     return LIMITS.rl;
                 }
 
-                if (datum[range] > YELLOW[range]) {
+                if (datum[value] > YELLOW_HIGH[key]) {
                     return LIMITS.yh;
                 }
 
-                if (datum[range] < -YELLOW[range]) {
+                if (datum[value] < YELLOW_LOW[key]) {
                     return LIMITS.yl;
                 }
             }

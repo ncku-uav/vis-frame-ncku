@@ -1,3 +1,5 @@
+## same as MP_OpenMCT_feed, just with the variables implemented for Horyzn
+
 import socket
 import time
 

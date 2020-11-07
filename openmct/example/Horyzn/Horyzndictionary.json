@@ -626,6 +626,31 @@
                     }
                 }
             ]
+        },
+
+        {
+            "name": "Dist.traveled",
+            "key": "Dist.traveled",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "meter",
+                    "units": "meter",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
         }
     ]
 }

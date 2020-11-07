@@ -1,3 +1,5 @@
+// reads history from the specified file and provides it to OpenMCT
+// the "fixed timespan" in OpenMCT must be adapted to the time, the telemetry was recorded (name of the file)
 
 const fs = require('fs');
 
@@ -17,8 +19,6 @@ function History() {
 	console.log("History initialized!");
 
 };
-
-
 
 module.exports = function () {
 	return new History()

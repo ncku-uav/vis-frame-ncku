@@ -1,4 +1,6 @@
-
+// telemetry source object for the Horyzn project
+// not up-to-date but (to the best of my knowledge) also not used anymore
+// up to date e.g. DG800.js
 
 const dgram = require('dgram');
 const server = dgram.createSocket('udp4');

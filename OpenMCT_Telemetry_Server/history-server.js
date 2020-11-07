@@ -22,6 +22,7 @@ function HistoryServer(telemetrySource) {
         }, []);
         res.status(200).json(response).end();
     });
+    // handle commands
     server.post('/command/*', function (req,res) {
         var commands = req.params[0]
         console.log('Command received!')

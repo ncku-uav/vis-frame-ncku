@@ -1,3 +1,6 @@
+# communication via MavProxy UDP socket (alternative to MissionPlanner)
+# example on handling the MAVLink protocol
+
 from pymavlink import mavutil
 import socket
 import time

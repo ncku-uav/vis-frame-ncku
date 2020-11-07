@@ -1,4 +1,4 @@
-
+// telemetry source object for the TFLEX demonstrator
 
 const dgram = require('dgram');
 const server = dgram.createSocket('udp4');
@@ -158,23 +158,26 @@ function TFlex() {
 			//console.log(this.data[0])
 			//console.log(this.data[1])
 
-        // to notify telemetry server every time new data arrives in uncomment here
-		this.generateTelemetry();
+        //// to notify telemetry server every time new data arrives in uncomment here
+		this.generateRealtimeTelemetry();
 
-		// SAVE HISTORY HERE?! or downsample when called on interval?
-		// // Real Timestamp
-		// var timestamp = this.state['Time.stamp'];
-		// // Artificial timestamp
-		// //var timestamp= Date.now();
 
-		// // built message
-		// var message = { timestamp: timestamp, value: this.data[1], id: this.data[0]};
-		// 	try{ // store in history
-		// 		this.history[this.data[0]].push(message);
-		// 		}
-		// 		catch (e) {
-		// 			console.log(e)
-		// 		}
+		//// Save History on every message, for high resolution
+		// Real Timestamp
+		var timestamp = this.state['Time.stamp'];
+		// Artificial timestamp (if no timestamp is sent)
+		//var timestamp= Date.now();
+
+		// built message
+		var message = { timestamp: timestamp, value: this.state[this.data[0]]};//, id: this.data[0]};
+			try{ // store in history
+				this.history[this.data[0]].push(message);
+				//console.log(this.history[this.data[0]])
+				//JSON.stringify(this.history[this.data[0]])
+				}
+				catch (e) {
+					console.log(e)
+				}
 
     });
     console.log("TFLEX initialized!");
@@ -204,7 +207,7 @@ TFlex.prototype.ErrorFlags = function (key, message) {
 
 
 // to update every time new data comes in
-TFlex.prototype.generateTelemetry = function () {
+TFlex.prototype.generateRealtimeTelemetry = function () {
 
 	// Real Timestamp
 	var timestamp = this.state['Time.stamp'];
@@ -216,13 +219,7 @@ TFlex.prototype.generateTelemetry = function () {
 	// notify realtimeserver
 	this.notify(message);
 	//console.log(message);
-	try{ // store in history
-		this.history[this.data[0]].push(message);
-		}
-		catch (e) {
-			//console.log(message)
-			//console.log(e)
-		}
+
 }
 
 
@@ -240,13 +237,7 @@ TFlex.prototype.generateTelemetryInterval = function () {
 		var message = { timestamp: timestamp, value: this.state[id], id: id};
 		// notify realtimeserver
         this.notify(message);
-		try{ // store in history
-			this.history[id].push(message);
-			}
-			catch (e) {
-				console.log(e)
-			}
-        //this.state["comms.sent"] += JSON.stringify(state).length;
+
 
 	}, this);
 	//console.log(state);
@@ -274,25 +265,98 @@ TFlex.prototype.listen = function (listener) {
 
 // what to do on incoming command
 TFlex.prototype.command = function (command) {
-	if(command === ':startLog'){
 
+	if(command === ':saveHistory'){
+		//zero needed for right time and date format when copy-pasting in OpenMCT
+		addZero = function(dateNumber) {
+			if (dateNumber.toString().length == 1){
+				dateNumber = '0'+dateNumber.toString()
+			}
+			return dateNumber
+		}
+		
+		//Generate timestamp for the File
 		var date = new Date();
 		var year = date.getFullYear();
-		var month = date.getMonth() + 1;      // "+ 1" becouse the 1st month is 0
-		var day = date.getDate();
-		var hour = date.getHours();
-		var minutes = date.getMinutes();
-		var secconds = date.getSeconds();
-		var seedatetime = year+ '-'+ month+ '-'+ day+ ' '+ hour+ ':'+ minutes+ ':'+ secconds;
-		
-		const write = JSON.stringify(this.history)
-		fs.writeFile('saved_logs/DG800_'+seedatetime+'.json', write, (err) => {
-			if (err) {
-				throw err;
-			}
-		console.log("History saved!")
+		var month = addZero(date.getMonth() + 1);      // "+ 1" because the 1st month is 0
+		var day = addZero(date.getDate());
+		var hour = addZero(date.getHours());
+		var minutes = addZero(date.getMinutes());
+		var seconds = addZero(date.getSeconds());
+		var seedatetime = year+ '-'+ month+ '-'+ day+ ' '+ hour+ '-'+ minutes+ '-'+ seconds;
+
+		//Using Promises for not interrupting the main loop
+		function asyncSaveHistory(str) {
+			return new Promise((resolve, reject) => {
+			  resolve(JSON.stringify(str));
+			});
+		  }
+
+		asyncSaveHistory(this.history).then(function(write) {//write is the value of the resolved promise in asyncStringify
+			fs.writeFile(__dirname + '/saved_logs/TFLEX_'+seedatetime+'.json', write, (err) => {
+				if (err) {
+					throw err;
+				}
+				console.log('History Saved!')
+			}) 
 		});
-	}
+	
+	};
+
+	if(command === ':startLog'){
+		//zero needed for right time and date format when copy-pasting in OpenMCT
+		addZero = function(dateNumber) {
+			if (dateNumber.toString().length == 1){
+				dateNumber = '0'+dateNumber.toString()
+			}
+			return dateNumber
+		}
+		
+		//Generate timestamp for the File
+		var date = new Date();
+		var year = date.getFullYear();
+		var month = addZero(date.getMonth() + 1);      // "+ 1" because the 1st month is 0
+		var day = addZero(date.getDate());
+		var hour = addZero(date.getHours());
+		var minutes = addZero(date.getMinutes());
+		var seconds = addZero(date.getSeconds());
+		var seedatetime = year+ '-'+ month+ '-'+ day+ ' '+ hour+ '-'+ minutes+ '-'+ seconds;
+
+		//Using Promises for not interrupting the main loop
+		function asyncLogging(src) {
+			return new Promise((resolve, reject) => {
+				
+			  resolve(JSON.stringify(src));
+			});
+		  }
+		
+	
+		  
+		// save log in specified interval
+		logging = setInterval(function () {
+			asyncLogging(this.history).then(function(write) {//write is the value of the resolved promise in asyncStringify
+				fs.writeFile(__dirname + '/saved_logs/TFLEX_'+seedatetime+'.json', write, (err) => {
+					if (err) {
+						throw err;
+					}
+					//console.log(this.history);
+					console.log('Logging!')
+				}) 
+			}.bind(this));
+		}.bind(this), 10000); //z.B. 100ms according to SFTE
+	
+	};
+
+	if(command === ':endLog'){
+		clearInterval(logging);
+		console.log('Logging stopped!')	
+	};
+
+	if(command === ':exampleCommandtoPlane'){
+		// sending to the udp port 60012 on the address 'loacalhost'
+		server.send(command,60012, 'localhost')
+	};
+
 	
 };
 

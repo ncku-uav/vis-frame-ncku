@@ -1,3 +1,7 @@
+# first implementation of the Flutterometer /FLIPASED communication
+# now done with thibaults server
+# in here as an example for parasing data from a serial port
+
 import socket
 import sys
 import serial

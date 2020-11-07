@@ -1,4 +1,5 @@
-# Provides data sent via the MQTT Protocol to the OpenMCT telemetry Server
+# Provides data from the DG800 sent via the MQTT Protocol to the OpenMCT telemetry Server
+
 import socket
 import time
 import paho.mqtt.client as mqtt

@@ -1,12 +1,17 @@
+# assists in creating new implementations of OpenMCT
+# can generate: a Dictionary, a OpenMCT Plugin, the corresponding openmct server object
+# after creating/generating the objects, add them (in the style of Aircraft 42) to OpenMCT_Telemetry_Server/server.js and openmct/index.html
+
 import json
 import os
 
 ## Input
 telemetry_object_name = 'Aircraft_42'
 number_of_telemetry_points = 5
+telemetry_source_object_port = '50015'
 
-generate_Dictionary = True
-generate_OpenMCT_object = True
+generate_Dictionary = False
+generate_OpenMCT_object = False
 generate_server_object = True
 
 
@@ -63,7 +68,8 @@ if generate_server_object:
     # Open Example and save a modified copy
     with open('Example_Telemetry_Object/Example-TelemetryServerObject.js') as object_example:
         data = object_example.read()
-        new_server_object = data.replace('Example', telemetry_object_name)
+        new_server_object = data.replace('EXAMPLE', telemetry_object_name)
+        new_server_object = new_server_object.replace('server.bind()', 'server.bind('+telemetry_source_object_port+')')
         keyPosition = new_server_object.find('key')
         new_server_object = new_server_object[0:keyPosition-2]+str(key)+new_server_object[keyPosition+10:]
         

@@ -1,3 +1,6 @@
+# current implementation of the Flutterometer /FLIPASED communication
+# reads the data from the websocket provided by thibaults telemetry server
+
 import websocket
 import socket
 import json
@@ -22,6 +25,7 @@ except:
 
 def on_message(ws, message):
     #print(message)
+    # parse the incoming message
     jsonParse = json.loads(message)
     #print(jsonParse)
     ID = jsonParse['FLIPASED']['id']
@@ -30,7 +34,7 @@ def on_message(ws, message):
     timest = jsonParse['FLIPASED']['timest']
 
     
-    # Build a message, add new curly bracket and variable name
+    # Build a message, to add more data add new curly bracket and variable name
     MESSAGE = "{},{},{},{}".format(ID, freq, damp, timest)
     # Show the timestep
     print(MESSAGE)
@@ -52,7 +56,7 @@ def on_open(ws):
 
 if __name__ == "__main__":
     websocket.enableTrace(True)
-    ws = websocket.WebSocketApp("ws://192.168.0.173:443",
+    ws = websocket.WebSocketApp("ws://192.168.0.173:443", #IP and port of thibaults servers websocket
                               on_message = on_message,
                               on_error = on_error,
                               on_close = on_close)

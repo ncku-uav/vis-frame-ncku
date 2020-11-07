@@ -1,3 +1,5 @@
+# Example implementation on how to get (additional) data from MissionPlanner into OpenMCT
+
 import socket
 import time
 
@@ -66,7 +68,7 @@ try:
 
         timeStamp = time.time()
 
-        # Build a message (since we do not have keys implemented here, to parse the message we )
+        # Build a message (since we do not have keys implemented here, to parse the message we need to make use of the order in which the data is sent)
         MESSAGE = "{},{},{},{},{},{},{},{},{}".format(pitchVal, rollValue, airspeedVal, altVal, axVal,ayVal,azVal i, timeStamp)
         # Show the timestep
         print(MESSAGE)

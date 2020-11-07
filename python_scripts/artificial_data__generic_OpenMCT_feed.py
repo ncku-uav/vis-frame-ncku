@@ -1,17 +1,23 @@
+## Minimalistic script to feed artificial data to a OpenMCT Telemetry Server 
 
 import socket
 import time
 import random
 
-## Minimalistic script to feed artificial data to a OpenMCT Telemetry Server 
+
 
 UDP_IP = "127.0.0.1" # localhost address
 UDP_PORT = 50012 # the UDP Port specified in your telemetry server object 
 MESSAGE = "23,567,32,4356,456,132,4353467" #testmessage
 
+# initiate socket and send first message
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # Internet, UDP
-sock.sendto(MESSAGE.encode(), (UDP_IP, UDP_PORT))
+try:
+    sock.sendto(MESSAGE.encode(), (UDP_IP, UDP_PORT))
+except:
+    print('Initial message failed!')
 
+# keys (must be consisten with your keys in openMCT)
 keys = [
     'key.1',
     'key.2',

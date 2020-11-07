@@ -1,8 +1,8 @@
 
 define([
-    //"./DG800LimitProvider_Test",
+    "./DG800LimitProvider",
 ], function (
-    //DG800LimitProvider
+    DG800LimitProvider
 ) {
 
     function DG800Plugin() {
@@ -78,13 +78,13 @@ define([
 
             openmct.composition.addProvider(DG800_compositionProvider);
 
-            //openmct.telemetry.addProvider(new DG800LimitProvider());
-
             openmct.types.addType('DG800.telemetry', {
                 name: 'DG800 Telemetry Point',
                 description: 'Telemetry of DG800',
                 cssClass: 'icon-telemetry'
             });
+
+            openmct.telemetry.addProvider(new DG800LimitProvider());
         };
     }
 
