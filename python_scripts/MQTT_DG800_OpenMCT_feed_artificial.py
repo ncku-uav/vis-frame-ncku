@@ -126,4 +126,4 @@ while True:
     # Message for OpenMCT must be the same structure as on the receiving side (telemetrysource)
     # especially timestamp needs to be at the same position
     # for simulation of DG800 Bandwith, 40 Values at ca. 10Hz -> 400Hz
-    time.sleep(0.01) #considering time needed by python script
+    time.sleep(0.005) #considering time needed by python script

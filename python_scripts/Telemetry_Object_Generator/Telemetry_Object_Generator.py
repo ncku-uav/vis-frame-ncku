@@ -8,11 +8,13 @@ import os
 ## Input
 telemetry_object_name = 'Aircraft_42'
 number_of_telemetry_points = 5
-telemetry_source_object_port = '50015'
+UDP_PORT = '50015'
 
-generate_Dictionary = False
-generate_OpenMCT_object = False
+
+generate_Dictionary = True
+generate_OpenMCT_object = True
 generate_server_object = True
+generate_pythonScript = True
 
 
 
@@ -69,13 +71,37 @@ if generate_server_object:
     with open('Example_Telemetry_Object/Example-TelemetryServerObject.js') as object_example:
         data = object_example.read()
         new_server_object = data.replace('EXAMPLE', telemetry_object_name)
-        new_server_object = new_server_object.replace('server.bind()', 'server.bind('+telemetry_source_object_port+')')
-        keyPosition = new_server_object.find('key')
-        new_server_object = new_server_object[0:keyPosition-2]+str(key)+new_server_object[keyPosition+10:]
+        new_server_object = new_server_object.replace('server.bind()', 'server.bind('+UDP_PORT+')')
+        # keyPosition = new_server_object.find('key')
+        # new_server_object = new_server_object[0:keyPosition-2]+str(key)+new_server_object[keyPosition+10:]
         
     # Save modified copy to the right Folder
     with open('../../OpenMCT_Telemetry_Server/'+telemetry_object_name+'.js', 'w') as outfile:
         outfile.write(new_server_object)
+
+
+## generate Python Script
+if generate_pythonScript:
+
+    #Initialisation
+    keys = ''
+    # Open Example and save a modified copy
+    with open('Example_Telemetry_Object/EXAMPLE-python-script.py') as python_example:
+        data = python_example.read()
+
+       
+        for i in range(number_of_telemetry_points): #generate consistent keys
+            keys = keys + '"key.'+str(i)+'",'
+            
+
+        new_python_script = data.replace('EXAMPLE', telemetry_object_name)
+        new_python_script = new_python_script.replace('herekeys', keys)
+        new_python_script = new_python_script.replace('UDP_PORT =', 'UDP_PORT =' + UDP_PORT)
+
+            
+    # Save modified copy to the right Folder
+    with open('../'+telemetry_object_name+'_OpenMCT_feed_artificial'+'.py', 'w') as outfile:
+        outfile.write(new_python_script)
 
 
     

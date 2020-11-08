@@ -13,7 +13,7 @@ function Flutterometer() {
     // Initialize working Parameters and Object
 
 	// read the keys from dictionary
-	let rawDict = fs.readFileSync('../openmct/example/DG800/DG800dictionary.json')
+	let rawDict = fs.readFileSync('../openmct/example/Flutterometer/Flutterometerdictionary.json')
 	let dict = JSON.parse(rawDict)
 	//console.log(dict.measurements.map(obj => obj.key))
 
@@ -32,9 +32,12 @@ function Flutterometer() {
 	}, this);
 	//console.log(this.state)
 
-    this.history = {};
+	this.history = {}; //history object
     this.listeners = [];
-    this.data = new Array();
+	this.data = []; // temporar data array
+	this.continousLogging = false; //whether continous logging is used
+	this.FileTimestamp = '';
+	
     Object.keys(this.state).forEach(function (k) {
         this.history[k] = [];
     }, this);
@@ -84,23 +87,42 @@ function Flutterometer() {
 		//var timestamp= Date.now();
 
 		// built message
-		var message = { timestamp: timestamp, value: this.state[this.data[0]]};//, id: this.data[0]};
+		var message = { timestamp: timestamp, value: this.state[this.data[0]], id: this.data[0]};
 			try{ // store in history
 				this.history[this.data[0]].push(message);
 				//console.log(this.history[this.data[0]])
-				//JSON.stringify(this.history[this.data[0]])
-				}
-				catch (e) {
-					console.log(e)
-                }
-                
-        }
+				
+				// if continous logging is activated, append message to log file
+				if(this.continousLogging){					
+		
+					//Using Promises for less interrupting the main loop
+					this.asyncStringyify(message).then(function(write) {//write is the value of the resolved promise in asyncStringify
+						fs.appendFile(__dirname + '/saved_logs/Flutterometer_'+this.FileTimestamp+'_rawMessage.json', write, (err) => {
+							if (err) {
+								console.log(err);
+							} 
+						}) 
+					}.bind(this));
 
-    });
+				}	
+				} catch (e) {
+					console.log(e)
+				}
+                
+			}
+	});
+	
     server.on('error', (err) => {
-		console.log(`DG800 UDP server error:\n${err.stack}`);
-		server.close();
-      });
+		console.log(`Flutterometer UDP server error:\n${err.stack}`);
+		try{
+			console.log('Try to reconnect...')
+			server.bind(50013);
+		} catch(e) {
+			console.log('Reconnect Failed...')
+			console.log(e)
+			server.close()
+		}
+	});
       
     // port specified in the associated python scrip
 	server.bind(50013);
@@ -152,27 +174,45 @@ Flutterometer.prototype.listen = function (listener) {
     }.bind(this);
 };
 
+// Creating a File Timestamp 
+Flutterometer.prototype.SetFileTimestamp = function () {
+
+	//zero needed for right time and date format when copy-pasting in OpenMCT
+	addZero = function(dateNumber) {
+		if (dateNumber.toString().length == 1){
+			dateNumber = '0'+dateNumber.toString()
+		}
+		return dateNumber
+	}
+	//Generate timestamp for the File
+	var date = new Date();
+	var year = date.getFullYear();
+	var month = addZero(date.getMonth() + 1);      // "+ 1" because the 1st month is 0
+	var day = addZero(date.getDate());
+	var hour = addZero(date.getHours());
+	var minutes = addZero(date.getMinutes());
+	var seconds = addZero(date.getSeconds());
+	this.FileTimestamp = year+ '-'+ month+ '-'+ day+ ' '+ hour+ '-'+ minutes+ '-'+ seconds;
+
+};
+
+//asynchronous Strigify an object/a variable to JSON format
+Flutterometer.prototype.asyncStringyify = function (obj) {
+	return new Promise((resolve, reject) => {
+	  resolve(JSON.stringify(obj));
+	});
+  }
+
+
+
 // what to do on incoming command
 Flutterometer.prototype.command = function (command) {
 
+	// Logs the history variable (this.history) once
 	if(command === ':saveHistory'){
-		//zero needed for right time and date format when copy-pasting in OpenMCT
-		addZero = function(dateNumber) {
-			if (dateNumber.toString().length == 1){
-				dateNumber = '0'+dateNumber.toString()
-			}
-			return dateNumber
-		}
 		
-		//Generate timestamp for the File
-		var date = new Date();
-		var year = date.getFullYear();
-		var month = addZero(date.getMonth() + 1);      // "+ 1" because the 1st month is 0
-		var day = addZero(date.getDate());
-		var hour = addZero(date.getHours());
-		var minutes = addZero(date.getMinutes());
-		var seconds = addZero(date.getSeconds());
-		var seedatetime = year+ '-'+ month+ '-'+ day+ ' '+ hour+ '-'+ minutes+ '-'+ seconds;
+		
+		this.SetFileTimestamp()
 
 		//Using Promises for not interrupting the main loop
 		function asyncSaveHistory(str) {
@@ -181,68 +221,80 @@ Flutterometer.prototype.command = function (command) {
 			});
 		  }
 
-		asyncSaveHistory(this.history).then(function(write) {//write is the value of the resolved promise in asyncStringify
-			fs.writeFile(__dirname + '/saved_logs/FLIPASED_'+seedatetime+'.json', write, (err) => {
+		this.asyncStringyify(this.history).then(function(write) {//write is the value of the resolved promise in asyncStringify
+			fs.writeFile(__dirname + '/saved_logs/Flutterometer_'+this.FileTimestamp+'_History.json', write, (err) => {
 				if (err) {
-					throw err;
-				}
+					console.log(err);
+				} else {
 				console.log('History Saved!')
+				}
 			}) 
-		});
+		}.bind(this));
 	
 	};
 
-	if(command === ':startLog'){
-		//zero needed for right time and date format when copy-pasting in OpenMCT
-		addZero = function(dateNumber) {
-			if (dateNumber.toString().length == 1){
-				dateNumber = '0'+dateNumber.toString()
-			}
-			return dateNumber
-		}
-		
-		//Generate timestamp for the File
-		var date = new Date();
-		var year = date.getFullYear();
-		var month = addZero(date.getMonth() + 1);      // "+ 1" because the 1st month is 0
-		var day = addZero(date.getDate());
-		var hour = addZero(date.getHours());
-		var minutes = addZero(date.getMinutes());
-		var seconds = addZero(date.getSeconds());
-		var seedatetime = year+ '-'+ month+ '-'+ day+ ' '+ hour+ '-'+ minutes+ '-'+ seconds;
 
-		//Using Promises for not interrupting the main loop
-		function asyncLogging(src) {
-			return new Promise((resolve, reject) => {
+	// Logs the history variable (this.history) every 10s
+	// because of the structure of this.history, with the current logic the file has to be rewritten on every save
+	// due to this, a lot of performance is needed, especially on long recordings >20min with a lot of data (40 telemetry points @10Hz)
+	// not recommended, instead save the history at the end of the test with the "saveHistory" command on log only messages continously, so secure the data
+
+	// if(command === ':startcontinousHistoryLog'){
+		
+	// 	this.SetFileTimestamp()
+
+	// 	Using Promises for not interrupting the main loop
+	// 	function asyncLogging(src) {
+	// 		return new Promise((resolve, reject) => {
 				
-			  resolve(JSON.stringify(src));
-			});
-		  }
+	// 		  resolve(JSON.stringify(src));
+	// 		});
+	// 	  }
 		
 	
-		// save log in specified interval  
-		logging = setInterval(function () {
-			asyncLogging(this.history).then(function(write) {//write is the value of the resolved promise in asyncStringify
-				fs.writeFile(__dirname + '/saved_logs/FLIPASED_'+seedatetime+'.json', write, (err) => {
-					if (err) {
-						throw err;
-					}
-					//console.log(this.history);
-					console.log('Logging!')
-				}) 
-			}.bind(this));
-		}.bind(this), 10000); //z.B. 100ms according to SFTE
+	// 	save log in specified interval
+	// 	logging = setInterval(function () {
+	// 		asyncLogging(this.history).then(function(write) {//write is the value of the resolved promise in asyncStringify
+	// 			fs.writeFile(__dirname + '/saved_logs/Flutterometer_'+this.FileTimestam+'.json', write, (err) => {
+	// 				if (err) {
+	// 					throw err;
+	// 				}
+	// 				console.log(this.history);
+	// 				console.log('Logging!')
+	// 			}) 
+	// 		}.bind(this));
+	// 	}.bind(this), 10000); 
 	
+			
+	// };
+
+
+	// if(command === ':endContinousHistoryLog'){
+	// 	clearInterval(logging);
+	// 	console.log('Logging stopped!')	
+	// };
+
+
+	// for continous logging use this method, saved file can not be used in OpenMCT as is, but all data is stored more efficiently 
+	if(command === ':startLog'){
+
+		this.SetFileTimestamp()
+
+		this.continousLogging = true;
+		console.log('Logging started!')	
 	};
 
 	if(command === ':endLog'){
-		clearInterval(logging);
+		this.continousLogging = false;
 		console.log('Logging stopped!')	
 	};
 
+
+	// Example implementation of sending a command
 	if(command === ':exampleCommandtoPlane'){
 		// sending to the udp port 60012 on the address 'loacalhost'
 		server.send(command,60012, 'localhost')
+		console.log('Command Sent via UDP Port!')	
 	};
 
 	
