@@ -3,6 +3,7 @@
 const dgram = require('dgram');
 const server = dgram.createSocket('udp4');
 const fs = require('fs');
+//const fsAsynch = require('fs').promise;
 
 
 function Dg800() {
@@ -24,6 +25,8 @@ function Dg800() {
     this.history = {};
     this.listeners = [];
 	this.data = [];
+	this.continousLogging = false;
+	this.FileTimestamp = '';
 	Object.keys(this.state).forEach(function (k) {
         this.history[k] = [];
 	}, this);
@@ -106,13 +109,17 @@ function Dg800() {
 		//var timestamp= Date.now();
 
 		// built message
-		var message = { timestamp: timestamp, value: this.state[this.data[0]]};//, id: this.data[0]};
+		var message = { timestamp: timestamp, value: this.state[this.data[0]], id: this.data[0]};
 			try{ // store in history
 				this.history[this.data[0]].push(message);
 				//console.log(this.history[this.data[0]])
 				//JSON.stringify(this.history[this.data[0]])
-				}
-				catch (e) {
+				if(this.continousLogging){
+					fs.appendFile(__dirname + '/saved_logs/DG800_'+this.FileTimestamp+'_raw.json', message, function (err) {
+						if(err) console.log(err);
+					});
+				}	
+				} catch (e) {
 					console.log(e)
 				}
 
@@ -226,7 +233,7 @@ Dg800.prototype.command = function (command) {
 	
 	};
 
-	if(command === ':startLog'){
+	if(command === ':startOpenMCTLog'){
 		//zero needed for right time and date format when copy-pasting in OpenMCT
 		addZero = function(dateNumber) {
 			if (dateNumber.toString().length == 1){
@@ -265,12 +272,43 @@ Dg800.prototype.command = function (command) {
 					console.log('Logging!')
 				}) 
 			}.bind(this));
-		}.bind(this), 10000); //z.B. 100ms according to SFTE
+		}.bind(this), 10000); 
 	
+			
+	};
+
+
+	if(command === ':endOpenMCTLog'){
+		clearInterval(logging);
+		console.log('Logging stopped!')	
+	};
+
+	if(command === ':startLog'){
+
+		//zero needed for right time and date format when copy-pasting in OpenMCT
+		addZero = function(dateNumber) {
+			if (dateNumber.toString().length == 1){
+				dateNumber = '0'+dateNumber.toString()
+			}
+			return dateNumber
+		}
+
+		//Generate timestamp for the File
+		var date = new Date();
+		var year = date.getFullYear();
+		var month = addZero(date.getMonth() + 1);      // "+ 1" because the 1st month is 0
+		var day = addZero(date.getDate());
+		var hour = addZero(date.getHours());
+		var minutes = addZero(date.getMinutes());
+		var seconds = addZero(date.getSeconds());
+		this.FileTimestamp = year+ '-'+ month+ '-'+ day+ ' '+ hour+ '-'+ minutes+ '-'+ seconds;
+
+		this.continousLogging = true;
+		console.log('Logging started!')	
 	};
 
 	if(command === ':endLog'){
-		clearInterval(logging);
+		this.continousLogging = false;
 		console.log('Logging stopped!')	
 	};
 
