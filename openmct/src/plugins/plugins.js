@@ -65,7 +65,6 @@ define([
     '../../example/Flutterometer/FLUTTER-plugin',
     '../../example/DG800/DG800-plugin',
     '../../example/Horyzn/Horyzn-plugin',
-    '../../example/Aircraft_42/Aircraft_42-plugin',
     '../../example/simpleVuePlugin/plugin_update',
     '../../example/Gauge_Bar/plugin',
     '../../example/Button/plugin',
@@ -116,7 +115,6 @@ define([
     FLUTTERPlugin,
     DG800Plugin,
     HoryznPlugin,
-    Aircraft_42Plugin,
     SimpleVuePlugin,
     Gauge,
     ButtonPlugin,
@@ -223,7 +221,6 @@ define([
     plugins.FLUTTERPlugin = FLUTTERPlugin;
     plugins.DG800Plugin = DG800Plugin;
     plugins.HoryznPlugin = HoryznPlugin;
-    plugins.Aircraft_42Plugin = Aircraft_42Plugin;
     plugins.SimpleVuePlugin = SimpleVuePlugin;
     plugins.Gauge = Gauge;
     plugins.ButtonPlugin = ButtonPlugin;
