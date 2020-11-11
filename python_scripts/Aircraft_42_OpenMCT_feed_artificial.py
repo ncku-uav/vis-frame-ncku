@@ -1,4 +1,4 @@
-# Artificial Data provider for the EXAMPLE implementation
+# Artificial Data provider for the Aircraft_42 implementation
 # sends artificial data to an specified UDP port
 
 import socket
@@ -6,15 +6,15 @@ import time
 
 
 UDP_IP = "127.0.0.1" #standard ip udp (localhost)
-UDP_PORT =   #chosen port to OpenMCT (same as in telemetry server object)
+UDP_PORT =50015   #chosen port to OpenMCT (same as in telemetry server object)
 MESSAGE = "23,567,32,4356,456,132,4353467" #init message
 
 data = 0 #artificial data
 
 keys = [
-    # those are the keys for the EXAMPLE, which are declared in the dictionary on OpenMCT side
+    # those are the keys for the Aircraft_42, which are declared in the dictionary on OpenMCT side
     # since they are not sent, we have ti initialize them here
-        herekeys
+        "gps.heightAboveGround","gps.Speed","adp.Airspeed","Fuel.VolumeFlow","Acc.Z","PPM.Throttle","PPM.Aileron"
 
 ]
 

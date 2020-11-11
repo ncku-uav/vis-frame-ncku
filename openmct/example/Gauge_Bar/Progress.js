@@ -177,13 +177,12 @@ function ProgressBarView(domain) {
         composition.forEach((id, index) => {
             var row = createRow(domain.name);
             container.appendChild(row.content);
-
+            
             openmct.objects.get(id).then(function (cDomain) {
                 var allTelemetry = [];
                 if (cDomain.telemetry && cDomain.telemetry.values) {
-                    allTelemetry = cDomain.telemetry.values.filter((value) => value.format === "float");
+                    allTelemetry = cDomain.telemetry.values.filter((value) => value.format === "float" || value.format === "integer");
                 }
-
                 var first = (allTelemetry.length > 0) ? allTelemetry[0] : null;
 
                 subscriptions[index] = openmct.telemetry.subscribe(cDomain, function (data) {

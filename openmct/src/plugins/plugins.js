@@ -69,7 +69,8 @@ define([
     '../../example/Gauge_Bar/plugin',
     '../../example/Button/plugin',
     '../../example/STFEstyling/stfe',
-    '../../example/Map/plugin'
+    '../../example/Map/plugin',
+    '../../example/Aircraft_42/Aircraft_42-plugin'
 ], function (
     _,
     UTCTimeSystem,
@@ -119,7 +120,8 @@ define([
     Gauge,
     ButtonPlugin,
     STFEstyling,
-    MapPlugin
+    MapPlugin,
+    Aircraft_42Plugin
 ) {
     const bundleMap = {
         LocalStorage: 'platform/persistence/local',
@@ -226,6 +228,7 @@ define([
     plugins.ButtonPlugin = ButtonPlugin;
     plugins.STFEstyling = STFEstyling.default;
     plugins.MapPlugin = MapPlugin;
+    plugins.Aircraft_42Plugin = Aircraft_42Plugin;
 
     return plugins;
 });

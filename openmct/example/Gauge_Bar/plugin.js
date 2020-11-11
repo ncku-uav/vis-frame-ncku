@@ -12,7 +12,7 @@ define(['./Gauge.js', './Latency.js','./Progress.js', './Fuel.js' // './Progress
 
     function Gauge() {
         var progress_type = "view.progress-bar";
-        var progress_type_vertival = "view.progress-bar-vertical";
+        //var progress_type_vertival = "view.progress-bar-vertical";
         var fuel_type = "view.fuel-bar";
         var latency_type = "view.latency";
         var gauge_type = "view.gauge";
@@ -236,7 +236,7 @@ define(['./Gauge.js', './Latency.js','./Progress.js', './Fuel.js' // './Progress
                 }
             });
 
-            console.log("gauge plugin installed");
+            console.log("gauge/bar/fuel plugin installed");
         };
     }
 

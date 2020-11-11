@@ -1,0 +1,177 @@
+{
+    "name": "Aircraft_42",
+    "key": "pl",
+    "measurements": [
+        {
+            "name": "Height above Ground",
+            "key": "gps.heightAboveGround",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "meters",
+                    "units": "meters",
+                    "format": "integer",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+        {
+            "name": "GPS Speed",
+            "key": "gps.Speed",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "m/s",
+                    "units": "m/s",
+                    "format": "integer",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Airspeed",
+            "key": "adp.Airspeed",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "m/s",
+                    "units": "m/s",
+                    "format": "integer",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+        
+        {
+            "name": "Fuel Volume Flow",
+            "key": "Fuel.VolumeFlow",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "gramm",
+                    "units": "gramm",
+                    "format": "float",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Load Factor",
+            "key": "Acc.Z",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "g",
+                    "units": "g",
+                    "format": "integer",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+        {
+            "name": "PPM Throttle",
+            "key": "PPM.Throttle",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "unit",
+                    "format": "integer",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        },
+        {
+            "name": "PPM Throttle",
+            "key": "PPM.Aileron",
+            "values": [
+                {
+                    "key": "value",
+                    "name": "Value",
+                    "units": "unit",
+                    "format": "integer",
+                    "hints": {
+                        "range": 1
+                    }
+                },
+                {
+                    "key": "utc",
+                    "source": "timestamp",
+                    "name": "Timestamp",
+                    "format": "utc",
+                    "hints": {
+                        "domain": 1
+                    }
+                }
+            ]
+        }
+        
+
+    ]
+}
