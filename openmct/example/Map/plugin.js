@@ -72,7 +72,7 @@ define(['vue'], //, './Gauge.vue'], //'gauge',
 
                                             }
 
-                                            if (typeof (value) === "number" && String(id.key).includes("lon")) {
+                                            if (typeof (value) === "number" && String(id.key).includes("lng")) {
                                                 vm.lon = value;
                                                 //console.log(value)
                                             }

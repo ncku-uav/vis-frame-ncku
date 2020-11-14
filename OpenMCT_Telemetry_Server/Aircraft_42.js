@@ -119,7 +119,7 @@ function Aircraft_42() {
 	});
 
 	// port specified in the associated python script
-	server.bind(50015);
+	server.bind(50016);
 
     console.log("Aircraft_42 initialized!");
 };
@@ -297,9 +297,10 @@ Aircraft_42.prototype.command = function (command) {
 
 
 	// Example implementation of sending a command
-	if(command === ':exampleCommandtoPlane'){
+	//if(command === ':exampleCommandtoPlane'){
+	if(command === ':dutchRoll'){
 		// sending to the udp port 60012 on the address 'loacalhost'
-		server.send(command,60012, 'localhost')
+		server.send(command,50017, 'localhost')
 		console.log('Command Sent via UDP Port!')	
 	};
 

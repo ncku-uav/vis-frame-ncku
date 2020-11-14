@@ -7,8 +7,8 @@ import os
 
 ## Input
 telemetry_object_name = 'Aircraft_42'
-number_of_telemetry_points = 5
-UDP_PORT = '50015'
+number_of_telemetry_points = 5 # can be altered afterwards
+UDP_PORT = '50015' # choose a different UDP for every implementation
 
 
 generate_Dictionary = True

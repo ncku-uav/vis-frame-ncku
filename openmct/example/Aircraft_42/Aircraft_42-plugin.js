@@ -1,8 +1,8 @@
 
 define([
-    //"./Aircraft_42LimitProvider_Test",
+    "./Aircraft_42LimitProvider",
 ], function (
-    //Aircraft_42LimitProvider
+    Aircraft_42LimitProvider
 ) {
 
     function Aircraft_42Plugin() {
@@ -85,6 +85,8 @@ define([
                 description: 'Telemetry of Aircraft_42',
                 cssClass: 'icon-telemetry'
             });
+
+            openmct.telemetry.addProvider(new Aircraft_42LimitProvider());
         };
     }
 

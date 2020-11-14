@@ -1,5 +1,6 @@
 # communication via MavProxy UDP socket (alternative to MissionPlanner)
-# example on handling the MAVLink protocol
+# needs to be adapted to work with the current telemetry source object of the telemetry server
+# still in the repository as am example on handling the MAVLink protocol
 
 from pymavlink import mavutil
 import socket
