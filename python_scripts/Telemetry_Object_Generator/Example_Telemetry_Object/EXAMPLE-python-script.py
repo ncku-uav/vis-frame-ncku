@@ -40,7 +40,7 @@ while True:
         sock.sendto(MESSAGE.encode(), (UDP_IP, UDP_PORT))
 
         #print your message for validation and wait for the next loop
-        #print(MESSAGE)
+        print(MESSAGE)
                 
     # all data goes from 0 to 1000 and then resets
     if data < 100:
