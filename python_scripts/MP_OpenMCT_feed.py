@@ -78,7 +78,7 @@ try:
         for key, value in data.items():
             MESSAGE = "{},{},{}".format(key, value, timeStamp)
             
-            print(cs.armed)
+            print(MESSAGE)
             print('\n')
 
             # Pumping out the values
