@@ -1,0 +1,126 @@
+{
+    "measurements": [
+        {
+            "values": [
+                {
+                    "units": "unit", 
+                    "hints": {
+                        "range": 1
+                    }, 
+                    "name": "Value", 
+                    "key": "value", 
+                    "format": "integer"
+                }, 
+                {
+                    "source": "timestamp", 
+                    "hints": {
+                        "domain": 1
+                    }, 
+                    "name": "Timestamp", 
+                    "key": "utc", 
+                    "format": "utc"
+                }
+            ], 
+            "name": "Aircraft_44 Telemetry Point 0", 
+            "key": "key.0"
+        }, 
+        {
+            "values": [
+                {
+                    "units": "unit", 
+                    "hints": {
+                        "range": 1
+                    }, 
+                    "name": "Value", 
+                    "key": "value", 
+                    "format": "integer"
+                }, 
+                {
+                    "source": "timestamp", 
+                    "hints": {
+                        "domain": 1
+                    }, 
+                    "name": "Timestamp", 
+                    "key": "utc", 
+                    "format": "utc"
+                }
+            ], 
+            "name": "Aircraft_44 Telemetry Point 1", 
+            "key": "key.1"
+        }, 
+        {
+            "values": [
+                {
+                    "units": "unit", 
+                    "hints": {
+                        "range": 1
+                    }, 
+                    "name": "Value", 
+                    "key": "value", 
+                    "format": "integer"
+                }, 
+                {
+                    "source": "timestamp", 
+                    "hints": {
+                        "domain": 1
+                    }, 
+                    "name": "Timestamp", 
+                    "key": "utc", 
+                    "format": "utc"
+                }
+            ], 
+            "name": "Aircraft_44 Telemetry Point 2", 
+            "key": "key.2"
+        }, 
+        {
+            "values": [
+                {
+                    "units": "unit", 
+                    "hints": {
+                        "range": 1
+                    }, 
+                    "name": "Value", 
+                    "key": "value", 
+                    "format": "integer"
+                }, 
+                {
+                    "source": "timestamp", 
+                    "hints": {
+                        "domain": 1
+                    }, 
+                    "name": "Timestamp", 
+                    "key": "utc", 
+                    "format": "utc"
+                }
+            ], 
+            "name": "Aircraft_44 Telemetry Point 3", 
+            "key": "key.3"
+        }, 
+        {
+            "values": [
+                {
+                    "units": "unit", 
+                    "hints": {
+                        "range": 1
+                    }, 
+                    "name": "Value", 
+                    "key": "value", 
+                    "format": "integer"
+                }, 
+                {
+                    "source": "timestamp", 
+                    "hints": {
+                        "domain": 1
+                    }, 
+                    "name": "Timestamp", 
+                    "key": "utc", 
+                    "format": "utc"
+                }
+            ], 
+            "name": "Aircraft_44 Telemetry Point 4", 
+            "key": "key.4"
+        }
+    ], 
+    "name": "Aircraft_44", 
+    "key": "pl"
+}
