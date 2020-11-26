@@ -13,7 +13,21 @@ define(['vue'], //, './Gauge.vue'], //'gauge',
                     creatable: true,
                     initialize: function (domain) {
                         domain.composition = [];
-                    }
+                    },
+                    form: [
+                        {
+                            "key": "init.lat",
+                            "name": "Latitude Center of Map",
+                            "control": "textfield",
+                            "cssClass": "l-input-lg"
+                        },
+                        {
+                            "key": "init.lng",
+                            "name": "Longitude Center of Map",
+                            "control": "textfield",
+                            "cssClass": "l-input-lg"
+                        }
+                    ]
                 });
                 openmct.objectViews.addProvider({
                     name: "view.map",
@@ -39,7 +53,17 @@ define(['vue'], //, './Gauge.vue'], //'gauge',
                                 dom.appendChild(container);
 
                                 vm = new Vue(gaugetemplate.default);
-                                //vm.coordinates = [11.286146,48.082427];
+                                var init_lat = domain["init.lat"] || 48.082427;
+                                if (typeof (init_lat) === "string") {
+                                    init_lat = parseFloat(init_lat);
+                                };
+                                
+                                var init_lng = domain["init.lng"] || 11.286146;
+                                if (typeof (init_lng) === "string") {
+                                    init_lng = parseFloat(init_lng);
+                                };
+                                vm.coordinates = [init_lng,init_lat];
+                                //vm.coordinates[0] = 11.286146;
                                 //vm.rotatePlane = "";
 
                                 composition.forEach((id, index) => {
@@ -68,12 +92,14 @@ define(['vue'], //, './Gauge.vue'], //'gauge',
 
                                             if (typeof (value) === "number" && String(id.key).includes("lat")) {
                                                 vm.lat = value;
+                                                
                                                 //console.log(value)
 
                                             }
 
                                             if (typeof (value) === "number" && String(id.key).includes("lng")) {
                                                 vm.lon = value;
+                                                
                                                 //console.log(value)
                                             }
 
