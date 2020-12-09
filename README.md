@@ -7,3 +7,5 @@ Several plugins got added to the core application OpenMCT (openmct/example), a t
 - existing implementations and a generic implementation of python scripts feeding the server can be obtained from /python_scripts
 
 Documentation available under: https://gitlab.lrz.de/ga58zos/vis-frame/-/wikis/home
+
+All changes to the source code can be viewed in the Wiki under "How-to-Install-and-Update-OpenMCT" - "Update OpenMCT to the newest version of NASA": https://gitlab.lrz.de/lls/vis-frame/-/wikis/Home/How-to-Install-and-Update-OpenMCT
