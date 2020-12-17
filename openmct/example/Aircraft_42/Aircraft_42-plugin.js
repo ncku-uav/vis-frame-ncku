@@ -78,15 +78,13 @@ define([
 
             openmct.composition.addProvider(Aircraft_42_compositionProvider);
 
-            //openmct.telemetry.addProvider(new Aircraft_42LimitProvider());
-
             openmct.types.addType('Aircraft_42.telemetry', {
                 name: 'Aircraft_42 Telemetry Point',
                 description: 'Telemetry of Aircraft_42',
                 cssClass: 'icon-telemetry'
             });
 
-            openmct.telemetry.addProvider(new Aircraft_42LimitProvider());
+            //openmct.telemetry.addProvider(new Aircraft_42LimitProvider());
         };
     }
 
