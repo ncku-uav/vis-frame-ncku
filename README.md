@@ -16,16 +16,10 @@ If you find the introduction and repo useful, you can cite it as follows:
 Weber, Marius; Koeberle, Sebastian; Hornung, Mirko: OpenMCT for Engineers - Introduction. Online available at https://gitlab.lrz.de/lls/vis-frame.
 
 
-@misc{Weber.2020,
-
- author = {Weber, Marius and Koeberle, Sebastian and Hornung Mirko},
-
- date = {2020},
-
- title = {OpenMCT for Engineers - Introduction},
-
- url = {https://gitlab.lrz.de/lls/vis-frame},
-
- institution = {{Institute of Aircraft Design, Technical University of Munich}}
- 
+@misc{Weber.2020,  
+ author = {Weber, Marius and Koeberle, Sebastian and Hornung Mirko},  
+ date = {2020},  
+ title = {OpenMCT for Engineers - Introduction},  
+ url = {https://gitlab.lrz.de/lls/vis-frame},  
+ institution = {{Institute of Aircraft Design, Technical University of Munich}}  
 }
