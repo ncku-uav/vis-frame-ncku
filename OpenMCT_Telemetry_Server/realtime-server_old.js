@@ -26,7 +26,7 @@ function RealtimeServer(telemetrySource, port) {
     this.telemetrySource = telemetrySource;
     this.server = new WebSocketServer({ port: port });
     this.server.on('connection', this.handleConnection.bind(this));
-    console.log('Realtime server started at ws://localhost:' + port);
+    console.log('Realtime server started at ws://192.168.137.1:' + port);
 };
 
 RealtimeServer.prototype.handleConnection = function (ws) {

@@ -11,7 +11,8 @@ var RealtimeServer = require('./realtime-server');
 var HistoryServer = require('./history-server');
 //var StaticServer = require('./static-server');
 var HistoryReader = require('./history_reader');
-var Aircraft_42 = require('./Aircraft_42');
+//var Aircraft_42 = require('./Aircraft_42');
+var Aircraft_YEE = require('./Aircraft_YEE');
 
 var expressWs = require('express-ws');
 var app = require('express')();
@@ -32,7 +33,8 @@ var dg800 = new Dg800();
 //var historyServer = new HistoryServer(tflex, 8091);
 //var realtimeServer = new RealtimeServer(flutterometer,8102);
 //var historyServer = new HistoryServer(flutterometer, 8101);
-var aircraft42 = new Aircraft_42;
+//var aircraft42 = new Aircraft_42;
+var aircraftYEE = new Aircraft_YEE;
 var historyReader = new HistoryReader;
 
 var realtimeServerFLEXOP = new RealtimeServer(tflex);
@@ -44,8 +46,11 @@ var historyServerFLEXOP = new HistoryServer(tflex);
 var realtimeServerDG800 = new RealtimeServer(dg800);
 var historyServerDG800 = new HistoryServer(dg800);
 
-var realtimeServerAircraft42 = new RealtimeServer(aircraft42);
-var historyServerAircraft42 = new HistoryServer(aircraft42);
+//var realtimeServerAircraft42 = new RealtimeServer(aircraft42);
+//var historyServerAircraft42 = new HistoryServer(aircraft42);
+
+var realtimeServerAircraftYEE = new RealtimeServer(aircraftYEE);
+var historyServerAircraftYEE = new HistoryServer(aircraftYEE);
 
 
 // use the objects
@@ -61,8 +66,11 @@ var historyServerReader = new HistoryServer(historyReader);
 // app.use('/DG800Realtime', realtimeServerDG800);
 // app.use('/DG800History', historyServerDG800);
 
-app.use('/Aircraft42Realtime', realtimeServerAircraft42);
-app.use('/Aircraft42History', historyServerAircraft42);
+//app.use('/Aircraft42Realtime', realtimeServerAircraft42);
+//app.use('/Aircraft42History', historyServerAircraft42);
+
+app.use('/AircraftYEERealtime', realtimeServerAircraftYEE);
+app.use('/AircraftYEEHistory', historyServerAircraftYEE);
 
 
 app.use('/HistoryReader', historyServerReader);

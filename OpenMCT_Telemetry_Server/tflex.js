@@ -410,7 +410,7 @@ TFlex.prototype.command = function (command) {
 	// Example implementation of sending a command
 	if(command === ':exampleCommandtoPlane'){
 		// sending to the udp port 60012 on the address 'loacalhost'
-		server.send(command,60012, 'localhost')
+		server.send(command,60012, '127.0.0.1')
 		console.log('Command Sent via UDP Port!')	
 	};
 

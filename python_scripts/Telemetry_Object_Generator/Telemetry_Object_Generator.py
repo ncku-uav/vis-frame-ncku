@@ -6,15 +6,15 @@ import json
 import os
 
 ## Input
-telemetry_object_name = 'Aircraft_44'
+telemetry_object_name = 'Aircraft_YEE'
 number_of_telemetry_points = 5 # can be altered afterwards
-UDP_PORT = '50020' # choose a different UDP for every implementation, commands are sent on UDP_PORT+1
+UDP_PORT = '14570' # choose a different UDP for every implementation, commands are sent on UDP_PORT+1
 
 
-generate_Dictionary = False
-generate_OpenMCT_object = False
-generate_server_object = False
-generate_pythonScripts = True
+generate_Dictionary = True
+generate_OpenMCT_object = True
+generate_server_object = True
+generate_pythonScripts = False
 
 
 

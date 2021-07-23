@@ -16,6 +16,7 @@ const request = require('request');
 
 // Defaults
 options.port = options.port || options.p || 8080;
+//options.host = options.host || '192.168.22.5';
 options.host = options.host || 'localhost';
 options.directory = options.directory || options.D || '.';
 

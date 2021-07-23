@@ -143,9 +143,13 @@
 		// openmct.install(openmct.plugins.HistoricalTelemetryPlugin('FLUTTER.telemetry', '/FLUTTERHistory/', 'localhost'));
         // openmct.install(openmct.plugins.RealtimeTelemetryPlugin('FLUTTER.telemetry', '/FLUTTERRealtime/', 'localhost'));
 
-        openmct.install(openmct.plugins.Aircraft_42Plugin());
-		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('Aircraft_42.telemetry', '/Aircraft42History/', 'localhost'));
-        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('Aircraft_42.telemetry', '/Aircraft42Realtime/', 'localhost'));
+        //openmct.install(openmct.plugins.Aircraft_42Plugin());
+		//openmct.install(openmct.plugins.HistoricalTelemetryPlugin('Aircraft_42.telemetry', '/Aircraft42History/', 'localhost'));
+        //openmct.install(openmct.plugins.RealtimeTelemetryPlugin('Aircraft_42.telemetry', '/Aircraft42Realtime/', 'localhost'));
+
+        openmct.install(openmct.plugins.Aircraft_YEEPlugin());
+		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('Aircraft_YEE.telemetry', '/AircraftYEEHistory/', '127.0.0.1'));
+        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('Aircraft_YEE.telemetry', '/AircraftYEERealtime/', '127.0.0.1'));
         
 
 // History Reader Plugin
